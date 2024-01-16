@@ -1,175 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Pipes;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Interactions : MonoBehaviour
 {
-    //Is the player currently movable?
-    [SerializeField] bool PlayerActive = true;
+    Inventory_Item inventory;
+    public Inventory_Manager inventoryManager;
 
-    Item_Inventory inventory;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        inventory = GetComponent<Item_Inventory>();
+        inventory = GetComponent<Inventory_Item>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        //if both items are picked up, you can scroll between them
-        if (inventory.Slot2_Active)
+        Items item = Inventory_Manager.Instance.GetSelectedItem();
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (scroll != 0)
         {
-            if (Input.mouseScrollDelta.y > 0)
+            int newSlot = inventoryManager.selectedSlot + (scroll > 0 ? 1 : -1);
+            Debug.Log(item);
+
+            if (newSlot < 0)
             {
-                //Switch to Flashlight
-                if (inventory.Active == "Pipe")
-                {
-                    inventory.Active = "Flashlight";
-
-                    //Objects
-                    inventory.pipe_Hand.SetActive(false);
-                    inventory.flashlight_Hand.SetActive(true);
-
-                    //UI
-                    inventory.one_Pipe.SetActive(false);
-                    inventory.two_flashlight.SetActive(false);
-
-                    inventory.two_Pipe.SetActive(true);
-                    inventory.one_flashlight.SetActive(true);
-                }
-                //Switch to Pipe
-                else if (inventory.Active == "Flashlight")
-                {
-                    inventory.Active = "Pipe";
-
-                    //Objects
-                    inventory.pipe_Hand.SetActive(true);
-                    inventory.flashlight_Hand.SetActive(false);
-
-                    //UI
-                    inventory.one_Pipe.SetActive(true);
-                    inventory.two_flashlight.SetActive(true);
-
-                    inventory.two_Pipe.SetActive(false);
-                    inventory.one_flashlight.SetActive(false);
-                }
+                newSlot = inventoryManager.inventorySlots.Length - 1;
             }
-            if (Input.mouseScrollDelta.y < 0)
+            else if (newSlot >= inventoryManager.inventorySlots.Length)
             {
-                //Switch to Flashlight
-                if (inventory.Active == "Pipe")
-                {
-                    inventory.Active = "Flashlight";
-
-                    //Objects
-                    inventory.pipe_Hand.SetActive(false);
-                    inventory.flashlight_Hand.SetActive(true);
-
-                    //UI
-                    inventory.one_Pipe.SetActive(false);
-                    inventory.two_flashlight.SetActive(false);
-
-                    inventory.two_Pipe.SetActive(true);
-                    inventory.one_flashlight.SetActive(true);
-                }
-                //Switch to Pipe
-                else if (inventory.Active == "Flashlight")
-                {
-                    inventory.Active = "Pipe";
-
-                    //Objects
-                    inventory.pipe_Hand.SetActive(true);
-                    inventory.flashlight_Hand.SetActive(false);
-
-                    //UI
-                    inventory.one_Pipe.SetActive(true);
-                    inventory.two_flashlight.SetActive(true);
-
-                    inventory.two_Pipe.SetActive(false);
-                    inventory.one_flashlight.SetActive(false);
-                }
+                newSlot = 0;
             }
+
+            StartCoroutine(SwitchSlotWithDelay(newSlot, 0.0f));
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Just Do It Bro");
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private IEnumerator SwitchSlotWithDelay(int newSlot, float delay)
     {
-        //Most recent picked up item becomes the active item
-        if (other.gameObject.CompareTag("Flashlight"))
-        {
-
-            Debug.Log("Pick Up Item");
-            if (Input.GetKey (KeyCode.E))
-            {
-                if (!inventory.Slot1_Active)
-                {
-                    inventory.Slot1_Active = true;
-                    inventory.Slot1_gameObject = "Flashlight";
-                    inventory.Active = "Flashlight";
-                    other.gameObject.SetActive(false);
-
-                    //Objects
-                    inventory.flashlight_Hand.SetActive(true);
-
-                    //UI
-                    inventory.one_flashlight.SetActive(true);
-                }
-                else
-                {
-                    inventory.Slot2_Active = true;
-                    inventory.Slot2_gameObject = "Flashlight";
-                    inventory.Active = "Flashlight";
-                    other.gameObject.SetActive(false);
-
-                    //Objects
-                    inventory.pipe_Hand.SetActive(false);
-                    inventory.flashlight_Hand.SetActive(true);
-
-                    //UI
-                    inventory.one_Pipe.SetActive(false);
-                    inventory.one_flashlight.SetActive(true);
-                    inventory.two_Pipe.SetActive(true);
-                }
-            }
-        }
-        if (other.gameObject.CompareTag("Pipe"))
-        {
-            Debug.Log("Pick Up Item");
-            if (Input.GetKey (KeyCode.E))
-            {
-                if (!inventory.Slot1_Active)
-                {
-                    inventory.Slot1_Active = true;
-                    inventory.Slot1_gameObject = "Pipe";
-                    inventory.Active = "Pipe";
-                    other.gameObject.SetActive(false);
-
-                    //Objects
-                    inventory.pipe_Hand.SetActive(true);
-
-                    //UI
-                    inventory.one_Pipe.SetActive (true);
-                }
-                else
-                {
-                    inventory.Slot2_Active = true;
-                    inventory.Slot2_gameObject = "Pipe";
-                    inventory.Active = "Pipe";
-                    other.gameObject.SetActive(false);
-
-                    //Objects
-                    inventory.flashlight_Hand.SetActive(false);
-                    inventory.pipe_Hand.SetActive(true);
-
-                    //UI
-                    inventory.one_flashlight.SetActive (false); 
-                    inventory.two_flashlight.SetActive (true);
-                    inventory.one_Pipe.SetActive(true);
-                }
-            }
-        }
+        yield return new WaitForSeconds(delay);
+        newSlot = Mathf.Clamp(newSlot, 0, inventoryManager.inventorySlots.Length - 1);
+        inventoryManager.ChangeSelectedSlot(newSlot);
     }
 }
