@@ -73,7 +73,7 @@ public class EnemyController : MonoBehaviour
         
 
     } */
-
+    /*
     void Patroling()
     {
 
@@ -213,7 +213,7 @@ public class EnemyController : MonoBehaviour
 
         isMoving = false;
         enemyAnimatorController.SetBool("isMoving", false);
-        */
+        
     }
 
     void PerformRaycast()
@@ -246,6 +246,7 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
 
     void ChasePlayer()
     {
@@ -316,5 +317,5 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawRay(eyes.transform.position, eyes.transform.forward * raycastDistance);
     }
 
-    
+*/    
 }
