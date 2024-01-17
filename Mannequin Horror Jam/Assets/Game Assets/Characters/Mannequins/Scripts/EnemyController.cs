@@ -24,8 +24,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Animator enemyAnimatorController;
     [Tooltip("This will be pulled automatically")]
     [SerializeField] MultiAimConstraint multiAimConstraint;
-    [Tooltip("Distance for eyes to see")]
-    [SerializeField] float raycastDistance;
+
+    [Header("Enemy Control Variables")]
     [Tooltip("Assign the speed for the enemy")]
     [SerializeField] float moveSpeed;
     [Tooltip("Delay between waypoints")]
@@ -34,12 +34,63 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float weight;
     [Tooltip("Head turn weight increase duration")]
     [SerializeField] float increaseDuration = 3f;
+    [Tooltip("Distance for hearing")]
+    [SerializeField] float hearingRange;
+    [Tooltip("Distance for attacking")]
+    [SerializeField] float attackRange;
+    [Tooltip("Distance for eyes to see")]
+    [SerializeField] float sightRange;
+
+    [Header("AI State Controls")]
+    [Tooltip("This AI will Patrol & Play Relevant Animations")]
+    [SerializeField] bool shouldPatrol;
+    [Tooltip("This AI will not patrol but Play Relevant Animations")]
+    [SerializeField] bool shouldIdle;
+    [Tooltip("Is this AI hostile?")]
+    [SerializeField] bool isHostile;
+
+    [Header("DEBUG CONTROLS")]
     [Tooltip("This is for debugging and animation triggering")]
     [SerializeField] bool isMoving;
     [Tooltip("This is for debugging and animation triggering")]
     [SerializeField] bool isChasingPlayer;
+    [Tooltip("To check if the player is in sight")]
+    [SerializeField] bool playerInSightRange;
+    [Tooltip("To check if the player is in attack range")]
+    [SerializeField] bool playerInAttackRange;
+
+    /*
+    private void Update()
+    {
+        
+        //Check for sight and attack range
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+        if (!playerInSightRange && !playerInAttackRange) Patroling();
+        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        
+
+    } */
+
+    void Patroling()
+    {
+
+    }
+
+    //void ChasePlayer()
+    
+
+    
+
+    void AttackPlayer()
+    {
+
+    }
 
 
+    
     //Once the object enabled, do this
     private void OnEnable()
     {
@@ -57,7 +108,7 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         PerformRaycast();
-        ChasePlayer();
+        //ChasePlayer();
         
     }
 
@@ -71,7 +122,24 @@ public class EnemyController : MonoBehaviour
     IEnumerator FollowPath()
     {
 
-        while (!isChasingPlayer) //Added a considiton to exit the loop
+        Debug.Log("FollowPath Initiated");
+
+        while (!isChasingPlayer)
+        {
+            foreach (Transform waypoint in patrolWaypoints)
+            {
+                yield return StartCoroutine(MoveToWaypoint(waypoint.position));
+                //MoveToWaypoint(waypoint.position);
+                if (!isChasingPlayer)
+                    yield return new WaitForSeconds(delayBetween);
+                else
+                    break;
+            }
+        }
+
+
+        
+        while (!isChasingPlayer) //Added a condition to exit the loop
         {
             foreach (Transform waypoint in patrolWaypoints)
             {
@@ -98,11 +166,54 @@ public class EnemyController : MonoBehaviour
 
                 if (!isChasingPlayer) // Check again before the delay to ensure we don't continue if isChasingPlayer became true during the move
                     yield return new WaitForSeconds(delayBetween); // Optional delay between waypoints
-
-                if (isChasingPlayer) StopCoroutine(FollowPath());
+                else
+                    break; //exit loop naturally
             }
         }
+        
+        
+    }
 
+
+    IEnumerator MoveToWaypoint(Vector3 waypoint)
+    {
+
+        float distance = Vector3.Distance(transform.position, waypoint);
+        float duration = distance / moveSpeed;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            isMoving = true;
+            enemyAnimatorController.SetBool("isMoving", true);
+
+            transform.LookAt(waypoint);
+            transform.position = Vector3.MoveTowards(transform.position, waypoint, moveSpeed * Time.deltaTime);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        isMoving = false;
+        enemyAnimatorController.SetBool("isMoving", false);
+
+
+        /*
+        float travelPercent = 0f;
+        transform.LookAt(waypoint);
+
+        while (travelPercent < 1f)
+        {
+            isMoving = true;
+            enemyAnimatorController.SetBool("isMoving", true);
+            travelPercent += Time.deltaTime * moveSpeed;
+            transform.position = Vector3.Lerp(transform.position, waypoint, travelPercent);
+            yield return null;
+        }
+
+        isMoving = false;
+        enemyAnimatorController.SetBool("isMoving", false);
+        */
     }
 
     void PerformRaycast()
@@ -120,13 +231,18 @@ public class EnemyController : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 isChasingPlayer = true;
+                ChasePlayer();
                 HeadLockOnTarget();
                 Debug.Log("Player Detected! Start Chasing...");
+                Debug.Log("isChasingPlayer: " + isChasingPlayer);
                 // Implement logic to start chasing the player
             }
             else
             {
                 isChasingPlayer = false;
+                Debug.Log("Stopped Chasing Player");
+                Debug.Log("isChasingPlayer: " + isChasingPlayer);
+                enemyAnimatorController.SetBool("isMoving", false);
             }
         }
     }
@@ -156,20 +272,26 @@ public class EnemyController : MonoBehaviour
     {
         multiAimConstraint = mannequinEnemy.GetComponentInChildren<MultiAimConstraint>();
 
-        if (multiAimConstraint != null)
+        if(multiAimConstraint = null)
+        {
+            Debug.Log("Multi Aim Constraint is Null!");
+        }
+        
+        if (multiAimConstraint != null && isChasingPlayer)
         {
             
-            StartCoroutine(IncreaseWeightGradually(multiAimConstraint, weight + 1f, increaseDuration));
+            StartCoroutine(ChangeHeadIKWeight(multiAimConstraint, weight + 1f, increaseDuration));
             Debug.Log("Weight is increasing");
 
         }
-        else
+        if (multiAimConstraint != null && !isChasingPlayer)
         {
-            Debug.Log("MultiAim Constraint is null");
+            StartCoroutine(ChangeHeadIKWeight(multiAimConstraint, weight - 1f, increaseDuration));
+            
         }
     }
 
-    IEnumerator IncreaseWeightGradually(MultiAimConstraint constraint, float targetWeight, float duration)
+    IEnumerator ChangeHeadIKWeight(MultiAimConstraint constraint, float targetWeight, float duration)
     {
         float initialWeight = constraint.weight;
         float timeElapsed = 0f;
@@ -194,4 +316,5 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawRay(eyes.transform.position, eyes.transform.forward * raycastDistance);
     }
 
+    
 }
