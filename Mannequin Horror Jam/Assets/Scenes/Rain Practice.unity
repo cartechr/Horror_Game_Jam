@@ -5040,6 +5040,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709801895}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &764520257 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5272103015839721240, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+  m_PrefabInstance: {fileID: 3202718305200999790}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &818510987
 GameObject:
   m_ObjectHideFlags: 0
@@ -5169,9 +5174,9 @@ Transform:
   - {fileID: 276268706}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &865865109 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6043561694616186335, guid: 3a9b06e814a61504e9719b8fa5d6fc4c, type: 3}
+--- !u!4 &865865110 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4505992089388293335, guid: 3a9b06e814a61504e9719b8fa5d6fc4c, type: 3}
   m_PrefabInstance: {fileID: 1207260217}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &869209468
@@ -14841,10 +14846,46 @@ PrefabInstance:
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 865865109}
+      objectReference: {fileID: 865865110}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: moveSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: enemyAnimator
+      value: 
+      objectReference: {fileID: 764520257}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: attackDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: searchDuration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: redAreaDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: greenAreaDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: yellowAreaDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: whatIsGround.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: whatIsPlayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: waitBetweenWaypoints
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: patrolWaypoints.Array.data[0]
