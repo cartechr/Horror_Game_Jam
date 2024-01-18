@@ -13,6 +13,11 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 
+		//ADDED BY BOSSA
+		[Header("Bools to check with AI")]
+		public bool walking;
+		public bool crouching;
+
 		[Header("Movement Settings")]
 		public bool analogMovement;
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
@@ -24,6 +25,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Animator enemyAnimatorController;
     [Tooltip("This will be pulled automatically")]
     [SerializeField] MultiAimConstraint multiAimConstraint;
+    [Tooltip("Select the relevant layers")]
+    [SerializeField] LayerMask whatIsGround, whatIsPlayer;
 
     [Header("Enemy Control Variables")]
     [Tooltip("Assign the speed for the enemy")]
@@ -34,12 +37,16 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float weight;
     [Tooltip("Head turn weight increase duration")]
     [SerializeField] float increaseDuration = 3f;
-    [Tooltip("Distance for hearing")]
-    [SerializeField] float hearingRange;
-    [Tooltip("Distance for attacking")]
-    [SerializeField] float attackRange;
-    [Tooltip("Distance for eyes to see")]
-    [SerializeField] float sightRange;
+
+    [Header("Adjust Ranges for the AI")]
+    [Tooltip("Distance that AI will only be ALERTED if player is sprinting")]
+    [SerializeField] float greenRange;
+    [Tooltip("Distance that AI only be ALERTED if player is walking and ATTACK if player is sprinting")]
+    [SerializeField] float yellowRange;
+    [Tooltip("Distance that AI will be ALERTED if the player is walking & crouching but ATTACK if the player is sprinting")]
+    [SerializeField] float redRange;
+    [Tooltip("Distance for AI attack range")]
+    [SerializeField] float attackRange; //This is to decide how far/close should the attack anim happen
 
     [Header("AI State Controls")]
     [Tooltip("This AI will Patrol & Play Relevant Animations")]
@@ -54,25 +61,60 @@ public class EnemyController : MonoBehaviour
     [SerializeField] bool isMoving;
     [Tooltip("This is for debugging and animation triggering")]
     [SerializeField] bool isChasingPlayer;
-    [Tooltip("To check if the player is in sight")]
-    [SerializeField] bool playerInSightRange;
+    [Tooltip("To check if the player is in green range")]
+    [SerializeField] bool playerInGreenRange;
+    [Tooltip("To check if the player is in yellow range")]
+    [SerializeField] bool playerInYellowRange;
+    [Tooltip("To check if the player is in red range")]
+    [SerializeField] bool playerInRedRange;
     [Tooltip("To check if the player is in attack range")]
     [SerializeField] bool playerInAttackRange;
+    [Tooltip("Check if the player is sprinting")]
+    [SerializeField] bool playerIsSprinting;
 
-    /*
+    private void Awake()
+    {
+        StarterAssetsInputs starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+        playerIsSprinting = starterAssetsInputs.sprint;
+    }
+
+
     private void Update()
     {
         
-        //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        //Checks for player if detected
+        playerInGreenRange = Physics.CheckSphere(transform.position, greenRange, whatIsPlayer);
+        playerInYellowRange = Physics.CheckSphere(transform.position, yellowRange, whatIsPlayer);
+        playerInRedRange = Physics.CheckSphere(transform.position, redRange, whatIsPlayer);
+
+        //Checks if the player is inside the attack range
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
-        
+        if (!playerInGreenRange && !playerIsSprinting) Patrolling();
 
-    } */
+        if (playerInGreenRange || !playerInYellowRange
+            || !playerInRedRange) Patrolling();
+        //if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        //if (playerInAttackRange && playerInSightRange) AttackPlayer();
+
+
+    }
+
+    void Patrolling()
+    {
+
+    }
+
+    void ChasePlayer()
+    {
+
+    }
+
+    void AttackPlayer()
+    {
+
+    }
+
     /*
     void Patroling()
     {
