@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public Animator enemyAnimator;
-    public StarterAssetsInputs playerInputs;
+    public PlayerInputs playerInputs;
 
     [Header("Patrol Waypoints")]
     [Tooltip("Assign Patrol Waypoints Here")]
