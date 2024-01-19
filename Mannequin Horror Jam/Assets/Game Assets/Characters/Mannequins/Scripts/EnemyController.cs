@@ -97,6 +97,7 @@ public class EnemyController : MonoBehaviour
 
         // Set destination to the current waypoint
         navMeshAgent.SetDestination(patrolWaypoints[currentWaypointIndex].position);
+        enemyAnimator.SetBool("isMoving", true);
 
         // Check if the enemy has reached the current waypoint
         if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypointIndex].position) < 1f)
@@ -118,7 +119,7 @@ public class EnemyController : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < waitBetweenWaypoints)
         {
-            
+            enemyAnimator.SetBool("isMoving", false);
             elapsedTime += Time.deltaTime;
             
             yield return null;
