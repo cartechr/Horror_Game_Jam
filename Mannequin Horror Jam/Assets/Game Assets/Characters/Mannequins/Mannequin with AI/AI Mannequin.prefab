@@ -645,6 +645,7 @@ GameObject:
   - component: {fileID: 8669973519662622313}
   - component: {fileID: 1871888129078907336}
   - component: {fileID: 456516290620725864}
+  - component: {fileID: -5471832922165352593}
   m_Layer: 0
   m_Name: AI Mannequin
   m_TagString: Untagged
@@ -930,24 +931,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239e1a4a279a4bc4a9dcea921f895e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 1871888129078907336}
+  player: {fileID: 0}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyAnimator: {fileID: 0}
+  playerInputs: {fileID: 0}
   patrolWaypoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  mannequinEnemy: {fileID: 2702161432138619179}
-  player: {fileID: 0}
-  eyes: {fileID: 1018000789021039636}
-  navMeshAgent: {fileID: 1871888129078907336}
-  enemyAnimatorController: {fileID: 5272103015839721240}
-  multiAimConstraint: {fileID: 0}
-  raycastDistance: 10
-  moveSpeed: 0.5
-  delayBetween: 1
-  weight: 0
-  increaseDuration: 3
-  isMoving: 0
-  isChasingPlayer: 0
+  currentWaypointIndex: 0
+  waitBetweenWaypoints: 0
+  searchDuration: 0
+  greenAreaDistance: 0
+  yellowAreaDistance: 0
+  redAreaDistance: 0
+  attackDistance: 0
+  playerInGreenArea: 0
+  playerInYellowArea: 0
+  playerInRedArea: 0
+  playerInAttackRange: 0
+  isWaiting: 0
+  isSearching: 0
+  isAttacking: 0
+--- !u!114 &-5471832922165352593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702161432138619179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &2709385474660009688
 GameObject:
   m_ObjectHideFlags: 0

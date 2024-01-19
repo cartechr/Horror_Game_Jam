@@ -65,6 +65,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Game Assets\Characters\Mannequins\Scripts\EnemyController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Game Assets\Characters\FOR MIKE\Audio\Scripts\RainTest.cs" />
     <Compile Include="Assets\StarterAssets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -72,9 +73,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\Game Assets\Characters\FOR MIKE\Audio\Scripts\AudioManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
+    <Compile Include="Assets\Game Assets\Characters\FOR MIKE\Audio\Scripts\FMODEvents.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Inventory\InventorySlot.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="Assets\Game Assets\Scripts\HeadTrigger.cs" />
     <Compile Include="Assets\StarterAssets\FirstPersonController\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
+    <Compile Include="Assets\Game Assets\Characters\Player\Scripts\FPSPlayerController.cs" />
     <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
   </ItemGroup>
@@ -1190,6 +1194,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="FMODUnityEditor.csproj">
+      <Project>{0185AE62-2193-80D2-42FD-6D256F0BD485}</Project>
+      <Name>FMODUnityEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnityResonance.csproj">
+      <Project>{530374B6-4082-3C88-0EB9-CF089E06EFA7}</Project>
+      <Name>FMODUnityResonance</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnity.csproj">
+      <Project>{D1854A75-0D65-72B2-DC03-78312E93AB4A}</Project>
+      <Name>FMODUnity</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.StarterAssets.Editor.csproj">
       <Project>{646B1AD6-C9A6-5828-6E4D-B6829824947F}</Project>
       <Name>Unity.StarterAssets.Editor</Name>
@@ -1197,6 +1213,10 @@
     <ProjectReference Include="URPWizard.csproj">
       <Project>{1A85DD33-1DA7-899E-EE5D-C0A232BCA50D}</Project>
       <Name>URPWizard</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnityResonanceEditor.csproj">
+      <Project>{2F99E290-0022-99B9-75D3-2B1C0BDD7868}</Project>
+      <Name>FMODUnityResonanceEditor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.StarterAssets.csproj">
       <Project>{BFEFC006-22F8-BD3C-E295-18E79E7444F6}</Project>
