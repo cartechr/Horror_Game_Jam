@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using FMODUnity;
 
 public class HeadTrigger : MonoBehaviour
 {
@@ -22,8 +23,7 @@ public class HeadTrigger : MonoBehaviour
     [Tooltip("This will be pulled automatically")]
     [SerializeField] MultiAimConstraint multiAimConstraint;
 
-    [Header("ADJUST HERE AFTER FMOD IMPLEMENTATION")]
-    [SerializeField] AudioSource audioSource;
+    [SerializeField] EventReference headTurnSound;
 
     void Start()
     {
@@ -31,7 +31,7 @@ public class HeadTrigger : MonoBehaviour
         foreach (GameObject mannequin in mannequins)
         {
             multiAimConstraint = mannequin.GetComponentInChildren<MultiAimConstraint>();
-            audioSource = mannequin.GetComponent<AudioSource>();
+            //audioSource = mannequin.GetComponent<AudioSource>();
             if(multiAimConstraint != null)
             {
                 multiAimConstraint.weight = weight;
@@ -58,7 +58,7 @@ public class HeadTrigger : MonoBehaviour
 
                 if (multiAimConstraint != null)
                 {
-                    audioSource.Play();
+                    AudioManager.instance.PlayOneShot(headTurnSound, this.transform.position);
                     StartCoroutine(IncreaseWeightGradually(multiAimConstraint, weight + 1f, increaseDuration));
                     Debug.Log("Weight is increasing");
 
@@ -87,7 +87,7 @@ public class HeadTrigger : MonoBehaviour
 
                 if (multiAimConstraint != null)
                 {
-                    audioSource.Play();
+                    //audioSource.Play();
                     StartCoroutine(IncreaseWeightGradually(multiAimConstraint, weight - 1f, increaseDuration));
                     Debug.Log("Head is not turning anymore");
 
