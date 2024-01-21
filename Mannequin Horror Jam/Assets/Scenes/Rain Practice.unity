@@ -732,6 +732,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206901277}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &207060068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2702161432138619179, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+  m_PrefabInstance: {fileID: 3202718305200999790}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &221884928
 GameObject:
   m_ObjectHideFlags: 0
@@ -16371,6 +16376,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4595613626548077375}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: enemyAI
+      value: 
+      objectReference: {fileID: 207060068}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -16400,11 +16409,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: greenAreaDistance
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: yellowAreaDistance
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: whatIsGround.m_Bits
