@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Pipes;
@@ -10,13 +11,22 @@ public class Interactions : MonoBehaviour
     Inventory_Item inventory;
     public Inventory_Manager inventoryManager;
 
+    StarterAssetsInput starterAssetsInput;
+    public GameObject FullInv;
+
+    FirstPersonControll FirstPersonController;
+
     private void Start()
     {
         inventory = GetComponent<Inventory_Item>();
+        starterAssetsInput = GetComponent<StarterAssetsInput>();
+        FirstPersonController = GetComponent<FirstPersonControll>();
     }
 
     private void Update()
     {
+
+
         Items item = Inventory_Manager.Instance.GetSelectedItem();
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -40,7 +50,32 @@ public class Interactions : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Just Do It Bro");
+            //Debug.Log("Item Used");
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (!FirstPersonController.InvOpen)
+            {
+                Debug.Log("Inv Open");
+                FirstPersonController.InvOpen = true;
+                FullInv.SetActive(true);
+
+                starterAssetsInput.cursorLocked = false;
+                starterAssetsInput.cursorInputForLook = false;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Debug.Log("Inv Closed");
+                FirstPersonController.InvOpen = false;
+                FullInv.SetActive(false);
+
+                starterAssetsInput.cursorLocked = true;
+                starterAssetsInput.cursorInputForLook = true;
+                Cursor.visible = false;
+                Cursor.lockState= CursorLockMode.Locked;
+            }
         }
     }
 
