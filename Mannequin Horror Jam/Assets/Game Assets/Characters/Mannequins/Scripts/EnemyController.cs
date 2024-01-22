@@ -77,7 +77,7 @@ public class EnemyController : MonoBehaviour
         {
 
             //Check if the player is sprinting
-            if(playerInputs.sprint == true || isAlerted)
+            if(playerInputs.sprint == true)
             {
                 //Player is sprinting, go to Alert state
                 Alerted();
