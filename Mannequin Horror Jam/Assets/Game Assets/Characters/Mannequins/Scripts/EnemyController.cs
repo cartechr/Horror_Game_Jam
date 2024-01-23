@@ -45,6 +45,7 @@ public class EnemyController : MonoBehaviour
     public bool isChasing;
     public bool isAttacking;
 
+    [SerializeField] Vector2 playerMovement;
 
     private void Awake()
     {
@@ -61,6 +62,8 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        playerMovement = playerInputs.move;
+
         playerInGreenArea = Physics.CheckSphere(transform.position, greenAreaDistance, whatIsPlayer);
         playerInYellowArea = Physics.CheckSphere(transform.position, yellowAreaDistance, whatIsPlayer);
         playerInRedArea = Physics.CheckSphere(transform.position, redAreaDistance, whatIsPlayer);
@@ -77,7 +80,7 @@ public class EnemyController : MonoBehaviour
         {
 
             //Check if the player is sprinting
-            if(playerInputs.sprint == true)
+            if(playerInputs.sprint == true && playerMovement != Vector2.zero)
             {
                 //Player is sprinting, go to Alert state
                 Alerted();
