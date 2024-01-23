@@ -265,14 +265,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58870308}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.26837948, y: 0.22447076, z: -0.023412196, w: 0.93650264}
+  m_LocalRotation: {x: -0.28676653, y: 0.4110512, z: -0.11486186, w: 0.8576763}
   m_LocalPosition: {x: -0, y: 0.010568893, z: 2.2426505e-16}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 824985933}
   m_Father: {fileID: 202652157}
-  m_LocalEulerAnglesHint: {x: -29.483, y: 29.829, z: -10.882}
+  m_LocalEulerAnglesHint: {x: -23.421, y: 57.161, z: -28.141}
 --- !u!1 &102020164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3937,14 +3937,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824985932}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.044473205, y: -0.015086545, z: 0.05453099, w: 0.99740714}
+  m_LocalRotation: {x: 0.039623585, y: 0.07626941, z: 0.03278458, w: 0.99576}
   m_LocalPosition: {x: -6.1467287e-10, y: 0.022893513, z: -1.9917663e-10}
   m_LocalScale: {x: 0.99999994, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1943895091}
   m_Father: {fileID: 58870309}
-  m_LocalEulerAnglesHint: {x: 5.184, y: -1.453, z: 6.193}
+  m_LocalEulerAnglesHint: {x: 4.239, y: 8.912, z: 4.102}
 --- !u!1 &833276125
 GameObject:
   m_ObjectHideFlags: 0
@@ -11714,7 +11714,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1762617067}
-  - component: {fileID: 1762617068}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -11737,60 +11736,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 507936823}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1762617068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1762617066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Data:
-    m_ConstrainedObject: {fileID: 550514021}
-    m_SourceObjects:
-      m_Length: 1
-      m_Item0:
-        transform: {fileID: 1101997472910782541}
-        weight: 1
-      m_Item1:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item2:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item3:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item4:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item5:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item6:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item7:
-        transform: {fileID: 0}
-        weight: 0
-    m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -70
-    m_MaxLimit: 70
-    m_AimAxis: 4
-    m_UpAxis: 2
-    m_WorldUpType: 0
-    m_WorldUpObject: {fileID: 0}
-    m_WorldUpAxis: 2
-    m_MaintainOffset: 0
-    m_ConstrainedAxes:
-      x: 1
-      y: 1
-      z: 1
 --- !u!1 &1835402961
 GameObject:
   m_ObjectHideFlags: 0
