@@ -11,10 +11,12 @@ public class EnemyController : MonoBehaviour
 
     [Header("Assignments")]
     public NavMeshAgent navMeshAgent;
-    public Transform player;
+    public GameObject player;
+    public GameObject enemyAI;
+    public Transform playerTransform;
     public LayerMask whatIsGround, whatIsPlayer;
     public Animator enemyAnimator;
-    public PlayerInputs playerInputs;
+    public StarterAssets.PlayerInputs playerInputs;
 
     [Header("Patrol Waypoints")]
     [Tooltip("Assign Patrol Waypoints Here")]
@@ -38,18 +40,23 @@ public class EnemyController : MonoBehaviour
     public bool playerInRedArea;
     public bool playerInAttackRange;
     public bool isWaiting;
+    public bool isAlerted;
     public bool isSearching;
+    public bool isChasing;
     public bool isAttacking;
 
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player").transform;
+        playerTransform = GameObject.FindWithTag("Player").transform;
         currentWaypointIndex = 0;
 
-        //playerInputs = player.GetComponent<StarterAssetsInputs>();
+    }
 
+    private void Start()
+    {
+        
     }
 
     private void Update()
@@ -61,7 +68,7 @@ public class EnemyController : MonoBehaviour
 
         if(!playerInGreenArea && !playerInYellowArea && 
             !playerInRedArea && !playerInAttackRange &&!isWaiting
-            && !isSearching && !isAttacking)
+            && !isSearching && !isAttacking && !isChasing)
         {
             Patrolling();
         }
@@ -70,19 +77,74 @@ public class EnemyController : MonoBehaviour
         {
 
             //Check if the player is sprinting
-            if(playerInputs.sprint == true || isSearching)
+            if(playerInputs.sprint == true)
             {
                 //Player is sprinting, go to Alert state
                 Alerted();
             }
             
-            if(playerInputs.sprint == false && !isSearching)
-            {
-                //Player is not sprinting, keep patrolling
-                Patrolling();
-            }
         }
 
+        if (playerInYellowArea)
+        {
+
+            if (playerInputs.crouching)
+            {
+                Alerted();
+            }
+
+            if (!playerInputs.crouching)
+            {
+                Chase();
+            }
+
+        }
+
+    }
+
+    void Alerted()
+    {
+        Debug.Log("AI is Alerted");
+        Searching();
+        //StartCoroutine(WaitAtWaypoint());
+
+    }
+
+    void Searching()
+    {
+
+        isSearching = true;
+        isChasing = false;
+        Debug.Log("isSearching: " + isSearching);
+        StartCoroutine(AlertedDuration());
+
+        Vector3 lastKnownPlayerPosition = playerTransform.position;
+        enemyAnimator.SetBool("isMoving", true);
+        navMeshAgent.SetDestination(lastKnownPlayerPosition);
+
+        if (Vector3.Distance(transform.position, lastKnownPlayerPosition) < 1f)
+        {
+            Debug.Log("Reached Search Destination");
+            StartCoroutine(WaitAtWaypoint());
+        }
+
+    }
+
+    void Chase()
+    {
+        enemyAnimator.SetBool("isMoving", true);
+        Debug.Log("AI is Chasing");
+        Debug.Log("Stopping Searching");
+        isSearching = false;
+        isChasing = true;
+        Vector3 lastKnownPlayerPosition = playerTransform.position;
+        navMeshAgent.SetDestination(lastKnownPlayerPosition);
+
+    }
+
+    void Attack()
+    {
+        Debug.Log("AI is Attacking");
     }
 
     void Patrolling()
@@ -112,7 +174,7 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator WaitAtWaypoint()
     {
-        isWaiting = true;
+        isSearching = true;
         Debug.Log("Waiting at waypoint...");
 
         //Wait for the specified time
@@ -127,45 +189,29 @@ public class EnemyController : MonoBehaviour
         }
 
         Debug.Log("Finished waiting at waypoint");
-        isWaiting = false;
+        isSearching = false;
 
     }
 
-    IEnumerator Searching()
+    IEnumerator AlertedDuration()
     {
-        isSearching = true;
-
-        Vector3 lastKnownPlayerPosition = player.position;
 
         float elapsedTime = 0f;
         while (elapsedTime < searchDuration)
         {
-            elapsedTime += Time.deltaTime;
-            Debug.Log("Searching at position: " + lastKnownPlayerPosition);
+            isAlerted = true;
+            Debug.Log("isAlerted" + isAlerted);
 
-            navMeshAgent.SetDestination(lastKnownPlayerPosition);
+            elapsedTime += Time.deltaTime;
 
             yield return null;
+
+            isAlerted = false;
+            Debug.Log("isAlerted" + isAlerted);
         }
 
-        isSearching = false;
     }
 
-    void Alerted()
-    {
-        Debug.Log("AI is Alerted");
-        Searching();
-    }
-
-    void Chase()
-    {
-        Debug.Log("AI is Chasing");
-    }
-
-    void Attack()
-    {
-        Debug.Log("AI is Attacking");
-    }
 
     private void OnDrawGizmos()
     {
