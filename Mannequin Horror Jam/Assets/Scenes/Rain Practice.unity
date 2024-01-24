@@ -14731,7 +14731,7 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.8
   m_Radius: 0.28
-  m_SlopeLimit: 45
+  m_SlopeLimit: 90
   m_StepOffset: 0.25
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
@@ -19392,7 +19392,7 @@ PrefabInstance:
       objectReference: {fileID: 4905530313440319533}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: redAreaDistance
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: greenAreaDistance
@@ -19400,7 +19400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: yellowAreaDistance
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: whatIsGround.m_Bits
