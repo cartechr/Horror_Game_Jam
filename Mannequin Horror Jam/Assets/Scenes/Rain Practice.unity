@@ -19367,6 +19367,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: isPatrolling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: playerInputs
       value: 
       objectReference: {fileID: 9199348821608463202}
@@ -19392,7 +19396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: greenAreaDistance
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: yellowAreaDistance
