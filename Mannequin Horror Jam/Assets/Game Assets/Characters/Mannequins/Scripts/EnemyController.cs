@@ -42,10 +42,14 @@ public class EnemyController : MonoBehaviour
     public bool isWaiting;
     public bool isAlerted;
     public bool isSearching;
+    public bool isPatrolling;
     public bool isChasing;
     public bool isAttacking;
 
     [SerializeField] Vector2 playerMovement;
+
+    Vector3 lastKnownPlayerPosition;
+    
 
     private void Awake()
     {
@@ -69,32 +73,65 @@ public class EnemyController : MonoBehaviour
         playerInRedArea = Physics.CheckSphere(transform.position, redAreaDistance, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackDistance, whatIsPlayer);
 
+        /*
         if(!playerInGreenArea && !playerInYellowArea && 
             !playerInRedArea && !playerInAttackRange &&!isWaiting
             && !isSearching && !isAttacking && !isChasing)
         {
             Patrolling();
         }
+        */
 
-        if (playerInGreenArea)
+        if (isPatrolling)
         {
+            Patrolling();
+        }
+
+        if (playerInGreenArea) //Player enters the green area
+        {
+            Debug.Log("Player is in Green Area");
 
             //Check if the player is sprinting
-            if(playerInputs.sprint == true && playerMovement != Vector2.zero)
+            if (playerInputs.sprint == true && playerMovement != Vector2.zero)
             {
-                //Player is sprinting, go to Alert state
-                Alerted();
+
+                Debug.Log("Sprint is detected in Green Area");
+                isPatrolling = false;
+                Debug.Log("AI is no longer patrolling");
+                Debug.Log("isPatrolling " + isPatrolling);
+
+                lastKnownPlayerPosition = playerTransform.position;
+                Debug.Log("Player Last Known location memorized ");
+
+                isAlerted = true;
+                Debug.Log("isAlerted " + isAlerted);
+
             }
-            
+
         }
+
+        if(isAlerted)
+        {
+
+            enemyAnimator.SetBool("isMoving", true);
+            navMeshAgent.SetDestination(lastKnownPlayerPosition);
+            Debug.Log("Enemy is moving towards player last known location");
+
+            // Check if the agent has reached its destination
+            if (!navMeshAgent.pathPending && !navMeshAgent.hasPath && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+            {
+                // Agent has reached the destination
+                Debug.Log("Enemy reached destination");
+                enemyAnimator.SetBool("isMoving", false);
+                //StartCoroutine(IsSearching());
+            }
+
+        }
+
+
 
         if (playerInYellowArea)
         {
-
-            if (playerInputs.crouching)
-            {
-                Alerted();
-            }
 
             if (!playerInputs.crouching)
             {
@@ -105,33 +142,82 @@ public class EnemyController : MonoBehaviour
 
     }
 
+
+    IEnumerator IsSearching()
+    {
+        Debug.Log("The AI reached to the destination and searching for player ");
+        isSearching = true;
+        Debug.Log("isSearching " + isSearching);
+
+        float elapsedTime = 0f;
+        while (elapsedTime < searchDuration)
+        {
+
+            elapsedTime += Time.deltaTime;
+
+            Debug.Log("AI is searching at the location...");
+            Debug.Log("Time Elapsed: " + elapsedTime);
+
+
+
+            yield return null;
+
+
+        }
+
+    }
+
+    void CheckDistance()
+    {
+        Vector3 lastKnownPlayerPosition = playerTransform.position;
+        
+    }
+
     void Alerted()
     {
-        Debug.Log("AI is Alerted");
+
+        
+        /*
+        //Check if the player is sprinting
+        if (playerInputs.sprint == true && playerMovement != Vector2.zero)
+        {
+
+            //If player is sprinting go to alerted stage
+            Debug.Log("AI is Alerted");
+            isAlerted = true;
+            Debug.Log("isAlerted: " + isAlerted);
+
+            isSearching = true;
+            Debug.Log("isSearching: " + isSearching);
+
+            isChasing = false;
+            Debug.Log("isChasing: " + isChasing);
+
+
+            enemyAnimator.SetBool("isMoving", true);
+            navMeshAgent.SetDestination(lastKnownPlayerPosition);
+            Debug.Log("Enemy Moving Towards Player Location");
+
+        }
+
+        if (distanceToPlayer < 1f)
+        {
+            Debug.Log("Reached Search Destination");
+        }
+
         Searching();
-        //StartCoroutine(WaitAtWaypoint());
+        */
 
     }
 
     void Searching()
     {
 
-        isSearching = true;
-        isChasing = false;
-        Debug.Log("isSearching: " + isSearching);
-        StartCoroutine(AlertedDuration());
-
-        Vector3 lastKnownPlayerPosition = playerTransform.position;
-        enemyAnimator.SetBool("isMoving", true);
-        navMeshAgent.SetDestination(lastKnownPlayerPosition);
-
-        if (Vector3.Distance(transform.position, lastKnownPlayerPosition) < 1f)
-        {
-            Debug.Log("Reached Search Destination");
-            StartCoroutine(WaitAtWaypoint());
-        }
+        
 
     }
+
+
 
     void Chase()
     {
@@ -177,7 +263,8 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator WaitAtWaypoint()
     {
-        isSearching = true;
+        isPatrolling = false;
+        Debug.Log("isPatrolling: " + isPatrolling); 
         Debug.Log("Waiting at waypoint...");
 
         //Wait for the specified time
@@ -192,28 +279,11 @@ public class EnemyController : MonoBehaviour
         }
 
         Debug.Log("Finished waiting at waypoint");
-        isSearching = false;
+        isPatrolling = true;
+        Debug.Log("isPatrolling: " + isPatrolling);
 
     }
 
-    IEnumerator AlertedDuration()
-    {
-
-        float elapsedTime = 0f;
-        while (elapsedTime < searchDuration)
-        {
-            isAlerted = true;
-            Debug.Log("isAlerted" + isAlerted);
-
-            elapsedTime += Time.deltaTime;
-
-            yield return null;
-
-            isAlerted = false;
-            Debug.Log("isAlerted" + isAlerted);
-        }
-
-    }
 
 
     private void OnDrawGizmos()
