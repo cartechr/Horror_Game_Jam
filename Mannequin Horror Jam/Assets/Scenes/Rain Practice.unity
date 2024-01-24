@@ -3851,6 +3851,47 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5272103015839721240, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
   m_PrefabInstance: {fileID: 3202718305200999790}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &764520258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207060068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6aa6ab898d75d74ab39d694b990ba31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  player: {fileID: 4595613626548077375}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
+  playerInputs: {fileID: 9199348821608463202}
+  patrolWaypoints:
+  - {fileID: 949276982}
+  - {fileID: 818510988}
+  - {fileID: 2043043263}
+  - {fileID: 1193348560}
+  currentWaypointIndex: 0
+  waitBetweenWaypoints: 5
+  searchDuration: 2
+  greenAreaDistance: 15
+  yellowAreaDistance: 10
+  redAreaDistance: 3
+  attackDistance: 2
+  playerInGreenArea: 0
+  playerInYellowArea: 0
+  playerInRedArea: 0
+  playerInAttackRange: 0
+  isSearching: 0
+  isPatrolling: 0
+  isDisturbed: 0
+  PositionSize: 2
 --- !u!1 &813236739
 GameObject:
   m_ObjectHideFlags: 0
@@ -19363,6 +19404,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 207060068}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -19384,7 +19429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: searchDuration
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: playerTransform
@@ -19400,7 +19445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: yellowAreaDistance
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: whatIsGround.m_Bits
@@ -19490,7 +19535,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 1018000789021039636, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2702161432138619179, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 764520258}
   m_SourcePrefab: {fileID: 100100000, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
 --- !u!4 &3203518258446113110
 Transform:
