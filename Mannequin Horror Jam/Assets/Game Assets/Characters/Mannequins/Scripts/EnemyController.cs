@@ -73,62 +73,36 @@ public class EnemyController : MonoBehaviour
         playerInRedArea = Physics.CheckSphere(transform.position, redAreaDistance, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackDistance, whatIsPlayer);
 
-        /*
-        if(!playerInGreenArea && !playerInYellowArea && 
-            !playerInRedArea && !playerInAttackRange &&!isWaiting
-            && !isSearching && !isAttacking && !isChasing)
+        if (isPatrolling && !isAlerted && !isSearching)
         {
             Patrolling();
         }
-        */
 
-        if (isPatrolling)
+        if (!isPatrolling)
         {
-            Patrolling();
+            enemyAnimator.SetBool("isMoving", false);
         }
 
         if (playerInGreenArea) //Player enters the green area
         {
             Debug.Log("Player is in Green Area");
 
-            //Check if the player is sprinting
-            if (playerInputs.sprint == true && playerMovement != Vector2.zero)
-            {
-
-                Debug.Log("Sprint is detected in Green Area");
-                isPatrolling = false;
-                Debug.Log("AI is no longer patrolling");
-                Debug.Log("isPatrolling " + isPatrolling);
-
-                lastKnownPlayerPosition = playerTransform.position;
-                Debug.Log("Player Last Known location memorized ");
-
-                isAlerted = true;
-                Debug.Log("isAlerted " + isAlerted);
-
-            }
+            CheckForSprinting();
 
         }
 
         if(isAlerted)
         {
-
-            enemyAnimator.SetBool("isMoving", true);
-            navMeshAgent.SetDestination(lastKnownPlayerPosition);
-            Debug.Log("Enemy is moving towards player last known location");
-
-            // Check if the agent has reached its destination
-            if (!navMeshAgent.pathPending && !navMeshAgent.hasPath && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-            {
-                // Agent has reached the destination
-                Debug.Log("Enemy reached destination");
-                enemyAnimator.SetBool("isMoving", false);
-                //StartCoroutine(IsSearching());
-            }
+            StopCoroutine(IsSearching());
+            StopCoroutine(WaitAtWaypoint());
+            GoToLastKnownLocation();
 
         }
 
-
+        if (isSearching)
+        {
+            StartCoroutine(IsSearching());
+        }
 
         if (playerInYellowArea)
         {
@@ -141,13 +115,59 @@ public class EnemyController : MonoBehaviour
         }
 
     }
+    #region SprintCheck
+    void CheckForSprinting()
+    {
+        //Check if the player is sprinting
+        if (playerInputs.sprint == true && playerMovement != Vector2.zero)
+        {
 
+            Debug.Log("Sprint is detected in Green Area");
+            isPatrolling = false;
+            Debug.Log("AI is no longer patrolling");
+            Debug.Log("isPatrolling " + isPatrolling);
 
+            lastKnownPlayerPosition = playerTransform.position;
+            Debug.Log("Player Last Known location memorized ");
+
+            isAlerted = true;
+            Debug.Log("isAlerted " + isAlerted);
+
+        }
+    }
+    #endregion
+
+    #region Go To Last Known Location
+    void GoToLastKnownLocation()
+    {
+        Debug.Log("AI is going towards the last known location");
+
+        enemyAnimator.SetBool("isMoving", true);
+
+        // Re-calculate path
+        navMeshAgent.CalculatePath(lastKnownPlayerPosition, navMeshAgent.path);
+
+        //Set destination to last known location
+        navMeshAgent.SetDestination(lastKnownPlayerPosition);
+        Debug.Log("Enemy is moving towards player last known location");
+
+        // Check if the agent has reached its destination
+        if (!navMeshAgent.pathPending && !navMeshAgent.hasPath && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+        {
+            // Agent has reached the destination
+            Debug.Log("Enemy reached destination");
+            enemyAnimator.SetBool("isMoving", false);
+
+            isSearching = true;
+            Debug.Log("Searching for player in the area");
+
+        }
+    }
+    #endregion
+
+    #region Searching for the Player
     IEnumerator IsSearching()
     {
-        Debug.Log("The AI reached to the destination and searching for player ");
-        isSearching = true;
-        Debug.Log("isSearching " + isSearching);
 
         float elapsedTime = 0f;
         while (elapsedTime < searchDuration)
@@ -156,68 +176,22 @@ public class EnemyController : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             Debug.Log("AI is searching at the location...");
-            Debug.Log("Time Elapsed: " + elapsedTime);
-
+            CheckForSprinting();
 
 
             yield return null;
 
 
         }
+        Debug.Log("Searching is done cancelling alerted state");
+        isSearching = false;
+        isAlerted = false;
+        isPatrolling = true;
+        Debug.Log("Back to patrolling");
 
     }
 
-    void CheckDistance()
-    {
-        Vector3 lastKnownPlayerPosition = playerTransform.position;
-        
-    }
-
-    void Alerted()
-    {
-
-        
-        /*
-        //Check if the player is sprinting
-        if (playerInputs.sprint == true && playerMovement != Vector2.zero)
-        {
-
-            //If player is sprinting go to alerted stage
-            Debug.Log("AI is Alerted");
-            isAlerted = true;
-            Debug.Log("isAlerted: " + isAlerted);
-
-            isSearching = true;
-            Debug.Log("isSearching: " + isSearching);
-
-            isChasing = false;
-            Debug.Log("isChasing: " + isChasing);
-
-
-            enemyAnimator.SetBool("isMoving", true);
-            navMeshAgent.SetDestination(lastKnownPlayerPosition);
-            Debug.Log("Enemy Moving Towards Player Location");
-
-        }
-
-        if (distanceToPlayer < 1f)
-        {
-            Debug.Log("Reached Search Destination");
-        }
-
-        Searching();
-        */
-
-    }
-
-    void Searching()
-    {
-
-        
-
-    }
-
-
+    #endregion
 
     void Chase()
     {
@@ -246,10 +220,30 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        // Set destination to the current waypoint
-        navMeshAgent.SetDestination(patrolWaypoints[currentWaypointIndex].position);
-        enemyAnimator.SetBool("isMoving", true);
+        if(!isAlerted || !isSearching)
+        {
+            // Set destination to the current waypoint
+            navMeshAgent.SetDestination(patrolWaypoints[currentWaypointIndex].position);
+            enemyAnimator.SetBool("isMoving", true);
 
+            // Check if the enemy has reached the current waypoint
+            if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypointIndex].position) < 1f)
+            {
+                //Wait at waypoint
+                StartCoroutine(WaitAtWaypoint());
+
+                // Move to the next waypoint
+                currentWaypointIndex = (currentWaypointIndex + 1) % patrolWaypoints.Length;
+
+            }
+
+
+
+        }
+
+
+
+        /*
         // Check if the enemy has reached the current waypoint
         if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypointIndex].position) < 1f)
         {
@@ -258,13 +252,12 @@ public class EnemyController : MonoBehaviour
             // Move to the next waypoint
             currentWaypointIndex = (currentWaypointIndex + 1) % patrolWaypoints.Length;
         }
-
+        */
     }
 
     IEnumerator WaitAtWaypoint()
     {
         isPatrolling = false;
-        Debug.Log("isPatrolling: " + isPatrolling); 
         Debug.Log("Waiting at waypoint...");
 
         //Wait for the specified time
@@ -279,9 +272,12 @@ public class EnemyController : MonoBehaviour
         }
 
         Debug.Log("Finished waiting at waypoint");
-        isPatrolling = true;
-        Debug.Log("isPatrolling: " + isPatrolling);
 
+        // Set destination to the new waypoint
+        navMeshAgent.SetDestination(patrolWaypoints[currentWaypointIndex].position);
+        enemyAnimator.SetBool("isMoving", true);
+
+        isPatrolling = true;
     }
 
 
