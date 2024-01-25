@@ -924,11 +924,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206901277}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &207060068 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2702161432138619179, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-  m_PrefabInstance: {fileID: 3202718305200999790}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &221884928
 GameObject:
   m_ObjectHideFlags: 0
@@ -3846,52 +3841,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709801895}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!95 &764520257 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5272103015839721240, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-  m_PrefabInstance: {fileID: 3202718305200999790}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &764520258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 207060068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6aa6ab898d75d74ab39d694b990ba31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  player: {fileID: 4595613626548077375}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 128
-  playerInputs: {fileID: 9199348821608463202}
-  patrolWaypoints:
-  - {fileID: 949276982}
-  - {fileID: 818510988}
-  - {fileID: 2043043263}
-  - {fileID: 1193348560}
-  currentWaypointIndex: 0
-  waitBetweenWaypoints: 5
-  searchDuration: 2
-  greenAreaDistance: 15
-  yellowAreaDistance: 10
-  redAreaDistance: 3
-  attackDistance: 2
-  playerInGreenArea: 0
-  playerInYellowArea: 0
-  playerInRedArea: 0
-  playerInAttackRange: 0
-  isSearching: 0
-  isPatrolling: 0
-  isDisturbed: 0
-  PositionSize: 2
 --- !u!1 &813236739
 GameObject:
   m_ObjectHideFlags: 0
@@ -19395,94 +19344,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+    - target: {fileID: 2129568728538340218, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 4595613626548077375}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: enemyAI
-      value: 
-      objectReference: {fileID: 207060068}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: moveSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: isPatrolling
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+    - target: {fileID: 2129568728538340218, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: playerInputs
       value: 
       objectReference: {fileID: 9199348821608463202}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: enemyAnimator
-      value: 
-      objectReference: {fileID: 764520257}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: attackDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: searchDuration
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: playerTransform
-      value: 
-      objectReference: {fileID: 4905530313440319533}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: redAreaDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: greenAreaDistance
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: yellowAreaDistance
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: whatIsGround.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: whatIsPlayer.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: waitBetweenWaypoints
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: patrolWaypoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+    - target: {fileID: 2129568728538340218, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: patrolWaypoints.Array.data[0]
       value: 
       objectReference: {fileID: 949276982}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+    - target: {fileID: 2129568728538340218, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: patrolWaypoints.Array.data[1]
       value: 
       objectReference: {fileID: 818510988}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+    - target: {fileID: 2129568728538340218, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: patrolWaypoints.Array.data[2]
       value: 
       objectReference: {fileID: 2043043263}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+    - target: {fileID: 2129568728538340218, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: patrolWaypoints.Array.data[3]
       value: 
       objectReference: {fileID: 1193348560}
-    - target: {fileID: 456516290620725864, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      propertyPath: patrolWaypoints.Array.data[4]
-      value: 
-      objectReference: {fileID: 4905530313440319533}
     - target: {fileID: 2702161432138619179, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
       propertyPath: m_Name
       value: AI Mannequin
@@ -19532,13 +19417,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1890582961325488996}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1018000789021039636, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2702161432138619179, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 764520258}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d77c5a65d7cc2104abbb2087564ceaf2, type: 3}
 --- !u!4 &3203518258446113110
 Transform:
