@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     public Transform playerTransform;
     public LayerMask whatIsGround, whatIsPlayer;
     public Animator enemyAnimator;
-    public StarterAssets.PlayerInputs playerInputs;
+    //public StarterAssets.PlayerInputs playerInputs;
 
     [Header("Patrol Waypoints")]
     [Tooltip("Assign Patrol Waypoints Here")]
@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        playerMovement = playerInputs.move;
+        //playerMovement = playerInputs.move;
 
         playerInGreenArea = Physics.CheckSphere(transform.position, greenAreaDistance, whatIsPlayer);
         playerInYellowArea = Physics.CheckSphere(transform.position, yellowAreaDistance, whatIsPlayer);
@@ -106,11 +106,14 @@ public class EnemyController : MonoBehaviour
 
         if (playerInYellowArea)
         {
+            /*
 
             if (!playerInputs.crouching)
             {
                 Chase();
             }
+
+            */
 
         }
 
@@ -119,6 +122,7 @@ public class EnemyController : MonoBehaviour
     void CheckForSprinting()
     {
         //Check if the player is sprinting
+        /*
         if (playerInputs.sprint == true && playerMovement != Vector2.zero)
         {
 
@@ -134,6 +138,7 @@ public class EnemyController : MonoBehaviour
             Debug.Log("isAlerted " + isAlerted);
 
         }
+        */
     }
     #endregion
 

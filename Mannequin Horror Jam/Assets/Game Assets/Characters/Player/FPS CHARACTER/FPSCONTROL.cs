@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 [RequireComponent(typeof(CharacterController))]
 public class FPSCONTROL : MonoBehaviour
@@ -31,8 +33,18 @@ public class FPSCONTROL : MonoBehaviour
 
     [Header("Grounded and Gravity Checks")]
     public float gravity;
+    public float fallSpeed;
     public bool isGrounded;
+    public float groundCheckDistance = 0.2f;
     public LayerMask groundLayers;
+    private float fallTimeoutDelta;
+    [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
+    public float FallTimeout = 0.15f;
+    private float terminalVelocity = 53.0f;
+    [Tooltip("Useful for rough ground")]
+    public float GroundedOffset = -0.14f;
+    [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
+    public float GroundedRadius = 0.5f;
 
     [Header("Cinemachine")]
     public GameObject cinemachineCamera;
@@ -93,7 +105,10 @@ public class FPSCONTROL : MonoBehaviour
         Move();
 
         CheckCrouchingBackwards();
-        
+
+        GravityControls();
+
+        GroundedCheck();
 
     }
 
@@ -244,6 +259,27 @@ public class FPSCONTROL : MonoBehaviour
             animator.SetBool("standingBackwards", false);
         }
 
+        float strafeValue = move.x;
+
+        if(move.x < 0 || move.x > 0)
+        {
+            animator.SetBool("Strafing", true);
+            animator.SetFloat("StrafeValue", strafeValue);
+        }
+        else
+        {
+            animator.SetBool("Strafing", false);
+        }
+
+        if (move.x < 0 || move.x > 0 && isCrouching)
+        {
+            animator.SetBool("crouchStrafing", true);
+            animator.SetFloat("StrafeValue", strafeValue);
+        }
+        else
+        {
+            animator.SetBool("crouchStrafing", false);
+        }
 
     }
 
@@ -348,6 +384,61 @@ public class FPSCONTROL : MonoBehaviour
 
     #endregion
 
+    #region Gravity Related
 
+    void GravityControls()
+    {
+
+        if (isGrounded)
+        {
+            // reset the fall timeout timer
+            fallTimeoutDelta = FallTimeout;
+
+            // stop our velocity dropping infinitely when grounded
+            if (verticalVelocity < 0.0f)
+            {
+                verticalVelocity = -2f;
+            }
+
+        }
+        else
+        {
+
+            // fall timeout
+            if (fallTimeoutDelta >= 0.0f)
+            {
+                fallTimeoutDelta -= Time.deltaTime;
+            }
+
+        }
+
+        // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+        if (verticalVelocity < terminalVelocity)
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+        if (isGrounded) Gizmos.color = transparentGreen;
+        else Gizmos.color = transparentRed;
+
+        // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+    }
+
+    private void GroundedCheck()
+    {
+        // set sphere position, with offset
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
+        isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
+    }
+
+    #endregion
 
 }
