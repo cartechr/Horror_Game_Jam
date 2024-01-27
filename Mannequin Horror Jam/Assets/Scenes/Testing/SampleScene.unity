@@ -236,10 +236,15 @@ MonoBehaviour:
   cursorInputForLook: 1
   analogMovement: 0
   gravity: -15
+  fallSpeed: 0
   isGrounded: 0
+  groundCheckDistance: 2
   groundLayers:
     serializedVersion: 2
     m_Bits: 15936
+  FallTimeout: 0.15
+  GroundedOffset: -0.14
+  GroundedRadius: 1.5
   cinemachineCamera: {fileID: 678202234}
   topClamp: 70
   bottomClamp: -70
@@ -1325,7 +1330,7 @@ Transform:
   m_GameObject: {fileID: 1853453911}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.049, y: 0.236, z: -0.021}
+  m_LocalPosition: {x: 0.047, y: 0.192, z: 0.042}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

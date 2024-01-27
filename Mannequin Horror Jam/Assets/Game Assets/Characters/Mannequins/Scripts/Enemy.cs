@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     //public Transform playerTransform;
     public LayerMask whatIsGround, whatIsPlayer;
     //public Animator enemyAnimator;
-    public StarterAssets.PlayerInputs playerInputs;
+    //public StarterAssets.PlayerInputs playerInputs;
 
     [Header("Patrol Waypoints")]
     [Tooltip("Assign Patrol Waypoints Here")]
@@ -167,6 +167,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Player in red");
             //Chasing player to Attack (player moved)
+            /*
             if (playerInputs.move != Vector2.zero)
             {
                 isSearching = false;
@@ -174,12 +175,14 @@ public class Enemy : MonoBehaviour
                 state = 2;
                 yield break;
             }
+            */
         }
 
         else if (playerInYellowArea)
         {
             Debug.Log("Player in yellow");
             //Alerted (player walking)
+            /*
             if (playerInputs.move != Vector2.zero && !playerInputs.sprint)
             {
                 isSearching = false;
@@ -197,10 +200,13 @@ public class Enemy : MonoBehaviour
                 state = 2;
                 yield break;
             }
+            */
         }
 
         else if (playerInGreenArea)
         {
+
+            /*
             Debug.Log("Player in green");
             //Alerted (player sprinting)
             if (playerInputs.sprint)
@@ -211,6 +217,8 @@ public class Enemy : MonoBehaviour
                 state = 0;
                 yield break;
             }
+
+            */
         }
 
         yield return new WaitForSeconds(searchDuration);
