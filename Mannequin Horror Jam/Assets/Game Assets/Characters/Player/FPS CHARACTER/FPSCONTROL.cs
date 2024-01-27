@@ -91,6 +91,8 @@ public class FPSCONTROL : MonoBehaviour
         hasAnimator = TryGetComponent(out animator);
         
         Move();
+
+        CheckCrouchingBackwards();
         
 
     }
@@ -232,7 +234,31 @@ public class FPSCONTROL : MonoBehaviour
         }
 
 
+        if (move.y == -1 && !isCrouching)
+        {
+            animator.SetBool("standingBackwards", true);
+        }
+        
+        if(move.y >= 0 && !isCrouching)
+        {
+            animator.SetBool("standingBackwards", false);
+        }
 
+
+    }
+
+    void CheckCrouchingBackwards()
+    {
+
+        if (move.y == -1)
+        {
+            animator.SetBool("crouchingBackwards", true);
+        }
+
+        if (move.y >= 0)
+        {
+            animator.SetBool("crouchingBackwards", false);
+        }
     }
 
 
@@ -307,12 +333,17 @@ public class FPSCONTROL : MonoBehaviour
             animator.SetBool("isCrouching", true);
 
             Debug.Log("Crouching activated");
+            
         }
         else
         {
             animator.SetBool("isCrouching", false);
+
             Debug.Log("Crouching deactivated");
         }
+
+
+       
     }
 
     #endregion
