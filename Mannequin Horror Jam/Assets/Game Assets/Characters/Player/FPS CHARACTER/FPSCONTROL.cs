@@ -46,7 +46,7 @@ public class FPSCONTROL : MonoBehaviour
     CharacterController characterController;
     PlayerInput playerInput;
     GameObject mainCamera;
-    Animator animator;
+    public Animator animator;
 
     const float threshold = 0.01f;
 
@@ -60,7 +60,7 @@ public class FPSCONTROL : MonoBehaviour
     float animationBlend;
 
     //Animation Related
-    bool hasAnimator;
+    public bool hasAnimator;
     int animIDSpeed;
     int animIDGrounded;
     int animIDFreeFall;
