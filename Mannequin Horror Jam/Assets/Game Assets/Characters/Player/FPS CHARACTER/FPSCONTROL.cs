@@ -89,8 +89,9 @@ public class FPSCONTROL : MonoBehaviour
     {
 
         hasAnimator = TryGetComponent(out animator);
-
+        
         Move();
+        
 
     }
 
@@ -111,7 +112,6 @@ public class FPSCONTROL : MonoBehaviour
 
 
     #endregion
-
 
     #region Camera Controls
     void CameraRotation()
@@ -162,14 +162,23 @@ public class FPSCONTROL : MonoBehaviour
 
     #endregion
 
-
-
     #region Movement Related
 
     void Move()
     {
         //if the player is sprinting then use sprint speed if not then move speed
-        float targetSpeed = isSprinting ? sprintSpeed : moveSpeed;
+        float targetSpeed;
+
+        if (isCrouching && !isSprinting)
+        {
+            targetSpeed = crouchSpeed;
+        }
+        else
+        {
+            
+            targetSpeed = isSprinting ? sprintSpeed : moveSpeed;
+        }
+        
 
         //if there is no input, set the target speed to 0
         if (move == Vector2.zero) targetSpeed = 0f;
@@ -222,6 +231,8 @@ public class FPSCONTROL : MonoBehaviour
             animator.SetFloat(animIDMotionSpeed, inputMagnitude);
         }
 
+
+
     }
 
 
@@ -239,6 +250,13 @@ public class FPSCONTROL : MonoBehaviour
     public void OnSprint(InputValue value)
     {
         SprintInput(value.isPressed);
+
+        if(isCrouching && value.isPressed)
+        {
+            //Cancel crouching
+            HandleCrouch(false);
+        }
+
     }
 
     //Look Call
@@ -247,6 +265,17 @@ public class FPSCONTROL : MonoBehaviour
         if (cursorInputForLook)
         {
             LookInput(value.Get<Vector2>());
+        }
+    }
+
+    //Crouch Call
+    public void OnCrouch(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            isCrouching = !isCrouching;
+
+            HandleCrouch(isCrouching);
         }
     }
 
@@ -266,6 +295,24 @@ public class FPSCONTROL : MonoBehaviour
     public void LookInput(Vector2 newLookDirection)
     {
         look = newLookDirection;
+    }
+
+    //Crouch Input
+    public void HandleCrouch(bool crouch)
+    {
+        isCrouching = crouch;
+
+        if (crouch)
+        {
+            animator.SetBool("isCrouching", true);
+
+            Debug.Log("Crouching activated");
+        }
+        else
+        {
+            animator.SetBool("isCrouching", false);
+            Debug.Log("Crouching deactivated");
+        }
     }
 
     #endregion
