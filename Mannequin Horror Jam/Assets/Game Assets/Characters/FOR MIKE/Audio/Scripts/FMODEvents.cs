@@ -28,4 +28,10 @@ public class FMODEvents : MonoBehaviour
         AudioManager.instance.PlayOneShot(FMODEvents.instance.sarahRoom, this.transform.position);
     }
 
+    private void Update()
+    {
+        
+    }
+
+
 }
