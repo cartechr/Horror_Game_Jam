@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using UnityEditor;
+using FMOD.Studio;
 
 public class SurfaceController : MonoBehaviour
 {
@@ -17,9 +18,14 @@ public class SurfaceController : MonoBehaviour
     public float yOffset = 2.0f; // Adjust this value based on your desired offset
     public float raycastLength = 1.0f; // Adjust this value based on your desired ray length
 
+    public FPSCONTROL playerController;
+
     private void Update()
     {
         DetermineTerrain();
+        SwitchMoveType();
+        
+
     }
 
     private void DetermineTerrain()
@@ -54,6 +60,24 @@ public class SurfaceController : MonoBehaviour
                 currentTerrain = Current_Terrain.Carpet;
             }
         }
+    }
+
+    void SwitchMoveType()
+    {
+        if (playerController.isCrouching)
+        {
+            Footsteps.setParameterByNameWithLabel("MoveType", "Crouch");
+        }
+        else if (!playerController.isCrouching)
+        {
+            Footsteps.setParameterByNameWithLabel("MoveType", "Walk");
+        }
+        else if (playerController.isSprinting)
+        {
+            Footsteps.setParameterByNameWithLabel("MoveType", "Run");
+        }
+
+
     }
 
     void PlayFootstep(int surfaceType)
