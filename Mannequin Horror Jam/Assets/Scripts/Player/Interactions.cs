@@ -16,6 +16,9 @@ public class Interactions : MonoBehaviour
 
     FirstPersonControll FirstPersonController;
 
+    [Tooltip ("Script is attached to 'Full Inv' inventory gameobject")]
+    public UI_Buttons ui_buttons;
+
     private void Start()
     {
         inventory = GetComponent<Inventory_Item>();
@@ -25,8 +28,6 @@ public class Interactions : MonoBehaviour
 
     private void Update()
     {
-
-
         Items item = Inventory_Manager.Instance.GetSelectedItem();
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -56,21 +57,28 @@ public class Interactions : MonoBehaviour
         {
             if (!FirstPersonController.InvOpen)
             {
+                //Disable player movement when Inv opened
                 Debug.Log("Inv Open");
                 FirstPersonController.InvOpen = true;
                 FullInv.SetActive(true);
 
+                //Mouse
                 starterAssetsInput.cursorLocked = false;
                 starterAssetsInput.cursorInputForLook = false;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
+
+                //Items Inventory Tab should alway open first
+                ui_buttons.num = 2;
             }
             else
             {
+                //Enable player movement when Inv closed
                 Debug.Log("Inv Closed");
                 FirstPersonController.InvOpen = false;
                 FullInv.SetActive(false);
 
+                //Mouse
                 starterAssetsInput.cursorLocked = true;
                 starterAssetsInput.cursorInputForLook = true;
                 Cursor.visible = false;
