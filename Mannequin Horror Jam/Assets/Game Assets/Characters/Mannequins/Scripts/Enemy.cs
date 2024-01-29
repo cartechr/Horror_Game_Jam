@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject player;
     //[SerializeField] GameObject enemyAI;
     //public Transform playerTransform;
-    public LayerMask whatIsGround, whatIsPlayer;
+    public LayerMask whatIsGround, whatIsPlayer, whatIsWall;
     //public Animator enemyAnimator;
     public FPSCONTROL playerInputs;
 
@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour
         playerInRedArea = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, redAreaDistance), whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, attackDistance), whatIsPlayer);
 
-        /* MIGHT NEED TO REVERt BACK
+        /* MIGHT NEED TO REVERT BACK
         playerInGreenArea = Physics.CheckSphere(transform.position, greenAreaDistance, whatIsPlayer);
         playerInYellowArea = Physics.CheckSphere(transform.position, yellowAreaDistance, whatIsPlayer);
         playerInRedArea = Physics.CheckSphere(transform.position, redAreaDistance, whatIsPlayer);
@@ -285,14 +285,18 @@ public class Enemy : MonoBehaviour
         float adjustedRadius = originalRadius;
 
         // Raycast in multiple directions to find collisions
-        Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right, Vector3.up, Vector3.down };
+        Vector3[] directions = { transform.forward, -transform.forward, transform.right, -transform.right, transform.up, -transform.up };
 
         foreach (Vector3 direction in directions)
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(center, direction, out hit, originalRadius, whatIsGround))
+            if (Physics.Raycast(center, direction, out hit, originalRadius, whatIsWall))
             {
+                Debug.DrawRay(center, direction * hit.distance, Color.blue); // Add this line after the Physics.Raycast line
+                Debug.Log($"Ray hit at distance: {hit.distance}");
+
+
                 // Adjust the radius based on the distance to the hit point
                 adjustedRadius = Mathf.Min(adjustedRadius, hit.distance);
             }
