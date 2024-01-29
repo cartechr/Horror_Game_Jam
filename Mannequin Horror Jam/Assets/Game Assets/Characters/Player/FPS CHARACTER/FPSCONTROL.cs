@@ -368,12 +368,16 @@ public class FPSCONTROL : MonoBehaviour
         {
             animator.SetBool("isCrouching", true);
 
+            characterController.height = 1.5f;
+
             Debug.Log("Crouching activated");
             
         }
         else
         {
             animator.SetBool("isCrouching", false);
+
+            characterController.height = 2.5f;
 
             Debug.Log("Crouching deactivated");
         }

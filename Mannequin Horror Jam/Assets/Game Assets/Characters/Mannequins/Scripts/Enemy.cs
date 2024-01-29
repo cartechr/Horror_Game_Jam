@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     //public Transform playerTransform;
     public LayerMask whatIsGround, whatIsPlayer;
     //public Animator enemyAnimator;
-    //public StarterAssets.PlayerInputs playerInputs;
+    public FPSCONTROL playerInputs;
 
     [Header("Patrol Waypoints")]
     [Tooltip("Assign Patrol Waypoints Here")]
@@ -83,10 +83,17 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
+        playerInGreenArea = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, greenAreaDistance), whatIsPlayer);
+        playerInYellowArea = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, yellowAreaDistance), whatIsPlayer);
+        playerInRedArea = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, redAreaDistance), whatIsPlayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, attackDistance), whatIsPlayer);
+
+        /* MIGHT NEED TO REVERt BACK
         playerInGreenArea = Physics.CheckSphere(transform.position, greenAreaDistance, whatIsPlayer);
         playerInYellowArea = Physics.CheckSphere(transform.position, yellowAreaDistance, whatIsPlayer);
         playerInRedArea = Physics.CheckSphere(transform.position, redAreaDistance, whatIsPlayer);
         //playerInAttackRange = Physics.CheckSphere(transform.position, attackDistance, whatIsPlayer);
+        */
     }
 
     private void Alerted()
@@ -167,7 +174,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Player in red");
             //Chasing player to Attack (player moved)
-            /*
+            
             if (playerInputs.move != Vector2.zero)
             {
                 isSearching = false;
@@ -175,15 +182,15 @@ public class Enemy : MonoBehaviour
                 state = 2;
                 yield break;
             }
-            */
+            
         }
 
         else if (playerInYellowArea)
         {
             Debug.Log("Player in yellow");
             //Alerted (player walking)
-            /*
-            if (playerInputs.move != Vector2.zero && !playerInputs.sprint)
+            
+            if (playerInputs.move != Vector2.zero && !playerInputs.isSprinting)
             {
                 isSearching = false;
                 isDisturbed = true;
@@ -193,23 +200,34 @@ public class Enemy : MonoBehaviour
             }
 
             //Chasing player to Attack (player sprinting)
-            if (playerInputs.move != Vector2.zero && playerInputs.sprint)
+            if (playerInputs.move != Vector2.zero && playerInputs.isSprinting)
             {
                 isSearching = false;
                 isDisturbed = true;
                 state = 2;
                 yield break;
             }
-            */
+
+            //Player is crouching in yellow area, continue patrolling
+            if (playerInputs.move != Vector2.zero && playerInputs.isCrouching)
+            {
+
+                isSearching = false;
+                isDisturbed = false;
+                state = 1;
+                yield break;
+
+            }
+            
         }
 
         else if (playerInGreenArea)
         {
 
-            /*
+            
             Debug.Log("Player in green");
             //Alerted (player sprinting)
-            if (playerInputs.sprint)
+            if (playerInputs.isSprinting)
             {
                 isSearching = false;
                 isDisturbed = true;
@@ -218,7 +236,7 @@ public class Enemy : MonoBehaviour
                 yield break;
             }
 
-            */
+            
         }
 
         yield return new WaitForSeconds(searchDuration);
@@ -262,18 +280,63 @@ public class Enemy : MonoBehaviour
         //-----------
     }
 
+    private float AdjustedDetectionRadius(Vector3 center, float originalRadius)
+    {
+        float adjustedRadius = originalRadius;
+
+        // Raycast in multiple directions to find collisions
+        Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right, Vector3.up, Vector3.down };
+
+        foreach (Vector3 direction in directions)
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(center, direction, out hit, originalRadius, whatIsGround))
+            {
+                // Adjust the radius based on the distance to the hit point
+                adjustedRadius = Mathf.Min(adjustedRadius, hit.distance);
+            }
+        }
+
+        return adjustedRadius;
+    }
+
+
+
     private void OnDrawGizmos()
     {
+
+        DrawAdjustedDetectionRange(transform.position, greenAreaDistance, Color.green);
+        DrawAdjustedDetectionRange(transform.position, yellowAreaDistance, Color.yellow);
+        DrawAdjustedDetectionRange(transform.position, redAreaDistance, Color.red);
+        DrawAdjustedDetectionRange(transform.position, attackDistance, Color.magenta);
+
+        /*
         // Draw Gizmos for the detection ranges
         DrawDetectionRange(transform.position, greenAreaDistance, Color.green);
         DrawDetectionRange(transform.position, yellowAreaDistance, Color.yellow);
         DrawDetectionRange(transform.position, redAreaDistance, Color.red);
         DrawDetectionRange(transform.position, attackDistance, Color.magenta);
+        */
     }
-    private void DrawDetectionRange(Vector3 center, float radius, Color color)
+
+    private void DrawAdjustedDetectionRange(Vector3 center, float originalRadius, Color color)
     {
         Gizmos.color = color;
-        Gizmos.DrawWireSphere(center, radius);
+
+        float adjustedRadius = AdjustedDetectionRadius(center, originalRadius);
+
+        Gizmos.DrawWireSphere(center, adjustedRadius);
     }
+
+    /*
+    private void DrawDetectionRange(Vector3 center, float radius, Color color)
+    {
+
+        Gizmos.color = color;
+        Gizmos.DrawWireSphere(center, radius);
+        
+    }
+    */
 
 }
