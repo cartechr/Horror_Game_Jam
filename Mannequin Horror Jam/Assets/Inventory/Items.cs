@@ -30,5 +30,4 @@ public class Items : ScriptableObject
         Defend,
         Unlock
     }
-
 }
