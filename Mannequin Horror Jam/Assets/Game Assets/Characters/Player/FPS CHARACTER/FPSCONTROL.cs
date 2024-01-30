@@ -370,7 +370,7 @@ public class FPSCONTROL : MonoBehaviour
 
             characterController.height = 1.5f;
 
-            Debug.Log("Crouching activated");
+            //Debug.Log("Crouching activated");
             
         }
         else
@@ -379,7 +379,7 @@ public class FPSCONTROL : MonoBehaviour
 
             characterController.height = 2.5f;
 
-            Debug.Log("Crouching deactivated");
+            //Debug.Log("Crouching deactivated");
         }
 
 

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [Tooltip ("Num for State Switch")]
+    [Tooltip("Num for State Switch")]
     [SerializeField] int state;
 
 
@@ -14,10 +14,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject player;
     //[SerializeField] GameObject enemyAI;
     //public Transform playerTransform;
-    public LayerMask whatIsGround, whatIsPlayer, whatIsWall;
+    public LayerMask whatIsGround, whatIsPlayer;
     //public Animator enemyAnimator;
     public FPSCONTROL playerInputs;
-    public FieldOfView fov; //Use this for to trigger if the player is visible
 
     [Header("Patrol Waypoints")]
     [Tooltip("Assign Patrol Waypoints Here")]
@@ -30,45 +29,26 @@ public class Enemy : MonoBehaviour
     [SerializeField] float searchDuration;
 
     [Header("Distances for AI")]
-    [SerializeField] float attackDistance;
-    [SerializeField] bool playerInAttackRange;
-
-    /* CHANGING THE DISTANCE SETTINGS AND SETTING IT INSIDE FIELD OF VIEW SCRIPT
     [SerializeField] float greenAreaDistance;
     [SerializeField] float yellowAreaDistance;
     [SerializeField] float redAreaDistance;
+    [SerializeField] float attackDistance;
 
-    */
-
-    [Header("ENEMY AI SETTINGS")]
-
-    [Tooltip("If true the AI will patrol the waypoints")]
-    [SerializeField] bool setToPatrol;
-    [Tooltip("If true the AI will be harder")]
-    [SerializeField] bool maskedMannequin;
-
-    [Header("ENEMY AI STATES")]
-    [SerializeField] bool isSearching;
-    [SerializeField] bool isPatrolling;
-    [SerializeField] bool isDisturbed;
-
-    Vector3 lastKnownPlayerPosition;
-    [SerializeField] float PositionSize;
-
-    /* DISTANCE AND FOV WILL BE DETERMINED IN THE FIELD OF VIEW SCRIPT
+    [Header("States for Player & Distance")]
     [SerializeField] bool playerInGreenArea;
     [SerializeField] bool playerInYellowArea;
     [SerializeField] bool playerInRedArea;
-
-    */
-
+    [SerializeField] bool playerInAttackRange;
     //[SerializeField] bool isWaiting;
     //[SerializeField] bool isAlerted;
-
+    [SerializeField] bool isSearching;
+    [SerializeField] bool isPatrolling;
+    [SerializeField] bool isDisturbed;
     //[SerializeField] bool isChasing;
     //[SerializeField] bool isAttacking;
 
-
+    Vector3 lastKnownPlayerPosition;
+    [SerializeField] float PositionSize;
     //[SerializeField] Vector2 playerMovement;
 
 
@@ -77,8 +57,6 @@ public class Enemy : MonoBehaviour
     {
         state = 1;
         player = GameObject.FindWithTag("Player");
-
-        fov = GetComponent<FieldOfView>();
     }
 
     //Patrolling
@@ -98,21 +76,19 @@ public class Enemy : MonoBehaviour
                 Patrol();
                 break;
             case 2:
-                Chase(); 
+                Chase();
                 break;
             case 3:
                 Attack();
                 break;
         }
 
-        /*
         playerInGreenArea = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, greenAreaDistance), whatIsPlayer);
         playerInYellowArea = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, yellowAreaDistance), whatIsPlayer);
         playerInRedArea = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, redAreaDistance), whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, attackDistance), whatIsPlayer);
-        */
 
-        /* MIGHT NEED TO REVERT BACK
+        /* MIGHT NEED TO REVERt BACK
         playerInGreenArea = Physics.CheckSphere(transform.position, greenAreaDistance, whatIsPlayer);
         playerInYellowArea = Physics.CheckSphere(transform.position, yellowAreaDistance, whatIsPlayer);
         playerInRedArea = Physics.CheckSphere(transform.position, redAreaDistance, whatIsPlayer);
@@ -137,59 +113,46 @@ public class Enemy : MonoBehaviour
             Debug.Log("Alerted by player");
             this.GetComponent<NavMeshAgent>().SetDestination(lastKnownPlayerPosition);
             this.GetComponent<Animator>().SetBool("isMoving", true);
-            
         }
     }
 
 
     private void Patrol()
     {
-        if (setToPatrol)
+        if (patrolWaypoints.Length == 0)
         {
-
-            if (patrolWaypoints.Length == 0)
-            {
-                Debug.LogError("No waypoints assigned. Please assign waypoints in the inspector");
-                return;
-            }
-
-            //Stop patrolling and searching for player if currently doing so.
-            //A safe guard
-            if (isDisturbed)
-            {
-                Debug.Log("Don't patrol if attemped");
-                return;
-            }
-            if (!isSearching)
-            {
-                StartCoroutine(IsSearching());
-            }
-
-            if (!isPatrolling)
-            {
-                Debug.Log("Patrolling");
-                isPatrolling = true;
-
-                this.GetComponent<NavMeshAgent>().SetDestination(patrolWaypoints[currentWaypointIndex].position);
-                this.GetComponent<Animator>().SetBool("isMoving", true);
-            }
-            if (isPatrolling)
-            {
-                if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypointIndex].position) < 1f)
-                {
-                    StartCoroutine(WaitAtWaypoint());
-                    currentWaypointIndex = (currentWaypointIndex + 1) % patrolWaypoints.Length;
-                }
-            }
-
+            Debug.LogError("No waypoints assigned. Please assign waypoints in the inspector");
+            return;
         }
 
-        if (!setToPatrol)
+        //Stop patrolling and searching for player if currently doing so.
+        //A safe guard
+        if (isDisturbed)
+        {
+            Debug.Log("Don't patrol if attemped");
+            return;
+        }
+        if (!isSearching)
         {
             StartCoroutine(IsSearching());
         }
 
-       
+        if (!isPatrolling)
+        {
+            Debug.Log("Patrolling");
+            isPatrolling = true;
+
+            this.GetComponent<NavMeshAgent>().SetDestination(patrolWaypoints[currentWaypointIndex].position);
+            this.GetComponent<Animator>().SetBool("isMoving", true);
+        }
+        if (isPatrolling)
+        {
+            if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypointIndex].position) < 1f)
+            {
+                StartCoroutine(WaitAtWaypoint());
+                currentWaypointIndex = (currentWaypointIndex + 1) % patrolWaypoints.Length;
+            }
+        }
     }
 
     IEnumerator WaitAtWaypoint()
@@ -198,9 +161,6 @@ public class Enemy : MonoBehaviour
         this.GetComponent<Animator>().SetBool("isMoving", false);
 
         yield return new WaitForSeconds(waitBetweenWaypoints);
-        
-        IsSearching();
-
         Debug.Log("Current waypoint is " + currentWaypointIndex.ToString());
         isPatrolling = false;
 
@@ -210,11 +170,11 @@ public class Enemy : MonoBehaviour
     {
         isSearching = true;
         Debug.Log("Searching for player");
-        if (fov.canSeePlayer && !playerInputs.isCrouching)
+        if (playerInRedArea)
         {
-            Debug.Log("Player is detected!");
+            Debug.Log("Player in red");
             //Chasing player to Attack (player moved)
-            
+
             if (playerInputs.move != Vector2.zero)
             {
                 isSearching = false;
@@ -222,38 +182,14 @@ public class Enemy : MonoBehaviour
                 state = 2;
                 yield break;
             }
-            
-        }
-
-        else if (!fov.canSeePlayer)
-        {
-
-            Debug.Log("Enemy lost sight");
-
-            if (fov.playerInsideRadius && playerInputs.isSprinting)
-            {
-                isSearching = false;
-                isDisturbed = true;
-                lastKnownPlayerPosition = player.transform.position;
-                state = 0;
-                yield break;
-            }
-
 
         }
 
-        yield return new WaitForSeconds(searchDuration);
-        Debug.Log("Player not found");
-        isSearching = false;
-        isDisturbed = false;
-        state = 1;
-
-        /*
         else if (playerInYellowArea)
         {
             Debug.Log("Player in yellow");
             //Alerted (player walking)
-            
+
             if (playerInputs.move != Vector2.zero && !playerInputs.isSprinting)
             {
                 isSearching = false;
@@ -282,20 +218,37 @@ public class Enemy : MonoBehaviour
                 yield break;
 
             }
-            
+
         }
-        */
+
+        else if (playerInGreenArea)
+        {
 
 
+            Debug.Log("Player in green");
+            //Alerted (player sprinting)
+            if (playerInputs.isSprinting)
+            {
+                isSearching = false;
+                isDisturbed = true;
+                lastKnownPlayerPosition = player.transform.position;
+                state = 0;
+                yield break;
+            }
 
 
+        }
 
+        yield return new WaitForSeconds(searchDuration);
+        Debug.Log("Player not found");
+        isSearching = false;
+        isDisturbed = false;
+        state = 1;
     }
-        
 
     private void Chase()
     {
-        if (!fov.canSeePlayer)
+        if (!playerInYellowArea)
         {
             state = 0;
         }
@@ -327,24 +280,19 @@ public class Enemy : MonoBehaviour
         //-----------
     }
 
-    /*
     private float AdjustedDetectionRadius(Vector3 center, float originalRadius)
     {
         float adjustedRadius = originalRadius;
 
         // Raycast in multiple directions to find collisions
-        Vector3[] directions = { transform.forward, -transform.forward, transform.right, -transform.right, transform.up, -transform.up };
+        Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right, Vector3.up, Vector3.down };
 
         foreach (Vector3 direction in directions)
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(center, direction, out hit, originalRadius, whatIsWall))
+            if (Physics.Raycast(center, direction, out hit, originalRadius, whatIsGround))
             {
-                Debug.DrawRay(center, direction * hit.distance, Color.blue); // Add this line after the Physics.Raycast line
-                Debug.Log($"Ray hit at distance: {hit.distance}");
-
-
                 // Adjust the radius based on the distance to the hit point
                 adjustedRadius = Mathf.Min(adjustedRadius, hit.distance);
             }
@@ -352,9 +300,9 @@ public class Enemy : MonoBehaviour
 
         return adjustedRadius;
     }
-    */
 
-    /*
+
+
     private void OnDrawGizmos()
     {
 
@@ -363,13 +311,13 @@ public class Enemy : MonoBehaviour
         DrawAdjustedDetectionRange(transform.position, redAreaDistance, Color.red);
         DrawAdjustedDetectionRange(transform.position, attackDistance, Color.magenta);
 
-        
+        /*
         // Draw Gizmos for the detection ranges
         DrawDetectionRange(transform.position, greenAreaDistance, Color.green);
         DrawDetectionRange(transform.position, yellowAreaDistance, Color.yellow);
         DrawDetectionRange(transform.position, redAreaDistance, Color.red);
         DrawDetectionRange(transform.position, attackDistance, Color.magenta);
-        
+        */
     }
 
     private void DrawAdjustedDetectionRange(Vector3 center, float originalRadius, Color color)
@@ -380,7 +328,6 @@ public class Enemy : MonoBehaviour
 
         Gizmos.DrawWireSphere(center, adjustedRadius);
     }
-    */
 
     /*
     private void DrawDetectionRange(Vector3 center, float radius, Color color)

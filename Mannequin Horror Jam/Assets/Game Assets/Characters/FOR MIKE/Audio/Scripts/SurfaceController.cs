@@ -37,7 +37,7 @@ public class SurfaceController : MonoBehaviour
         foreach (RaycastHit rayhit in hit)
         {
             string layerName = LayerMask.LayerToName(rayhit.transform.gameObject.layer);
-            Debug.Log("Hit layer: " + layerName);
+            //Debug.Log("Hit layer: " + layerName);
 
             if (rayhit.transform.gameObject.layer == LayerMask.NameToLayer("Wooden Floor"))
             {
