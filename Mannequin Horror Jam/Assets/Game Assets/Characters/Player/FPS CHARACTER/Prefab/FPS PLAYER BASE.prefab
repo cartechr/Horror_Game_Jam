@@ -2925,7 +2925,7 @@ Transform:
   m_GameObject: {fileID: 6660490678434267902}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000051658, y: -0.0000000074505797, z: -0.000000014901158, w: 1}
-  m_LocalPosition: {x: 0.018000022, y: 1.1079999, z: 0.5669999}
+  m_LocalPosition: {x: 0.018001556, y: 1.1080003, z: 0.56700134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2964,7 +2964,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 500
-  field of view: 75
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -3179,7 +3179,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 75
+    FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 500
@@ -3587,11 +3587,11 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2.5
   m_Radius: 0.5
-  m_SlopeLimit: 90
+  m_SlopeLimit: 60
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.28, z: 0}
 --- !u!114 &411217561190582847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3636,9 +3636,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
-  moveSpeed: 6
-  sprintSpeed: 12
-  crouchSpeed: 4
+  moveSpeed: 4
+  sprintSpeed: 8
+  crouchSpeed: 3
   rotationSpeed: 1
   speedChangeRate: 10
   isWalking: 0
@@ -3647,13 +3647,13 @@ MonoBehaviour:
   cursorLocked: 1
   cursorInputForLook: 1
   analogMovement: 0
-  gravity: -15
-  fallSpeed: 0
+  gravity: -10
+  fallSpeed: 10
   isGrounded: 0
   groundCheckDistance: 2
   groundLayers:
     serializedVersion: 2
-    m_Bits: 15936
+    m_Bits: 15937
   FallTimeout: 0.15
   GroundedOffset: -0.14
   GroundedRadius: 1.5
