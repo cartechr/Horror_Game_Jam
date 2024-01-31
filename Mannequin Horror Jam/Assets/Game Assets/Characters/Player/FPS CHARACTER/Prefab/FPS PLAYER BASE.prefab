@@ -2925,7 +2925,7 @@ Transform:
   m_GameObject: {fileID: 6660490678434267902}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000051658, y: -0.0000000074505797, z: -0.000000014901158, w: 1}
-  m_LocalPosition: {x: 0.018001556, y: 1.1080003, z: 0.56700134}
+  m_LocalPosition: {x: 0.018001556, y: 1.108, z: 0.56700134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3540,6 +3540,8 @@ GameObject:
   - component: {fileID: 2876103857373229469}
   - component: {fileID: 4577328095673862840}
   - component: {fileID: 6036588048884451172}
+  - component: {fileID: 3194948804039063993}
+  - component: {fileID: 2169800510762866251}
   m_Layer: 7
   m_Name: FPS PLAYER BASE
   m_TagString: Player
@@ -3644,6 +3646,7 @@ MonoBehaviour:
   isWalking: 0
   isSprinting: 0
   isCrouching: 0
+  interaction: 0
   cursorLocked: 1
   cursorInputForLook: 1
   analogMovement: 0
@@ -3750,6 +3753,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3194948804039063993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7680168527663069674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c5e2f4d8c000624e90390a73a318985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  hasKey: 0
+  key: {fileID: 0}
+  interactionDistance: 3
+--- !u!114 &2169800510762866251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7680168527663069674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eeedab60b9eba9488bd9f10a87e5821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionDistance: 3
+  inventory: {fileID: 0}
 --- !u!1 &7695209899436364027
 GameObject:
   m_ObjectHideFlags: 0
