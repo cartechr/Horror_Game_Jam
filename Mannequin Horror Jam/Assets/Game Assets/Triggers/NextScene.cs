@@ -12,4 +12,19 @@ public class NextScene : MonoBehaviour
     {
         SceneManager.LoadScene(nextSceneName);
     }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(nextSceneName);
+    }
+
+    public void TerminateProgram()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+    }
+
 }

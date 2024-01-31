@@ -5,6 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Finals/MainMenu.unity
+    guid: 5c570ed310548224ab5da9ba1aa03cfc
+  - enabled: 1
+    path: Assets/Scenes/Testing/Rain Practice.unity
+    guid: 15f16ee56b0fa7944bc0741479aa5c19
   - enabled: 0
     path: Assets/Scenes/BlockOuts/Sarah's Bedroom Blockout - LEVEL 01.unity
     guid: 9a6b90c72314b404090d381a65de36ab
@@ -14,11 +20,5 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BlockOuts/Apartment Complex - LEVEL 03.unity
     guid: e96a92f31dc73c14a93513de13b0b89a
-  - enabled: 0
-    path: Assets/Scenes/Testing/Rain Practice.unity
-    guid: 15f16ee56b0fa7944bc0741479aa5c19
-  - enabled: 1
-    path: Assets/Scenes/Finals/MainMenu.unity
-    guid: 5c570ed310548224ab5da9ba1aa03cfc
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: adf6643da5c7add44aaef7c867a574ac, type: 2}
