@@ -23,6 +23,7 @@ public class FPSCONTROL : MonoBehaviour
     public bool isWalking;
     public bool isSprinting;
     public bool isCrouching;
+    public bool interaction;
 
     [Header("Mouse Cursor Settings")]
     public bool cursorLocked = true;
@@ -341,6 +342,12 @@ public class FPSCONTROL : MonoBehaviour
         }
     }
 
+    //Interaction Call
+    public void OnInteraction(InputValue value)
+    {
+        InteractionInput(value.isPressed);
+    }
+
     //Movement Input
     public void MoveInput(Vector2 newMoveDirection)
     {
@@ -385,6 +392,12 @@ public class FPSCONTROL : MonoBehaviour
 
        
     }
+
+    public void InteractionInput(bool newInteractionState)
+    {
+        interaction = newInteractionState;
+    }
+   
 
     #endregion
 
