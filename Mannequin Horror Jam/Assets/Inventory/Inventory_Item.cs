@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 public class Inventory_Item : MonoBehaviour
 {

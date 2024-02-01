@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [Tooltip ("Num for State Switch")]
+    [Tooltip("Num for State Switch")]
     [SerializeField] int state;
 
 
@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject player;
     //[SerializeField] GameObject enemyAI;
     //public Transform playerTransform;
-    public LayerMask whatIsGround, whatIsPlayer, whatIsWall;
+    public LayerMask whatIsGround, whatIsPlayer;
     //public Animator enemyAnimator;
     public FPSCONTROL playerInputs;
 
@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour
                 Patrol();
                 break;
             case 2:
-                Chase(); 
+                Chase();
                 break;
             case 3:
                 Attack();
@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour
         playerInRedArea = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, redAreaDistance), whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, AdjustedDetectionRadius(transform.position, attackDistance), whatIsPlayer);
 
-        /* MIGHT NEED TO REVERT BACK
+        /* MIGHT NEED TO REVERt BACK
         playerInGreenArea = Physics.CheckSphere(transform.position, greenAreaDistance, whatIsPlayer);
         playerInYellowArea = Physics.CheckSphere(transform.position, yellowAreaDistance, whatIsPlayer);
         playerInRedArea = Physics.CheckSphere(transform.position, redAreaDistance, whatIsPlayer);
@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour
             this.GetComponent<NavMeshAgent>().SetDestination(patrolWaypoints[currentWaypointIndex].position);
             this.GetComponent<Animator>().SetBool("isMoving", true);
         }
-        if(isPatrolling)
+        if (isPatrolling)
         {
             if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypointIndex].position) < 1f)
             {
@@ -174,7 +174,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Player in red");
             //Chasing player to Attack (player moved)
-            
+
             if (playerInputs.move != Vector2.zero)
             {
                 isSearching = false;
@@ -182,14 +182,14 @@ public class Enemy : MonoBehaviour
                 state = 2;
                 yield break;
             }
-            
+
         }
 
         else if (playerInYellowArea)
         {
             Debug.Log("Player in yellow");
             //Alerted (player walking)
-            
+
             if (playerInputs.move != Vector2.zero && !playerInputs.isSprinting)
             {
                 isSearching = false;
@@ -218,13 +218,13 @@ public class Enemy : MonoBehaviour
                 yield break;
 
             }
-            
+
         }
 
         else if (playerInGreenArea)
         {
 
-            
+
             Debug.Log("Player in green");
             //Alerted (player sprinting)
             if (playerInputs.isSprinting)
@@ -236,7 +236,7 @@ public class Enemy : MonoBehaviour
                 yield break;
             }
 
-            
+
         }
 
         yield return new WaitForSeconds(searchDuration);
@@ -285,18 +285,14 @@ public class Enemy : MonoBehaviour
         float adjustedRadius = originalRadius;
 
         // Raycast in multiple directions to find collisions
-        Vector3[] directions = { transform.forward, -transform.forward, transform.right, -transform.right, transform.up, -transform.up };
+        Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.left, Vector3.right, Vector3.up, Vector3.down };
 
         foreach (Vector3 direction in directions)
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(center, direction, out hit, originalRadius, whatIsWall))
+            if (Physics.Raycast(center, direction, out hit, originalRadius, whatIsGround))
             {
-                Debug.DrawRay(center, direction * hit.distance, Color.blue); // Add this line after the Physics.Raycast line
-                Debug.Log($"Ray hit at distance: {hit.distance}");
-
-
                 // Adjust the radius based on the distance to the hit point
                 adjustedRadius = Mathf.Min(adjustedRadius, hit.distance);
             }
