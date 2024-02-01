@@ -289,6 +289,13 @@ public class FPSCONTROL : MonoBehaviour
             {
                 animator.SetBool("crouchStrafing", false);
             }
+
+            if (move != Vector2.zero && !isCrouching)
+            {
+                isWalking = true;
+            }
+            else isWalking = false;
+
         }
         
 
