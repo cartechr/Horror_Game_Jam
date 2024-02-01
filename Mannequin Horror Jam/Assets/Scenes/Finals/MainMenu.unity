@@ -2812,7 +2812,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -2887,6 +2887,7 @@ MonoBehaviour:
   minIntensity: 0.5
   maxIntensity: 1.5
   flickerSpeed: 1
+  insteadUpdate: 0
 --- !u!1 &650328711
 GameObject:
   m_ObjectHideFlags: 0
@@ -11542,7 +11543,7 @@ Light:
   m_InnerSpotAngle: 88.8516
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -11601,7 +11602,8 @@ MonoBehaviour:
   flickeringLight: {fileID: 1783128483}
   minIntensity: 0.5
   maxIntensity: 5
-  flickerSpeed: 0.01
+  flickerSpeed: 1
+  insteadUpdate: 1
 --- !u!1 &1808938283
 GameObject:
   m_ObjectHideFlags: 0
@@ -11652,6 +11654,7 @@ MonoBehaviour:
   minIntensity: 0.5
   maxIntensity: 5
   flickerSpeed: 0.01
+  insteadUpdate: 0
 --- !u!114 &1808938286
 MonoBehaviour:
   m_ObjectHideFlags: 0

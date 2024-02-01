@@ -9,6 +9,8 @@ public class LightFlicker : MonoBehaviour
     public float maxIntensity = 1.5f;
     public float flickerSpeed = 1f;
 
+    public bool insteadUpdate;
+
     private void Start()
     {
         if (flickeringLight == null)
@@ -16,8 +18,30 @@ public class LightFlicker : MonoBehaviour
             flickeringLight = GetComponent<Light>();
         }
 
-        // Start the flickering coroutine
-        StartCoroutine(Flicker());
+        if (!insteadUpdate)
+        {
+            // Start the flickering coroutine
+            StartCoroutine(Flicker());
+        }
+
+    }
+
+    private void Update()
+    {
+        if (insteadUpdate)
+        {
+            FlickerUpdate();
+        }
+    }
+
+    void FlickerUpdate()
+    {
+
+        // Generate a random intensity within the specified range
+        float randomIntensity = Random.Range(minIntensity, maxIntensity);
+
+        flickeringLight.intensity = Mathf.Lerp(flickeringLight.intensity, randomIntensity, flickerSpeed);
+
     }
 
     private IEnumerator Flicker()
