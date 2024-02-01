@@ -16,11 +16,13 @@ public class Interaction : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            TryInteract();
+            DoorInteract();
+            NoteInteraction();
+            DialogueInteractions();
         }
     }
 
-    private void TryInteract()
+    private void DoorInteract()
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, 
             out RaycastHit hit, interactionDistance))
@@ -37,10 +39,47 @@ public class Interaction : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Door is locked, find a key");
+                        doorScript.LockedDialogue();
                     }
                 }
             }
         }
     }
+
+
+    void NoteInteraction()
+    {
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+           out RaycastHit hit, interactionDistance))
+        {
+            if (hit.collider.CompareTag("Note"))
+            {
+                var noteScript = hit.collider.GetComponent<NoteScript>();
+
+                if(noteScript != null)
+                {
+                    noteScript.ToggleNote();
+                    Debug.Log("Trying to interact with the note");
+                }
+
+            }
+        }
+    }
+
+    void DialogueInteractions()
+    {
+
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+           out RaycastHit hit, interactionDistance))
+        {
+            var dialogueScript = hit.collider.GetComponent<CommentaryScript>();
+
+            if (dialogueScript != null && !dialogueScript.inDialogue)
+            {
+                dialogueScript.DialogueStarter();
+            }
+        }
+    }
+
+
 }

@@ -24,6 +24,8 @@ public class FPSCONTROL : MonoBehaviour
     public bool isSprinting;
     public bool isCrouching;
     public bool interaction;
+    public bool disableMovement;
+    public bool disableLook;
 
     [Header("Mouse Cursor Settings")]
     public bool cursorLocked = true;
@@ -134,25 +136,29 @@ public class FPSCONTROL : MonoBehaviour
     #region Camera Controls
     void CameraRotation()
     {
-        //if there is an input
-        if(look.sqrMagnitude >= threshold && !LockCameraPosition)
+        if (!disableLook)
         {
-            //Don't multiply mouse input by Time.deltaTime
-            float deltaTimeMultiplier = 1f;
+            //if there is an input
+            if (look.sqrMagnitude >= threshold && !LockCameraPosition)
+            {
+                //Don't multiply mouse input by Time.deltaTime
+                float deltaTimeMultiplier = 1f;
 
-            cinemachineTargetPitch += look.y * rotationSpeed * deltaTimeMultiplier;
-            rotationVelocity = look.x * rotationSpeed * deltaTimeMultiplier;
+                cinemachineTargetPitch += look.y * rotationSpeed * deltaTimeMultiplier;
+                rotationVelocity = look.x * rotationSpeed * deltaTimeMultiplier;
 
-            //Clamp the pitch rotation
-            cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomClamp, topClamp);
+                //Clamp the pitch rotation
+                cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomClamp, topClamp);
 
-            //Update Cinemachine camera target pitch
-            cinemachineCamera.transform.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0f, 0f);
+                //Update Cinemachine camera target pitch
+                cinemachineCamera.transform.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0f, 0f);
 
-            //Rotate the player left and right
-            transform.Rotate(Vector3.up * rotationVelocity);
+                //Rotate the player left and right
+                transform.Rotate(Vector3.up * rotationVelocity);
 
+            }
         }
+        
     }
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -184,103 +190,107 @@ public class FPSCONTROL : MonoBehaviour
 
     void Move()
     {
-        //if the player is sprinting then use sprint speed if not then move speed
-        float targetSpeed;
+        if (!disableMovement)
+        {
+            //if the player is sprinting then use sprint speed if not then move speed
+            float targetSpeed;
 
-        if (isCrouching && !isSprinting)
-        {
-            targetSpeed = crouchSpeed;
-        }
-        else
-        {
-            
-            targetSpeed = isSprinting ? sprintSpeed : moveSpeed;
+            if (isCrouching && !isSprinting)
+            {
+                targetSpeed = crouchSpeed;
+            }
+            else
+            {
+
+                targetSpeed = isSprinting ? sprintSpeed : moveSpeed;
+            }
+
+
+            //if there is no input, set the target speed to 0
+            if (move == Vector2.zero) targetSpeed = 0f;
+
+            //a reference to the players current horizontal velocity
+            float currentHorizontalSpeed = new Vector3(characterController.velocity.x, 0f,
+                characterController.velocity.z).magnitude;
+
+            float speedOffset = 0.1f;
+
+            float inputMagnitude = analogMovement ? move.magnitude : 1f;
+
+            //accelerate or decelerate to target speed
+            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
+                currentHorizontalSpeed > targetSpeed + speedOffset)
+            {
+                //Creates curved result rather than a linear one giving a more organic speed change
+                //note T in Lerp is clamped, so we don't need to clamp our speed
+                speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed,
+                    Time.deltaTime * speedChangeRate);
+
+                //round speed to 3 decimal places
+                speed = Mathf.Round(speed * 1000f) / 1000f;
+
+            }
+            else
+            {
+                speed = targetSpeed;
+            }
+
+            animationBlend = Mathf.Lerp(animationBlend, targetSpeed, Time.deltaTime * speedChangeRate);
+            if (animationBlend < 0.01f) animationBlend = 0f;
+
+            //normalise input direction
+            Vector3 inputDirection = new Vector3(move.x, 0f, move.y).normalized;
+
+            if (move != Vector2.zero)
+            {
+                //move 
+                inputDirection = transform.right * move.x + transform.forward * move.y;
+            }
+
+            //move the player
+            characterController.Move(inputDirection.normalized * (speed * Time.deltaTime)
+                + new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime);
+
+            if (hasAnimator)
+            {
+                animator.SetFloat(animIDSpeed, animationBlend);
+                animator.SetFloat(animIDMotionSpeed, inputMagnitude);
+            }
+
+
+            if (move.y == -1 && !isCrouching)
+            {
+                animator.SetBool("standingBackwards", true);
+            }
+
+            if (move.y >= 0 && !isCrouching)
+            {
+                animator.SetBool("standingBackwards", false);
+            }
+
+            float strafeValue = move.x;
+
+            if (move.x < 0 || move.x > 0)
+            {
+                animator.SetBool("Strafing", true);
+                animator.SetFloat("StrafeValue", strafeValue);
+            }
+            else
+            {
+                animator.SetBool("Strafing", false);
+            }
+
+            if (move.x < 0 || move.x > 0 && isCrouching)
+            {
+                animator.SetBool("crouchStrafing", true);
+                animator.SetFloat("StrafeValue", strafeValue);
+            }
+            else
+            {
+                animator.SetBool("crouchStrafing", false);
+            }
         }
         
-
-        //if there is no input, set the target speed to 0
-        if (move == Vector2.zero) targetSpeed = 0f;
-
-        //a reference to the players current horizontal velocity
-        float currentHorizontalSpeed = new Vector3(characterController.velocity.x, 0f, 
-            characterController.velocity.z).magnitude;
-
-        float speedOffset = 0.1f;
-
-        float inputMagnitude = analogMovement ? move.magnitude : 1f;
-
-        //accelerate or decelerate to target speed
-        if(currentHorizontalSpeed < targetSpeed - speedOffset ||
-            currentHorizontalSpeed > targetSpeed + speedOffset)
-        {
-            //Creates curved result rather than a linear one giving a more organic speed change
-            //note T in Lerp is clamped, so we don't need to clamp our speed
-            speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed,
-                Time.deltaTime * speedChangeRate);
-
-            //round speed to 3 decimal places
-            speed = Mathf.Round(speed * 1000f) / 1000f;
-
-        }
-        else
-        {
-            speed = targetSpeed;
-        }
-
-        animationBlend = Mathf.Lerp(animationBlend, targetSpeed, Time.deltaTime * speedChangeRate);
-        if (animationBlend < 0.01f) animationBlend = 0f;
-
-        //normalise input direction
-        Vector3 inputDirection = new Vector3(move.x, 0f, move.y).normalized;
-
-        if(move != Vector2.zero)
-        {
-            //move 
-            inputDirection = transform.right * move.x + transform.forward * move.y;
-        }
-
-        //move the player
-        characterController.Move(inputDirection.normalized * (speed * Time.deltaTime) 
-            + new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime);
-
-        if (hasAnimator)
-        {
-            animator.SetFloat(animIDSpeed, animationBlend);
-            animator.SetFloat(animIDMotionSpeed, inputMagnitude);
-        }
-
-
-        if (move.y == -1 && !isCrouching)
-        {
-            animator.SetBool("standingBackwards", true);
-        }
-        
-        if(move.y >= 0 && !isCrouching)
-        {
-            animator.SetBool("standingBackwards", false);
-        }
-
-        float strafeValue = move.x;
-
-        if(move.x < 0 || move.x > 0)
-        {
-            animator.SetBool("Strafing", true);
-            animator.SetFloat("StrafeValue", strafeValue);
-        }
-        else
-        {
-            animator.SetBool("Strafing", false);
-        }
-
-        if (move.x < 0 || move.x > 0 && isCrouching)
-        {
-            animator.SetBool("crouchStrafing", true);
-            animator.SetFloat("StrafeValue", strafeValue);
-        }
-        else
-        {
-            animator.SetBool("crouchStrafing", false);
-        }
 
     }
 
