@@ -1,304 +1,380 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using StarterAssets;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class EnemyController : MonoBehaviour
 {
+    [Header("Current State")]
+    [Tooltip("Current State Number")]
+    [SerializeField] int state;
+    [Tooltip("Current State Name")]
+    [SerializeField] string Name;
 
-    [Header("Assignments")]
-    public NavMeshAgent navMeshAgent;
-    public GameObject player;
-    public GameObject enemyAI;
-    public Transform playerTransform;
-    public LayerMask whatIsGround, whatIsPlayer;
-    public Animator enemyAnimator;
-    //public StarterAssets.PlayerInputs playerInputs;
+    [Space(10)]
+    [Header("AI Variables")]
+    [Tooltip("Time in which AI is in idle state")]
+    [SerializeField] float idleTime;
+    [Tooltip("How close should AI get to point before idling?")]
+    [SerializeField] float WhenAtIdlePoint;
+    [Tooltip("How close should Ai get to player before attacking")]
+    [SerializeField] float WhenAtPlayer;
 
-    [Header("Patrol Waypoints")]
+    [Space(10)]
+    [Tooltip("Current Assigned Waypoint")]
+    [SerializeField] int currentWaypoint;
     [Tooltip("Assign Patrol Waypoints Here")]
-    public Transform[] patrolWaypoints;
-    [Tooltip("Shows the index number of current waypoint")]
-    public int currentWaypointIndex;
-    [Tooltip("The waiting period once a waypoint is reached")]
-    public float waitBetweenWaypoints;
-    [Tooltip("Duration for search function when alerted")]
-    public float searchDuration;
+    [SerializeField] Transform[] patrolWaypoints;
 
-    [Header("Distances for AI")]
-    public float greenAreaDistance;
-    public float yellowAreaDistance;
-    public float redAreaDistance;
-    public float attackDistance;
+    [Space(10)]
+    [Header("Player Detection")]
+    [Tooltip("Reference to Player (DONT ADD ANYTHING HERE)")]
+    public GameObject playerRef;
+    [Tooltip("Player Layer Mask")]
+    public LayerMask targetMask;
+    [Tooltip("Wall Layer Mask")]
+    public LayerMask wallMask;
 
-    [Header("States for Player & Distance")]
-    public bool playerInGreenArea;
-    public bool playerInYellowArea;
-    public bool playerInRedArea;
-    public bool playerInAttackRange;
-    public bool isWaiting;
-    public bool isAlerted;
-    public bool isSearching;
-    public bool isPatrolling;
-    public bool isChasing;
-    public bool isAttacking;
+    [Space(15)]
+    [Header("Radius")]
+    public float radiusRed;
+    public bool inRed;
+    public float radiusYellow;
+    public bool inYellow;
+    public float radiusGreen;
+    public bool inGreen;
 
-    [SerializeField] Vector2 playerMovement;
+    public float radiusAttack;
+    public bool inAttack;
 
-    Vector3 lastKnownPlayerPosition;
-    
+    Transform lastknownlocation;
 
-    private void Awake()
-    {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        playerTransform = GameObject.FindWithTag("Player").transform;
-        currentWaypointIndex = 0;
 
-    }
+    [Space(10)]
+    [Header("FPS Controller")]
+    [Tooltip("DONT ADD ANYTHING HERE")]
+    public FPSCONTROL fpscontroller;
+    Animator animator;
+    NavMeshAgent agent;
 
     private void Start()
     {
-        
+       // state = 1;
+        playerRef = GameObject.FindGameObjectWithTag("Player");
+        fpscontroller = playerRef.GetComponent<FPSCONTROL>();
+        StartCoroutine(SearchRoutine());
+        animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
     }
-
     private void Update()
     {
-        //playerMovement = playerInputs.move;
-
-        playerInGreenArea = Physics.CheckSphere(transform.position, greenAreaDistance, whatIsPlayer);
-        playerInYellowArea = Physics.CheckSphere(transform.position, yellowAreaDistance, whatIsPlayer);
-        playerInRedArea = Physics.CheckSphere(transform.position, redAreaDistance, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackDistance, whatIsPlayer);
-
-        if (isPatrolling && !isAlerted && !isSearching)
+        switch (state)
         {
-            Patrolling();
-        }
-
-        if (!isPatrolling)
-        {
-            enemyAnimator.SetBool("isMoving", false);
-        }
-
-        if (playerInGreenArea) //Player enters the green area
-        {
-            Debug.Log("Player is in Green Area");
-
-            CheckForSprinting();
-
-        }
-
-        if(isAlerted)
-        {
-            StopCoroutine(IsSearching());
-            StopCoroutine(WaitAtWaypoint());
-            GoToLastKnownLocation();
-
-        }
-
-        if (isSearching)
-        {
-            StartCoroutine(IsSearching());
-        }
-
-        if (playerInYellowArea)
-        {
-            /*
-
-            if (!playerInputs.crouching)
-            {
+            case 1:
+                Patrol();
+                Name = "Patrol";
+                break;
+            case 2:
+                Idle();
+                Name = "Idle";
+                break;
+            case 3:
+                Alerted();
+                Name = "Alerted";
+                break;
+            case 4:
                 Chase();
+                Name = "Chase";
+                break;
+            case 5:
+                Attack();
+                Name = "Attack";
+                break;
+            case 6:
+                Stunned();
+                Name = "Stunned";
+                break;
+        }
+    }
+
+    private IEnumerator SearchRoutine()
+    {
+        WaitForSeconds wait = new WaitForSeconds(0.1f);
+
+        while (true)
+        {
+            yield return wait;
+            SearchCheck();
+        }
+    }
+
+    private void SearchCheck()
+    {
+        Transform target;
+        Vector3 directionToTarget;
+        float distanceToTarget;
+        
+        Collider[] greenChecks = Physics.OverlapSphere(transform.position, radiusGreen, targetMask);
+        Collider[] yellowChecks = Physics.OverlapSphere(transform.position, radiusYellow, targetMask);
+        Collider[] redChecks = Physics.OverlapSphere(transform.position, radiusRed, targetMask);
+        Collider[] attackChecks = Physics.OverlapSphere(transform.position, radiusAttack, targetMask);
+
+
+
+        //Green Area
+        if (greenChecks.Length != 0 && yellowChecks.Length == 0 && redChecks.Length == 0 && attackChecks.Length == 0)
+        {
+            target = greenChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inGreen = true;
+                SeePlayer();
+            }
+            else
+            {
+                inGreen = false;
+            }
+        }
+        else if (inGreen)
+        {
+            inGreen = false;
+        }
+
+        //Yellow Area
+        if (yellowChecks.Length != 0 && redChecks.Length == 0 && attackChecks.Length == 0)
+        {
+            target = yellowChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inYellow = true;
+                SeePlayer();
+            }
+            else
+            {
+                inYellow = false;
+            }
+        }
+        else if (inYellow)
+        {
+            inYellow = false;
+        }
+
+        //Red Area
+        if (redChecks.Length != 0 && attackChecks.Length == 0 && attackChecks.Length == 0)
+        {
+            target = redChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inRed = true;
+                SeePlayer();
+            }
+            else
+            {
+                inRed = false;
+            }
+        }
+        else if (inRed)
+        {
+            inRed = false;
+        }
+
+        if (attackChecks.Length != 0)
+        {
+            target = attackChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inAttack = true;
+            }
+            else
+            {
+                inAttack = false;
+            }
+        }
+        else if (inAttack)
+        {
+            inGreen = false;
+        }
+
+    }
+
+    private void SeePlayer()
+    {
+        if (state == 1 || state == 2 || state == 3)
+        {
+            //Debug.Log("Can Find Player");
+            if (inGreen)
+            {
+                //Alerted
+                if (fpscontroller.isSprinting)
+                {
+                    lastknownlocation = playerRef.transform;
+                    state = 3;
+                    Debug.Log("Alerted");
+                }
             }
 
-            */
+            if (inYellow)
+            {
+                //Alerted
+                if (fpscontroller.isWalking)
+                {
+                    lastknownlocation = playerRef.transform;
+                    state = 3;
+                    Debug.Log("Alerted");
+                }
 
-        }
+                //Chase
+                if (fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
+                {
+                    state = 4;
+                    Debug.Log("Chasing");
+                }
+            }
 
-    }
-    #region SprintCheck
-    void CheckForSprinting()
-    {
-        //Check if the player is sprinting
-        /*
-        if (playerInputs.sprint == true && playerMovement != Vector2.zero)
-        {
-
-            Debug.Log("Sprint is detected in Green Area");
-            isPatrolling = false;
-            Debug.Log("AI is no longer patrolling");
-            Debug.Log("isPatrolling " + isPatrolling);
-
-            lastKnownPlayerPosition = playerTransform.position;
-            Debug.Log("Player Last Known location memorized ");
-
-            isAlerted = true;
-            Debug.Log("isAlerted " + isAlerted);
-
-        }
-        */
-    }
-    #endregion
-
-    #region Go To Last Known Location
-    void GoToLastKnownLocation()
-    {
-        Debug.Log("AI is going towards the last known location");
-
-        enemyAnimator.SetBool("isMoving", true);
-
-        // Re-calculate path
-        navMeshAgent.CalculatePath(lastKnownPlayerPosition, navMeshAgent.path);
-
-        //Set destination to last known location
-        navMeshAgent.SetDestination(lastKnownPlayerPosition);
-        Debug.Log("Enemy is moving towards player last known location");
-
-        // Check if the agent has reached its destination
-        if (!navMeshAgent.pathPending && !navMeshAgent.hasPath && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-        {
-            // Agent has reached the destination
-            Debug.Log("Enemy reached destination");
-            enemyAnimator.SetBool("isMoving", false);
-
-            isSearching = true;
-            Debug.Log("Searching for player in the area");
-
+            if (inRed)
+            {
+                //Chase
+                if (fpscontroller.isWalking || fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
+                {
+                    state = 4;
+                    Debug.Log("Chasing");
+                }
+            }
         }
     }
-    #endregion
 
-    #region Searching for the Player
-    IEnumerator IsSearching()
+   private void Patrol()
     {
-
-        float elapsedTime = 0f;
-        while (elapsedTime < searchDuration)
+        if (state != 1)
         {
-
-            elapsedTime += Time.deltaTime;
-
-            Debug.Log("AI is searching at the location...");
-            CheckForSprinting();
-
-
-            yield return null;
-
-
-        }
-        Debug.Log("Searching is done cancelling alerted state");
-        isSearching = false;
-        isAlerted = false;
-        isPatrolling = true;
-        Debug.Log("Back to patrolling");
-
-    }
-
-    #endregion
-
-    void Chase()
-    {
-        enemyAnimator.SetBool("isMoving", true);
-        Debug.Log("AI is Chasing");
-        Debug.Log("Stopping Searching");
-        isSearching = false;
-        isChasing = true;
-        Vector3 lastKnownPlayerPosition = playerTransform.position;
-        navMeshAgent.SetDestination(lastKnownPlayerPosition);
-
-    }
-
-    void Attack()
-    {
-        Debug.Log("AI is Attacking");
-    }
-
-    void Patrolling()
-    {
-        Debug.Log("AI is Patrolling");
-        // Check if there are waypoints
-        if (patrolWaypoints.Length == 0)
-        {
-            Debug.LogError("No waypoints assigned. Please assign waypoints in the inspector.");
             return;
         }
 
-        if(!isAlerted || !isSearching)
+        if (patrolWaypoints.Length == 0)
         {
-            // Set destination to the current waypoint
-            navMeshAgent.SetDestination(patrolWaypoints[currentWaypointIndex].position);
-            enemyAnimator.SetBool("isMoving", true);
+            Debug.LogError("No waypoints assigned. Please assign waypoints in the inspector");
+            return;
+        }
 
-            // Check if the enemy has reached the current waypoint
-            if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypointIndex].position) < 1f)
+        agent.SetDestination(patrolWaypoints[currentWaypoint].position);
+        animator.SetBool("isMoving", true);
+
+        if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position) < WhenAtIdlePoint)
+        {
+            currentWaypoint = (currentWaypoint + 1) % patrolWaypoints.Length;
+            //Debug.Log("Current Waypoint is " + currentWaypoint);
+            this.GetComponent<Animator>().SetBool("isMoving", false);
+
+            state = 2;
+        }
+    }
+
+    private void Idle()
+    {
+        IEnumerator waitCoroutine = WaitThenPatrol();
+        
+        //start timer, will transition when it ends
+        StartCoroutine(waitCoroutine);
+    }
+    IEnumerator WaitThenPatrol()
+    {
+            //float timer = idleTime;
+            for (float timeWaited = 0f; timeWaited <= idleTime; timeWaited += Time.deltaTime)
             {
-                //Wait at waypoint
-                StartCoroutine(WaitAtWaypoint());
-
-                // Move to the next waypoint
-                currentWaypointIndex = (currentWaypointIndex + 1) % patrolWaypoints.Length;
-
+            //Debug.Log(timeWaited);
+                if (state != 2)
+                {
+                    yield break;
+                }
+            yield return new WaitForSeconds(Time.deltaTime);
             }
 
-
-
-        }
-
-
-
-        /*
-        // Check if the enemy has reached the current waypoint
-        if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypointIndex].position) < 1f)
+    if (state == 2)
         {
-            //Wait at waypoint
-            StartCoroutine(WaitAtWaypoint());
-            // Move to the next waypoint
-            currentWaypointIndex = (currentWaypointIndex + 1) % patrolWaypoints.Length;
+            state = 1;
         }
-        */
     }
 
-    IEnumerator WaitAtWaypoint()
+    private void Alerted()
     {
-        isPatrolling = false;
-        Debug.Log("Waiting at waypoint...");
-
-        //Wait for the specified time
-        float elapsedTime = 0f;
-        while (elapsedTime < waitBetweenWaypoints)
+        if (state != 3)
         {
-            enemyAnimator.SetBool("isMoving", false);
-            elapsedTime += Time.deltaTime;
-            
-            yield return null;
-
+            return;
         }
 
-        Debug.Log("Finished waiting at waypoint");
+        agent.SetDestination(lastknownlocation.position);
+        animator.SetBool("isMoving", true);
 
-        // Set destination to the new waypoint
-        navMeshAgent.SetDestination(patrolWaypoints[currentWaypointIndex].position);
-        enemyAnimator.SetBool("isMoving", true);
+        if (Vector3.Distance(transform.position, lastknownlocation.position) < WhenAtIdlePoint)
+        {
+            this.GetComponent<Animator>().SetBool("isMoving", false);
 
-        isPatrolling = true;
+           // if (state != 4)
+            state = 2;
+        }
     }
 
-
-
-    private void OnDrawGizmos()
+    private void Chase()
     {
-        // Draw Gizmos for the detection ranges
-        DrawDetectionRange(transform.position, greenAreaDistance, Color.green);
-        DrawDetectionRange(transform.position, yellowAreaDistance, Color.yellow);
-        DrawDetectionRange(transform.position, redAreaDistance, Color.red);
-        DrawDetectionRange(transform.position, attackDistance, Color.magenta);
-    }
-    private void DrawDetectionRange(Vector3 center, float radius, Color color)
-    {
-        Gizmos.color = color;
-        Gizmos.DrawWireSphere(center, radius);
+        if (state != 4)
+        {
+            return;
+        }
+
+        agent.SetDestination(playerRef.transform.position);
+        animator.SetBool("isWalking", true);
+
+        if (Vector3.Distance(transform.position, playerRef.transform.position) < WhenAtPlayer)
+        {
+            Debug.Log("Attack Player");
+            agent.SetDestination(transform.position);
+            animator.SetBool("isWalking", false);
+
+            state = 5;
+        }
     }
 
+    private void Attack()
+    {
+        if (state != 5)
+        {
+            return;
+        }
+
+         
+
+        fpscontroller.disableLook = true;
+        fpscontroller.disableMovement = true;
+
+        playerRef.transform.LookAt(transform.position);
+        animator.SetBool("isAttack", true);
+    }
+
+    private void Stunned()
+    {
+        if (state != 6)
+        {
+            return;
+        }
+    }
 }
