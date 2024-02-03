@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using StarterAssets;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,11 +20,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField] string Name;
 
     [Space(10)]
-    [Header("Patrol Variables")]
+    [Header("AI Variables")]
     [Tooltip("Time in which AI is in idle state")]
     [SerializeField] float idleTime;
-    [Tooltip("Duration for search function when alerted")]
-    [SerializeField] float searchDuration;
+    [Tooltip("How close should AI get to point before idling?")]
+    [SerializeField] float WhenAtIdlePoint;
+    [Tooltip("How close should Ai get to player before attacking")]
+    [SerializeField] float WhenAtPlayer;
 
     [Space(10)]
     [Tooltip("Current Assigned Waypoint")]
@@ -31,21 +36,43 @@ public class EnemyController : MonoBehaviour
 
     [Space(10)]
     [Header("Player Detection")]
-    [Tooltip("Reference to Player")]
+    [Tooltip("Reference to Player (DONT ADD ANYTHING HERE)")]
     public GameObject playerRef;
-    [Tooltip("Can AI see player?")]
-    public bool canSeePlayer;
     [Tooltip("Player Layer Mask")]
     public LayerMask targetMask;
     [Tooltip("Wall Layer Mask")]
     public LayerMask wallMask;
-    public float radius;
+
+    [Space(15)]
+    [Header("Radius")]
+    public float radiusRed;
+    public bool inRed;
+    public float radiusYellow;
+    public bool inYellow;
+    public float radiusGreen;
+    public bool inGreen;
+
+    public float radiusAttack;
+    public bool inAttack;
+
+    Transform lastknownlocation;
+
+
+    [Space(10)]
+    [Header("FPS Controller")]
+    [Tooltip("DONT ADD ANYTHING HERE")]
+    public FPSCONTROL fpscontroller;
+    Animator animator;
+    NavMeshAgent agent;
 
     private void Start()
     {
-        state = 1;
+       // state = 1;
         playerRef = GameObject.FindGameObjectWithTag("Player");
+        fpscontroller = playerRef.GetComponent<FPSCONTROL>();
         StartCoroutine(SearchRoutine());
+        animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
     }
     private void Update()
     {
@@ -91,73 +118,200 @@ public class EnemyController : MonoBehaviour
 
     private void SearchCheck()
     {
-        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
+        Transform target;
+        Vector3 directionToTarget;
+        float distanceToTarget;
+        
+        Collider[] greenChecks = Physics.OverlapSphere(transform.position, radiusGreen, targetMask);
+        Collider[] yellowChecks = Physics.OverlapSphere(transform.position, radiusYellow, targetMask);
+        Collider[] redChecks = Physics.OverlapSphere(transform.position, radiusRed, targetMask);
+        Collider[] attackChecks = Physics.OverlapSphere(transform.position, radiusAttack, targetMask);
 
-        if(rangeChecks.Length != 0)
+
+
+        //Green Area
+        if (greenChecks.Length != 0 && yellowChecks.Length == 0 && redChecks.Length == 0 && attackChecks.Length == 0)
         {
-            Transform target = rangeChecks[0].transform;
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            target = greenChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
 
             if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
             {
-                canSeePlayer = true;
+                inGreen = true;
+                SeePlayer();
             }
             else
             {
-                canSeePlayer = false;
+                inGreen = false;
             }
         }
-        else if (canSeePlayer)
+        else if (inGreen)
         {
-            canSeePlayer= false;
+            inGreen = false;
         }
-        
+
+        //Yellow Area
+        if (yellowChecks.Length != 0 && redChecks.Length == 0 && attackChecks.Length == 0)
+        {
+            target = yellowChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inYellow = true;
+                SeePlayer();
+            }
+            else
+            {
+                inYellow = false;
+            }
+        }
+        else if (inYellow)
+        {
+            inYellow = false;
+        }
+
+        //Red Area
+        if (redChecks.Length != 0 && attackChecks.Length == 0 && attackChecks.Length == 0)
+        {
+            target = redChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inRed = true;
+                SeePlayer();
+            }
+            else
+            {
+                inRed = false;
+            }
+        }
+        else if (inRed)
+        {
+            inRed = false;
+        }
+
+        if (attackChecks.Length != 0)
+        {
+            target = attackChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inAttack = true;
+            }
+            else
+            {
+                inAttack = false;
+            }
+        }
+        else if (inAttack)
+        {
+            inGreen = false;
+        }
+
+    }
+
+    private void SeePlayer()
+    {
+        if (state == 1 || state == 2 || state == 3)
+        {
+            //Debug.Log("Can Find Player");
+            if (inGreen)
+            {
+                //Alerted
+                if (fpscontroller.isSprinting)
+                {
+                    lastknownlocation = playerRef.transform;
+                    state = 3;
+                    Debug.Log("Alerted");
+                }
+            }
+
+            if (inYellow)
+            {
+                //Alerted
+                if (fpscontroller.isWalking)
+                {
+                    lastknownlocation = playerRef.transform;
+                    state = 3;
+                    Debug.Log("Alerted");
+                }
+
+                //Chase
+                if (fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
+                {
+                    state = 4;
+                    Debug.Log("Chasing");
+                }
+            }
+
+            if (inRed)
+            {
+                //Chase
+                if (fpscontroller.isWalking || fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
+                {
+                    state = 4;
+                    Debug.Log("Chasing");
+                }
+            }
+        }
     }
 
    private void Patrol()
     {
+        if (state != 1)
+        {
+            return;
+        }
+
         if (patrolWaypoints.Length == 0)
         {
             Debug.LogError("No waypoints assigned. Please assign waypoints in the inspector");
             return;
         }
 
-        Debug.Log("Patrolling");
-        this.GetComponent<NavMeshAgent>().SetDestination(patrolWaypoints[currentWaypoint].position);
-        this.GetComponent<Animator>().SetBool("isMoving", true);
+        agent.SetDestination(patrolWaypoints[currentWaypoint].position);
+        animator.SetBool("isMoving", true);
 
-        if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position) < 1.2f)
+        if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position) < WhenAtIdlePoint)
         {
             currentWaypoint = (currentWaypoint + 1) % patrolWaypoints.Length;
-            Debug.Log("Current Waypoint is " + currentWaypoint);
+            //Debug.Log("Current Waypoint is " + currentWaypoint);
             this.GetComponent<Animator>().SetBool("isMoving", false);
 
             state = 2;
         }
-
     }
 
     private void Idle()
     {
-        if (state != 2)
-        {
-            return;
-        }
-
-        StartCoroutine(WaitAtWayPoint());
+        IEnumerator waitCoroutine = WaitThenPatrol();
+        
+        //start timer, will transition when it ends
+        StartCoroutine(waitCoroutine);
     }
-    IEnumerator WaitAtWayPoint()
+    IEnumerator WaitThenPatrol()
     {
-        if (state == 2)
+            //float timer = idleTime;
+            for (float timeWaited = 0f; timeWaited <= idleTime; timeWaited += Time.deltaTime)
+            {
+            //Debug.Log(timeWaited);
+                if (state != 2)
+                {
+                    yield break;
+                }
+            yield return new WaitForSeconds(Time.deltaTime);
+            }
+
+    if (state == 2)
         {
-            Debug.Log("Waiting " + idleTime + " seconds");
-            yield return new WaitForSeconds(idleTime);
             state = 1;
-        }
-        else
-        {
-            yield break;
         }
     }
 
@@ -167,6 +321,17 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
+
+        agent.SetDestination(lastknownlocation.position);
+        animator.SetBool("isMoving", true);
+
+        if (Vector3.Distance(transform.position, lastknownlocation.position) < WhenAtIdlePoint)
+        {
+            this.GetComponent<Animator>().SetBool("isMoving", false);
+
+           // if (state != 4)
+            state = 2;
+        }
     }
 
     private void Chase()
@@ -174,6 +339,18 @@ public class EnemyController : MonoBehaviour
         if (state != 4)
         {
             return;
+        }
+
+        agent.SetDestination(playerRef.transform.position);
+        animator.SetBool("isWalking", true);
+
+        if (Vector3.Distance(transform.position, playerRef.transform.position) < WhenAtPlayer)
+        {
+            Debug.Log("Attack Player");
+            agent.SetDestination(transform.position);
+            animator.SetBool("isWalking", false);
+
+            state = 5;
         }
     }
 
@@ -183,6 +360,14 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
+
+         
+
+        fpscontroller.disableLook = true;
+        fpscontroller.disableMovement = true;
+
+        playerRef.transform.LookAt(transform.position);
+        animator.SetBool("isAttack", true);
     }
 
     private void Stunned()
