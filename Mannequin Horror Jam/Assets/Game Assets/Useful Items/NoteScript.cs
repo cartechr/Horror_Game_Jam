@@ -15,7 +15,8 @@ public class NoteScript : MonoBehaviour
     [Tooltip("Assign Relevant Note UI element withing player to here")]
     [SerializeField] TextMeshProUGUI noteTextUI;
 
-    FPSCONTROL fpsControl;
+    [Tooltip("Assign FPS Control Here")]
+    public FPSCONTROL fpsControl;
 
     bool noteIsOpen = false;
 

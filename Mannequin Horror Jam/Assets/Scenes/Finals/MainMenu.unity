@@ -4450,6 +4450,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729aad4491e915a41bda2b8325cf757a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 0}
 --- !u!1 &916083807
 GameObject:
   m_ObjectHideFlags: 0
@@ -10565,7 +10570,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 0.0.8
+  m_text: 'Version 0.0.9
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13622,7 +13629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f36bb906177098f4ba3f74640014d509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: Rain Practice
+  nextSceneName: Sarah's Bedroom Final Level
 --- !u!4 &543450653344633961
 Transform:
   m_ObjectHideFlags: 0

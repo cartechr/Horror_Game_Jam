@@ -29,6 +29,15 @@ public class DoorScript : MonoBehaviour
         
     }
 
+    void TryGetComponent()
+    {
+        if(inventory == null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            inventory = player.GetComponent<BasicInventory>();
+        }
+    }
+
     private void Update()
     {
         if (isOpening)
@@ -41,6 +50,9 @@ public class DoorScript : MonoBehaviour
             // Close the door
             transform.rotation = Quaternion.Lerp(transform.rotation, initialRotation, openSpeed * Time.deltaTime);
         }
+
+        TryGetComponent();
+
     }
 
     public void ToggleDoor()
