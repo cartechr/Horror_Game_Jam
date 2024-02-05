@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] int state;
     [Tooltip("Current State Name")]
     [SerializeField] string Name;
+    [Tooltip("A bool that checks if a state switch has occured")]
+    [SerializeField] bool switchState;
 
     [Space(10)]
     [Header("AI Variables")]
@@ -25,8 +27,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float idleTime;
     [Tooltip("How close should AI get to point before idling?")]
     [SerializeField] float WhenAtIdlePoint;
-    [Tooltip("How close should Ai get to player before attacking")]
-    [SerializeField] float WhenAtPlayer;
 
     [Space(10)]
     [Tooltip("Current Assigned Waypoint")]
@@ -68,6 +68,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
        // state = 1;
+       // switchState = true;
         playerRef = GameObject.FindGameObjectWithTag("Player");
         fpscontroller = playerRef.GetComponent<FPSCONTROL>();
         StartCoroutine(SearchRoutine());
@@ -212,7 +213,7 @@ public class EnemyController : MonoBehaviour
         }
         else if (inAttack)
         {
-            inGreen = false;
+            inAttack = false;
         }
 
     }
@@ -229,6 +230,7 @@ public class EnemyController : MonoBehaviour
                 {
                     lastknownlocation = playerRef.transform;
                     state = 3;
+                    switchState = true;
                     Debug.Log("Alerted");
                 }
             }
@@ -240,6 +242,7 @@ public class EnemyController : MonoBehaviour
                 {
                     lastknownlocation = playerRef.transform;
                     state = 3;
+                    switchState = true;
                     Debug.Log("Alerted");
                 }
 
@@ -247,6 +250,7 @@ public class EnemyController : MonoBehaviour
                 if (fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
                 {
                     state = 4;
+                    switchState = true;
                     Debug.Log("Chasing");
                 }
             }
@@ -257,6 +261,7 @@ public class EnemyController : MonoBehaviour
                 if (fpscontroller.isWalking || fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
                 {
                     state = 4;
+                    switchState = true;
                     Debug.Log("Chasing");
                 }
             }
@@ -264,20 +269,18 @@ public class EnemyController : MonoBehaviour
     }
 
    private void Patrol()
-    {
-        if (state != 1)
-        {
-            return;
-        }
-
+   {
         if (patrolWaypoints.Length == 0)
         {
             Debug.LogError("No waypoints assigned. Please assign waypoints in the inspector");
             return;
         }
 
-        agent.SetDestination(patrolWaypoints[currentWaypoint].position);
-        animator.SetBool("isMoving", true);
+        if (switchState)
+        {
+            agent.SetDestination(patrolWaypoints[currentWaypoint].position);
+            animator.SetBool("isMoving", true);
+        }
 
         if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position) < WhenAtIdlePoint)
         {
@@ -287,6 +290,8 @@ public class EnemyController : MonoBehaviour
 
             state = 2;
         }
+
+        switchState = false;
     }
 
     private void Idle()
@@ -312,56 +317,51 @@ public class EnemyController : MonoBehaviour
     if (state == 2)
         {
             state = 1;
+            switchState = true;
         }
     }
 
     private void Alerted()
     {
-        if (state != 3)
+        if (switchState)
         {
-            return;
+            agent.SetDestination(lastknownlocation.position);
+            animator.SetBool("isMoving", true);
         }
-
-        agent.SetDestination(lastknownlocation.position);
-        animator.SetBool("isMoving", true);
 
         if (Vector3.Distance(transform.position, lastknownlocation.position) < WhenAtIdlePoint)
         {
             this.GetComponent<Animator>().SetBool("isMoving", false);
 
-           // if (state != 4)
             state = 2;
+            switchState = true;
         }
+        switchState = false;
     }
 
     private void Chase()
     {
-        if (state != 4)
+        if (switchState)
         {
-            return;
+            agent.SetDestination(playerRef.transform.position);
+            animator.SetBool("isWalking", true);
         }
 
-        agent.SetDestination(playerRef.transform.position);
-        animator.SetBool("isWalking", true);
-
-        if (Vector3.Distance(transform.position, playerRef.transform.position) < WhenAtPlayer)
+        if (Vector3.Distance(transform.position, playerRef.transform.position) < radiusAttack)
         {
             Debug.Log("Attack Player");
             agent.SetDestination(transform.position);
             animator.SetBool("isWalking", false);
 
             state = 5;
+            switchState = true;
         }
+
+        switchState = false;
     }
 
     private void Attack()
     {
-        if (state != 5)
-        {
-            return;
-        }
-
-         
 
         fpscontroller.disableLook = true;
         fpscontroller.disableMovement = true;
