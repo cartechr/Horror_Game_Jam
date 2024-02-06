@@ -24,6 +24,7 @@ public class PostProcessing : MonoBehaviour
     public LayerMask layerMask;
 
     static float t = 0.0f; //starting value for the Lerp
+    float maxDistance = 100f;
 
 
 
@@ -55,6 +56,22 @@ public class PostProcessing : MonoBehaviour
             depthOfField.focusDistance.value = distanceBetween;
 
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance, layerMask))
+        {
+            // Draw the raycast
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * hit.distance);
+
+            // Draw a sphere at the hit point
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(hit.point, 0.1f);
+        }
+
     }
 
 }
