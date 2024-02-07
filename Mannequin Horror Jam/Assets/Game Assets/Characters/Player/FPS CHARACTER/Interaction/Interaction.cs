@@ -6,6 +6,9 @@ public class Interaction : MonoBehaviour
 {
     [SerializeField] float interactionDistance = 3f;
     [SerializeField] BasicInventory inventory;
+    [SerializeField] FPSCONTROL fpsControl;
+
+    CommentaryScript commentaryScript;
 
     private void Start()
     {
@@ -16,6 +19,7 @@ public class Interaction : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+
             DoorInteract();
             NoteInteraction();
             DialogueInteractions();
@@ -72,6 +76,7 @@ public class Interaction : MonoBehaviour
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
            out RaycastHit hit, interactionDistance))
         {
+
             var dialogueScript = hit.collider.GetComponent<CommentaryScript>();
 
             if (dialogueScript != null && !dialogueScript.inDialogue)

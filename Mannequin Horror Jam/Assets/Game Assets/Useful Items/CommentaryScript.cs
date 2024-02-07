@@ -9,8 +9,8 @@ public class CommentaryScript : MonoBehaviour
     [TextArea(3, 10)]
     [Tooltip("Enter your text here")]
     [SerializeField] string[] enterTexts;
-    [Tooltip("Decide how long should a text appear")]
-    [SerializeField] float waitPeriod;
+    //[Tooltip("Decide how long should a text appear")]
+    //[SerializeField] float waitPeriod;
 
     [Header("Assignments (Do it Manually")]
     [Tooltip("It is inside Player>Player UI Canvas>Commentary Panel")]
@@ -18,18 +18,23 @@ public class CommentaryScript : MonoBehaviour
     [Tooltip("It is inside Player>Player UI Canvas>Commentary Panel>Text Mesh Pro")]
     [SerializeField] TextMeshProUGUI commentaryText;
 
-    [Header("AUTOMATICALLY TAKEN")]
+    [Header("Player Related Assignments")]
     [Tooltip("It will be assigned automatically")]
-    [SerializeField] FPSCONTROL fpsControl;
-    [SerializeField] GameObject player;
+    [SerializeField] public FPSCONTROL fpsControl;
+    [SerializeField] public GameObject player;
 
     public bool inDialogue;
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        //player = GameObject.FindWithTag("Player");
 
-        fpsControl = GameObject.FindWithTag("Player").GetComponent<FPSCONTROL>();
+        //fpsControl = GameObject.FindWithTag("Player").GetComponent<FPSCONTROL>();
+
+    }
+
+    private void Update()
+    {
 
     }
 
@@ -41,6 +46,7 @@ public class CommentaryScript : MonoBehaviour
     public IEnumerator StartDialogue()
     {
         commentaryPanel.SetActive(true);
+        fpsControl.animator.SetBool("isInteracting", true);
 
         for (int i = 0; i < enterTexts.Length; i++)
         {
@@ -49,7 +55,11 @@ public class CommentaryScript : MonoBehaviour
             fpsControl.disableMovement = true;
             Debug.Log("Movement is disabled");
             commentaryText.text = enterTexts[i];
-            yield return new WaitForSeconds(waitPeriod);
+            //yield return new WaitForSeconds(waitPeriod);
+
+            yield return new WaitForSeconds(0.5f);
+
+            yield return WaitForInput(KeyCode.E);
 
         }
 
@@ -58,8 +68,16 @@ public class CommentaryScript : MonoBehaviour
         fpsControl.disableMovement = false;
         Debug.Log("Movement is enabled");
         commentaryPanel.SetActive(false);
-
+        fpsControl.animator.SetBool("isInteracting", false);
     }
 
+    private IEnumerator WaitForInput(KeyCode keyCode)
+    {
+        // Wait until the specified key is pressed
+        while (!Input.GetKeyDown(keyCode))
+        {
+            yield return null;
+        }
+    }
 
 }
