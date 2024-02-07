@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(EnemyController))]
-public class EnemyControllerEditor : Editor
+//[CustomEditor(typeof(EnemyController))]
+public class EnemyControllerEditor : MonoBehaviour //Editor
 {
+
+    /*
     
     private void OnSceneGUI()
     {
@@ -49,5 +51,6 @@ public class EnemyControllerEditor : Editor
             Handles.DrawLine(fovAttack.transform.position, fovAttack.playerRef.transform.position, 5);
         }
     }
+    */
     
 }
