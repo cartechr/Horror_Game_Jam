@@ -6,15 +6,31 @@ using UnityEngine.UI;
 
 public class DoorScript : MonoBehaviour
 {
+    [Header("Door Control Variables")]
     [SerializeField] float openAngle = 90f;
     [SerializeField] float openSpeed = 2f;
-    [SerializeField] bool isLocked = false;
 
+    [Header("Lock Controls")]
+    [Tooltip("Check if you want the door to be locked")]
+    [SerializeField] public bool isLocked = false;
+
+    [Header("Choose which key is required to open the door")]
+    public bool requireRedKey;
+    public bool requireBlueKey;
+    public bool requireGreenKey;
+    public bool requireBlackKey;
+
+    [Header("Dialogue Controls")]
+    [Tooltip("Assign the relevant UI element")]
     [SerializeField] GameObject commentaryPanel;
+    [Tooltip("Assign the relevant UI text element")]
     [SerializeField] TextMeshProUGUI commentaryText;
+    [Tooltip("Enter a text to show if the door is locked and there is no key")]
     [SerializeField] string doorLocked = "Door is locked!";
+    [Tooltip("Enter a text to show if the door is unlocked")]
     [SerializeField] string doorUnlocked = "Door is unlocked!";
 
+    [Tooltip("Assign relevant script")]
     [SerializeField] BasicInventory inventory;
 
     private bool isOpening = false;
@@ -57,33 +73,64 @@ public class DoorScript : MonoBehaviour
 
     public void ToggleDoor()
     {
-        if (isLocked)
-        {
-            if (inventory.hasKey)
-            {
-                isLocked = false;
-                Debug.Log("isLocked " + isLocked);
-                inventory.hasKey = false;
-                Debug.Log("Has key?" + inventory.hasKey);
-                StartCoroutine(DoorUnlockedInfo());
-            }
-        }
 
         if (!isLocked)
         {
             // Toggle the door state (open/close)
             isOpening = !isOpening;
         }
-        else
-        {
-            StartCoroutine(DoorLockedInfo());
-
-        }
     }
 
-    public bool IsLocked()
+    public void DoorLockControl()
     {
-        return isLocked;
+        if (isLocked && requireRedKey)
+        {
+            if (inventory.hasRedKey)
+            {
+                isLocked = false;
+                Debug.Log("isLocked " + isLocked);
+                inventory.hasRedKey = false;
+                Debug.Log("Has key?" + inventory.hasRedKey);
+                StartCoroutine(DoorUnlockedInfo());
+            }
+        }
+
+        if (isLocked && requireGreenKey)
+        {
+            if (inventory.hasGreenKey)
+            {
+                isLocked = false;
+                Debug.Log("isLocked " + isLocked);
+                inventory.hasGreenKey = false;
+                Debug.Log("Has key?" + inventory.hasGreenKey);
+                StartCoroutine(DoorUnlockedInfo());
+            }
+        }
+
+        if (isLocked && requireBlueKey)
+        {
+
+            if (inventory.hasBlueKey)
+            {
+                isLocked = false;
+                Debug.Log("isLocked " + isLocked);
+                inventory.hasBlueKey = false;
+                Debug.Log("Has key?" + inventory.hasBlueKey);
+                StartCoroutine(DoorUnlockedInfo());
+            }
+        }
+
+        if (isLocked && requireBlackKey)
+        {
+            if (inventory.hasBlackKey)
+            {
+                isLocked = false;
+                Debug.Log("isLocked " + isLocked);
+                inventory.hasBlackKey = false;
+                Debug.Log("Has key?" + inventory.hasBlackKey);
+                StartCoroutine(DoorUnlockedInfo());
+            }
+        }
     }
 
     public void LockedDialogue()
