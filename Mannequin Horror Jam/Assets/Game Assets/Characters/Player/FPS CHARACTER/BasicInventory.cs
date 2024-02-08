@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class BasicInventory : MonoBehaviour
 {
-
+    [Header("Section for Items")]
     [SerializeField] GameObject[] items;
 
-    [SerializeField] public bool hasKey;
+    [Header("Section for Keys")]
+    [SerializeField] public GameObject[] keys;
     [SerializeField] public GameObject key;
+
+    [Header("Bool Checks")]
+    [SerializeField] public bool hasKey;
+
+    [Header("Interaction Settings")]
     [SerializeField] public float interactionDistance = 3f;
 
     private void Update()
@@ -21,6 +27,7 @@ public class BasicInventory : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Key"))
                 {
+                    key = hit.collider.gameObject;
                     Debug.Log("Ray Hitting Key");
                     //Toggle Door opening and closing
                     PickupKey();
@@ -32,9 +39,14 @@ public class BasicInventory : MonoBehaviour
 
     public void PickupKey()
     {
+
+        //Add the key into the array
+
+        /*
         key = GameObject.FindWithTag("Key");
         hasKey = true;
         Object.Destroy(key);
+        */
     }
 
 
