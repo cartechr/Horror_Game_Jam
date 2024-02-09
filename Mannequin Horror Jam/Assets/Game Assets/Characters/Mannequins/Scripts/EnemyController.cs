@@ -1,197 +1,380 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using StarterAssets;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class EnemyController : MonoBehaviour
 {
+    [Header("Current State")]
+    [Tooltip("Current State Number")]
+    [SerializeField] int state;
+    [Tooltip("Current State Name")]
+    [SerializeField] string Name;
 
-    [Header("Patrol Point Assignments")]
-    [Tooltip("Assign Relevant Patrolling Waypoints")]
+    [Space(10)]
+    [Header("AI Variables")]
+    [Tooltip("Time in which AI is in idle state")]
+    [SerializeField] float idleTime;
+    [Tooltip("How close should AI get to point before idling?")]
+    [SerializeField] float WhenAtIdlePoint;
+    [Tooltip("How close should Ai get to player before attacking")]
+    [SerializeField] float WhenAtPlayer;
+
+    [Space(10)]
+    [Tooltip("Current Assigned Waypoint")]
+    [SerializeField] int currentWaypoint;
+    [Tooltip("Assign Patrol Waypoints Here")]
     [SerializeField] Transform[] patrolWaypoints;
 
-    [Header("Enemy Control Assignments")]
-    [Tooltip("Assign Enemy Object")]
-    [SerializeField] GameObject mannequinEnemy;
-    [Tooltip("Assign Player Here")]
-    [SerializeField] GameObject player;
-    [Tooltip("Eyes to emit raycast from")]
-    [SerializeField] GameObject eyes;
-    [Tooltip("Assign the NavMesh Agent (It's inside the mannequin)")]
-    [SerializeField] NavMeshAgent navMeshAgent;
-    [Tooltip("Assign the Enemy Animator Component")]
-    [SerializeField] Animator enemyAnimatorController;
-    [Tooltip("This will be pulled automatically")]
-    [SerializeField] MultiAimConstraint multiAimConstraint;
-    [Tooltip("Distance for eyes to see")]
-    [SerializeField] float raycastDistance;
-    [Tooltip("Assign the speed for the enemy")]
-    [SerializeField] float moveSpeed;
-    [Tooltip("Delay between waypoints")]
-    [SerializeField] float delayBetween;
-    [Tooltip("Float variable for head turn DO NOT CHANGE")]
-    [SerializeField] float weight;
-    [Tooltip("Head turn weight increase duration")]
-    [SerializeField] float increaseDuration = 3f;
-    [Tooltip("This is for debugging and animation triggering")]
-    [SerializeField] bool isMoving;
-    [Tooltip("This is for debugging and animation triggering")]
-    [SerializeField] bool isChasingPlayer;
+    [Space(10)]
+    [Header("Player Detection")]
+    [Tooltip("Reference to Player (DONT ADD ANYTHING HERE)")]
+    public GameObject playerRef;
+    [Tooltip("Player Layer Mask")]
+    public LayerMask targetMask;
+    [Tooltip("Wall Layer Mask")]
+    public LayerMask wallMask;
+
+    [Space(15)]
+    [Header("Radius")]
+    public float radiusRed;
+    public bool inRed;
+    public float radiusYellow;
+    public bool inYellow;
+    public float radiusGreen;
+    public bool inGreen;
+
+    public float radiusAttack;
+    public bool inAttack;
+
+    Transform lastknownlocation;
 
 
-    //Once the object enabled, do this
-    private void OnEnable()
-    {
-        ReturnToStart();
-        
-        
-    }
+    [Space(10)]
+    [Header("FPS Controller")]
+    [Tooltip("DONT ADD ANYTHING HERE")]
+    public FPSCONTROL fpscontroller;
+    Animator animator;
+    NavMeshAgent agent;
 
     private void Start()
     {
-        HeadIKSetup();
-        StartCoroutine(FollowPath());
+       // state = 1;
+        playerRef = GameObject.FindGameObjectWithTag("Player");
+        fpscontroller = playerRef.GetComponent<FPSCONTROL>();
+        StartCoroutine(SearchRoutine());
+        animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
     }
-
     private void Update()
     {
-        PerformRaycast();
-        ChasePlayer();
-        
-    }
-
-    void ReturnToStart()
-    {
-        enemyAnimatorController.SetBool("isMoving", false);
-        if (patrolWaypoints.Length > 0)
-            transform.position = patrolWaypoints[0].position;
-    }
-
-    IEnumerator FollowPath()
-    {
-
-        while (!isChasingPlayer) //Added a considiton to exit the loop
+        switch (state)
         {
-            foreach (Transform waypoint in patrolWaypoints)
-            {
-                Vector3 startPosition = transform.position;
-                Vector3 endPosition = waypoint.transform.position;
-                float travelPercent = 0f;
-
-                transform.LookAt(endPosition);
-
-                while (travelPercent < 1f)
-                {
-
-                    isMoving = true;
-                    Debug.Log("Moving State: " + isMoving);
-                    enemyAnimatorController.SetBool("isMoving", true);
-                    travelPercent += Time.deltaTime * moveSpeed;
-                    transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
-                    yield return new WaitForEndOfFrame();
-
-                }
-                isMoving = false;
-                Debug.Log("MovingState: " + isMoving);
-                enemyAnimatorController.SetBool("isMoving", false);
-
-                if (!isChasingPlayer) // Check again before the delay to ensure we don't continue if isChasingPlayer became true during the move
-                    yield return new WaitForSeconds(delayBetween); // Optional delay between waypoints
-
-                if (isChasingPlayer) StopCoroutine(FollowPath());
-            }
+            case 1:
+                Patrol();
+                Name = "Patrol";
+                break;
+            case 2:
+                Idle();
+                Name = "Idle";
+                break;
+            case 3:
+                Alerted();
+                Name = "Alerted";
+                break;
+            case 4:
+                Chase();
+                Name = "Chase";
+                break;
+            case 5:
+                Attack();
+                Name = "Attack";
+                break;
+            case 6:
+                Stunned();
+                Name = "Stunned";
+                break;
         }
-
     }
 
-    void PerformRaycast()
+    private IEnumerator SearchRoutine()
     {
-        Ray ray = new Ray(eyes.transform.position, eyes.transform.forward);
-        RaycastHit hit;
+        WaitForSeconds wait = new WaitForSeconds(0.1f);
 
-        if (Physics.Raycast(ray, out hit, raycastDistance))
+        while (true)
         {
-            // If the ray hits something, you can check what it hit
-            Debug.Log("Ray hit: " + hit.collider.gameObject.name);
+            yield return wait;
+            SearchCheck();
+        }
+    }
 
-            // Here, you can implement logic to handle what to do when the ray hits something
-            // For example, check if it hit the player and initiate chase behavior
-            if (hit.collider.CompareTag("Player"))
+    private void SearchCheck()
+    {
+        Transform target;
+        Vector3 directionToTarget;
+        float distanceToTarget;
+        
+        Collider[] greenChecks = Physics.OverlapSphere(transform.position, radiusGreen, targetMask);
+        Collider[] yellowChecks = Physics.OverlapSphere(transform.position, radiusYellow, targetMask);
+        Collider[] redChecks = Physics.OverlapSphere(transform.position, radiusRed, targetMask);
+        Collider[] attackChecks = Physics.OverlapSphere(transform.position, radiusAttack, targetMask);
+
+
+
+        //Green Area
+        if (greenChecks.Length != 0 && yellowChecks.Length == 0 && redChecks.Length == 0 && attackChecks.Length == 0)
+        {
+            target = greenChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
             {
-                isChasingPlayer = true;
-                HeadLockOnTarget();
-                Debug.Log("Player Detected! Start Chasing...");
-                // Implement logic to start chasing the player
+                inGreen = true;
+                SeePlayer();
             }
             else
             {
-                isChasingPlayer = false;
+                inGreen = false;
+            }
+        }
+        else if (inGreen)
+        {
+            inGreen = false;
+        }
+
+        //Yellow Area
+        if (yellowChecks.Length != 0 && redChecks.Length == 0 && attackChecks.Length == 0)
+        {
+            target = yellowChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inYellow = true;
+                SeePlayer();
+            }
+            else
+            {
+                inYellow = false;
+            }
+        }
+        else if (inYellow)
+        {
+            inYellow = false;
+        }
+
+        //Red Area
+        if (redChecks.Length != 0 && attackChecks.Length == 0 && attackChecks.Length == 0)
+        {
+            target = redChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inRed = true;
+                SeePlayer();
+            }
+            else
+            {
+                inRed = false;
+            }
+        }
+        else if (inRed)
+        {
+            inRed = false;
+        }
+
+        if (attackChecks.Length != 0)
+        {
+            target = attackChecks[0].transform;
+            directionToTarget = (target.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask))
+            {
+                inAttack = true;
+            }
+            else
+            {
+                inAttack = false;
+            }
+        }
+        else if (inAttack)
+        {
+            inGreen = false;
+        }
+
+    }
+
+    private void SeePlayer()
+    {
+        if (state == 1 || state == 2 || state == 3)
+        {
+            //Debug.Log("Can Find Player");
+            if (inGreen)
+            {
+                //Alerted
+                if (fpscontroller.isSprinting)
+                {
+                    lastknownlocation = playerRef.transform;
+                    state = 3;
+                    Debug.Log("Alerted");
+                }
+            }
+
+            if (inYellow)
+            {
+                //Alerted
+                if (fpscontroller.isWalking)
+                {
+                    lastknownlocation = playerRef.transform;
+                    state = 3;
+                    Debug.Log("Alerted");
+                }
+
+                //Chase
+                if (fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
+                {
+                    state = 4;
+                    Debug.Log("Chasing");
+                }
+            }
+
+            if (inRed)
+            {
+                //Chase
+                if (fpscontroller.isWalking || fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
+                {
+                    state = 4;
+                    Debug.Log("Chasing");
+                }
             }
         }
     }
 
-    void ChasePlayer()
+   private void Patrol()
     {
+        if (state != 1)
+        {
+            return;
+        }
+
+        if (patrolWaypoints.Length == 0)
+        {
+            Debug.LogError("No waypoints assigned. Please assign waypoints in the inspector");
+            return;
+        }
+
+        agent.SetDestination(patrolWaypoints[currentWaypoint].position);
+        animator.SetBool("isMoving", true);
+
+        if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position) < WhenAtIdlePoint)
+        {
+            currentWaypoint = (currentWaypoint + 1) % patrolWaypoints.Length;
+            //Debug.Log("Current Waypoint is " + currentWaypoint);
+            this.GetComponent<Animator>().SetBool("isMoving", false);
+
+            state = 2;
+        }
+    }
+
+    private void Idle()
+    {
+        IEnumerator waitCoroutine = WaitThenPatrol();
         
-        navMeshAgent.SetDestination(player.transform.position);
-        enemyAnimatorController.SetBool("isMoving", true);
-
+        //start timer, will transition when it ends
+        StartCoroutine(waitCoroutine);
     }
-
-    void HeadIKSetup()
+    IEnumerator WaitThenPatrol()
     {
-        multiAimConstraint = mannequinEnemy.GetComponentInChildren<MultiAimConstraint>();
-        if (multiAimConstraint != null)
+            //float timer = idleTime;
+            for (float timeWaited = 0f; timeWaited <= idleTime; timeWaited += Time.deltaTime)
+            {
+            //Debug.Log(timeWaited);
+                if (state != 2)
+                {
+                    yield break;
+                }
+            yield return new WaitForSeconds(Time.deltaTime);
+            }
+
+    if (state == 2)
         {
-            multiAimConstraint.weight = weight;
-        }
-        else
-        {
-            Debug.LogWarning("MultiAimConstraint not found on the specified mannequin: " + mannequinEnemy.name);
+            state = 1;
         }
     }
 
-    void HeadLockOnTarget()
+    private void Alerted()
     {
-        multiAimConstraint = mannequinEnemy.GetComponentInChildren<MultiAimConstraint>();
-
-        if (multiAimConstraint != null)
+        if (state != 3)
         {
-            
-            StartCoroutine(IncreaseWeightGradually(multiAimConstraint, weight + 1f, increaseDuration));
-            Debug.Log("Weight is increasing");
-
+            return;
         }
-        else
+
+        agent.SetDestination(lastknownlocation.position);
+        animator.SetBool("isMoving", true);
+
+        if (Vector3.Distance(transform.position, lastknownlocation.position) < WhenAtIdlePoint)
         {
-            Debug.Log("MultiAim Constraint is null");
+            this.GetComponent<Animator>().SetBool("isMoving", false);
+
+           // if (state != 4)
+            state = 2;
         }
     }
 
-    IEnumerator IncreaseWeightGradually(MultiAimConstraint constraint, float targetWeight, float duration)
+    private void Chase()
     {
-        float initialWeight = constraint.weight;
-        float timeElapsed = 0f;
-
-        while (timeElapsed < duration)
+        if (state != 4)
         {
-
-            constraint.weight = Mathf.Lerp(initialWeight, targetWeight, timeElapsed / duration);
-            timeElapsed += Time.deltaTime;
-            yield return null;
+            return;
         }
 
-        //Ensure the final weight is set exactly
-        constraint.weight = targetWeight;
+        agent.SetDestination(playerRef.transform.position);
+        animator.SetBool("isWalking", true);
 
+        if (Vector3.Distance(transform.position, playerRef.transform.position) < WhenAtPlayer)
+        {
+            Debug.Log("Attack Player");
+            agent.SetDestination(transform.position);
+            animator.SetBool("isWalking", false);
+
+            state = 5;
+        }
     }
 
-    private void OnDrawGizmos()
+    private void Attack()
     {
-        // Draw the ray in the scene view for visualization
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(eyes.transform.position, eyes.transform.forward * raycastDistance);
+        if (state != 5)
+        {
+            return;
+        }
+
+         
+
+        fpscontroller.disableLook = true;
+        fpscontroller.disableMovement = true;
+
+        playerRef.transform.LookAt(transform.position);
+        animator.SetBool("isAttack", true);
     }
 
+    private void Stunned()
+    {
+        if (state != 6)
+        {
+            return;
+        }
+    }
 }

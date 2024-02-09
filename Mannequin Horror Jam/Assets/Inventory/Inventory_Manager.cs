@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 public class Inventory_Manager : MonoBehaviour
 {
     public static Inventory_Manager Instance;
 
     public InventorySlot[] inventorySlots;
+    public NotesSlot[] noteSlots;
+    public int ActiveNoteNum;
+
     public GameObject inventoryItemPrefab;
 
     public int selectedSlot = -1;
@@ -102,4 +105,20 @@ public class Inventory_Manager : MonoBehaviour
         Inventory_Item inventoryItem = newItemGo.GetComponent<Inventory_Item>();
         inventoryItem.InitialiseItem(item);
     }
+
+
+
+
+    //--------------------------------------------------------------------------
+    //NOTES
+
+    /* public bool AddNote(Notes note)
+    {
+        for (int i = 0; i < noteSlots.Length; i++)
+        {
+            NotesSlot slot = noteSlots[i];
+
+        }
+    }*/
+
 }
