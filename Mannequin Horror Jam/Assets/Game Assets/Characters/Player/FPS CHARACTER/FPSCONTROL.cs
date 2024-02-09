@@ -56,7 +56,6 @@ public class FPSCONTROL : MonoBehaviour
     [Tooltip("For locking the camera position on all axis")]
     public bool LockCameraPosition = false;
 
-
     //Private assignments
     CharacterController characterController;
     PlayerInput playerInput;
@@ -80,6 +79,8 @@ public class FPSCONTROL : MonoBehaviour
     int animIDGrounded;
     int animIDFreeFall;
     int animIDMotionSpeed;
+
+    public Transform walkieTalkiePos;
 
     private void Awake()
     {
@@ -474,5 +475,12 @@ public class FPSCONTROL : MonoBehaviour
     }
 
     #endregion
+
+    void OnAnimatorIK(int layerIndex)
+    {
+        float reach = animator.GetFloat("RightHandReach");
+        animator.SetIKPositionWeight(AvatarIKGoal.RightHand, reach);
+        animator.SetIKPosition(AvatarIKGoal.RightHand, walkieTalkiePos.position);
+    }
 
 }
