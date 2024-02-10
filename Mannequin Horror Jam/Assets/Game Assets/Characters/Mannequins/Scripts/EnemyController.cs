@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -27,6 +26,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float idleTime;
     [Tooltip("How close should AI get to point before idling?")]
     [SerializeField] float WhenAtIdlePoint;
+    [SerializeField] float Clock;
+    [Tooltip("Number player has to reach to win the grapple")]
+    [SerializeField] int playerWins;
+    [Tooltip("Numer mannequin has to reach to win the grapple")]
+    [SerializeField] int mannequinWins;
 
     [Space(10)]
     [Tooltip("Current Assigned Waypoint")]
@@ -43,6 +47,7 @@ public class EnemyController : MonoBehaviour
     [Tooltip("Wall Layer Mask")]
     public LayerMask wallMask;
 
+
     [Space(15)]
     [Header("Radius")]
     public float radiusRed;
@@ -56,24 +61,36 @@ public class EnemyController : MonoBehaviour
     public bool inAttack;
 
     Transform lastknownlocation;
+    public GameObject Head;
+
+
 
 
     [Space(10)]
     [Header("FPS Controller")]
     [Tooltip("DONT ADD ANYTHING HERE")]
     public FPSCONTROL fpscontroller;
-    Animator animator;
     NavMeshAgent agent;
+    Animator animator;
+    int animNum;
+
 
     private void Start()
     {
-       // state = 1;
-       // switchState = true;
+        state = 1;
+        switchState = true;
         playerRef = GameObject.FindGameObjectWithTag("Player");
         fpscontroller = playerRef.GetComponent<FPSCONTROL>();
         StartCoroutine(SearchRoutine());
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        Head = GameObject.FindGameObjectWithTag("Head");
+
+        animNum = Random.Range(0, 2);
+        animator.SetFloat("Idle", animNum);
+
+        //Debug.Log ("Array " + animNames.Length);
     }
     private void Update()
     {
@@ -100,6 +117,10 @@ public class EnemyController : MonoBehaviour
                 Name = "Attack";
                 break;
             case 6:
+                grappleAttack();
+                Name = "grappleAttack";
+                break;
+            case 7:
                 Stunned();
                 Name = "Stunned";
                 break;
@@ -232,6 +253,7 @@ public class EnemyController : MonoBehaviour
                     state = 3;
                     switchState = true;
                     Debug.Log("Alerted");
+                    return;
                 }
             }
 
@@ -244,6 +266,7 @@ public class EnemyController : MonoBehaviour
                     state = 3;
                     switchState = true;
                     Debug.Log("Alerted");
+                    return;
                 }
 
                 //Chase
@@ -252,6 +275,7 @@ public class EnemyController : MonoBehaviour
                     state = 4;
                     switchState = true;
                     Debug.Log("Chasing");
+                    return;
                 }
             }
 
@@ -263,6 +287,7 @@ public class EnemyController : MonoBehaviour
                     state = 4;
                     switchState = true;
                     Debug.Log("Chasing");
+                    return;
                 }
             }
         }
@@ -279,16 +304,16 @@ public class EnemyController : MonoBehaviour
         if (switchState)
         {
             agent.SetDestination(patrolWaypoints[currentWaypoint].position);
-            animator.SetBool("isMoving", true);
+            animator.SetBool("isIdle", false);
         }
 
         if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position) < WhenAtIdlePoint)
         {
             currentWaypoint = (currentWaypoint + 1) % patrolWaypoints.Length;
             //Debug.Log("Current Waypoint is " + currentWaypoint);
-            this.GetComponent<Animator>().SetBool("isMoving", false);
-
+            switchState = true;
             state = 2;
+            return;
         }
 
         switchState = false;
@@ -300,6 +325,16 @@ public class EnemyController : MonoBehaviour
         
         //start timer, will transition when it ends
         StartCoroutine(waitCoroutine);
+
+        if (switchState)
+        {
+            animator.SetBool("isIdle", true);
+            animNum = Random.Range(0, 2);
+            Debug.Log(animNum);
+            animator.SetFloat("Idle", animNum);
+        }
+
+        switchState = false;
     }
     IEnumerator WaitThenPatrol()
     {
@@ -326,15 +361,26 @@ public class EnemyController : MonoBehaviour
         if (switchState)
         {
             agent.SetDestination(lastknownlocation.position);
-            animator.SetBool("isMoving", true);
+            animator.SetBool("isIdle", false);
         }
 
         if (Vector3.Distance(transform.position, lastknownlocation.position) < WhenAtIdlePoint)
         {
-            this.GetComponent<Animator>().SetBool("isMoving", false);
+            animator.SetBool("isIdle", true);
 
-            state = 2;
-            switchState = true;
+            if (!inAttack)
+            {
+                state = 2;
+                switchState = true;
+                return;
+            }
+            else
+            {
+                Debug.Log("Attack Player");
+                state = 5;
+                switchState = true;
+                return;
+            }
         }
         switchState = false;
     }
@@ -343,38 +389,102 @@ public class EnemyController : MonoBehaviour
     {
         if (switchState)
         {
-            agent.SetDestination(playerRef.transform.position);
-            animator.SetBool("isWalking", true);
+            animator.SetBool("isIdle", false);
         }
 
-        if (Vector3.Distance(transform.position, playerRef.transform.position) < radiusAttack)
-        {
-            Debug.Log("Attack Player");
-            agent.SetDestination(transform.position);
-            animator.SetBool("isWalking", false);
+        Head.GetComponent<MultiAimConstraint>().weight = 1.0f;
+        agent.SetDestination(playerRef.transform.position);
 
+        if (Vector3.Distance(transform.position, playerRef.transform.position) <= radiusAttack)
+        {
+            Head.GetComponent<MultiAimConstraint>().weight = 0f;
+            animator.SetBool("isIdle", true);
+            agent.SetDestination(transform.position);
             state = 5;
             switchState = true;
+            return;
         }
 
         switchState = false;
+
+
+      /*  if (inAttack)
+        {
+            state = 5;
+
+            animator.SetBool("isAttacking", true);
+
+            agent.SetDestination(transform.position);
+            playerRef.transform.LookAt(transform.position);
+            fpscontroller.disableLook = true;
+            fpscontroller.disableMovement = true;
+
+            Debug.Log("Attacking");
+            return;
+        }
+        else
+        {
+            animator.SetBool("isIdle", false);
+            agent.SetDestination(playerRef.transform.position);
+            Head.GetComponent<MultiAimConstraint>().weight = 1.0f;
+        } */
+
     }
 
     private void Attack()
     {
-
+        playerRef.transform.LookAt(transform.position);
         fpscontroller.disableLook = true;
         fpscontroller.disableMovement = true;
 
-        playerRef.transform.LookAt(transform.position);
-        animator.SetBool("isAttack", true);
+    }
+
+    private void grappleAttack()
+    {
+       /* int Decider = 0;
+
+        for (float startClock = 0f; startClock < Clock; startClock += Time.deltaTime)
+        {
+
+            //Player presses one of these buttons in time
+            if (Input.GetKeyDown(KeyCode.A) && startClock < Clock || Input.GetKeyDown(KeyCode.D) && startClock < Clock)
+            {
+                //player wins struggle
+                if (Decider == playerWins)
+                {
+                    state = 6; 
+                    break;
+                }
+
+                startClock = 0f;
+                Decider++;
+            }
+            //Player doesn't press a button in time
+            if (startClock > Clock)
+            {
+                if (Decider != mannequinWins) 
+                {
+                    Decider--;
+                }
+
+                //player losing struggle
+                else
+                {
+                    //Player take damage
+
+                    //if player takes enough damage
+                    //Stop state machine or add a state that kills the player
+                    //state = 0; //Not a state machine state, so state machine should "Stop"
+                    //break;
+                }
+
+                startClock = 0f;
+            }
+        }*/
     }
 
     private void Stunned()
     {
-        if (state != 6)
-        {
-            return;
-        }
+        //state 6
     }
 }
