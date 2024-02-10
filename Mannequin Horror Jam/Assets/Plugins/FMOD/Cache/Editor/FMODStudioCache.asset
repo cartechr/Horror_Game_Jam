@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9048559697466923638
+--- !u!114 &-8791575487959238553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,43 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Sarah Room/Room Ambience - Directional
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Proximity
   m_EditorClassIdentifier: 
-  Path: event:/Sarah Room/Room Ambience - Directional
-  Guid:
-    Data1: 1287763590
-    Data2: 1083997819
-    Data3: 284611458
-    Data4: -940833091
-  Banks:
-  - {fileID: -513470832386228412}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 221309
---- !u!114 &-8800068451543229259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../FMOD/Horror Game Jam3-20240122T193447Z-001/Horror Game Jam3/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638415599735449923
-  FileSizes:
-  - Name: Desktop
-    Value: 1036
+  Name: Proximity
+  StudioPath: parameter:/Proximity
+  Min: 0
+  Max: 10
+  Default: 10
+  ID:
+    data1: 518785873
+    data2: 459573575
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
 --- !u!114 &-8764349971482629687
 MonoBehaviour:
@@ -98,7 +75,7 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &-513470832386228412
+--- !u!114 &-4694896976986791605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,49 +84,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/SFX.bank
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI SFX/Interact - Confirm
   m_EditorClassIdentifier: 
-  Path: ../../../FMOD/Horror Game Jam3-20240122T193447Z-001/Horror Game Jam3/Build/Desktop/SFX.bank
-  Name: SFX
-  StudioPath: bank:/SFX
-  lastModified: 638415599736089484
-  FileSizes:
-  - Name: Desktop
-    Value: 3549984
-  Exists: 1
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
-  m_Name: FMODStudioCache
-  m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: 6976143046903419603}
-  - {fileID: -8800068451543229259}
-  - {fileID: 3770519285996459655}
-  - {fileID: -513470832386228412}
-  EditorEvents:
-  - {fileID: 5248572348923051697}
-  - {fileID: 4812289030801996350}
-  - {fileID: 7049236430578570790}
-  - {fileID: 3490191385684655911}
-  - {fileID: -9048559697466923638}
-  - {fileID: 3817039179731167273}
-  EditorParameters: []
-  MasterBanks:
-  - {fileID: -8800068451543229259}
-  StringsBanks:
-  - {fileID: 6976143046903419603}
-  cacheTime: 638415599736762008
-  cacheVersion: 131616
---- !u!114 &125203493961964594
+  Path: event:/UI SFX/Interact - Confirm
+  Guid:
+    Data1: -1094593421
+    Data2: 1277123325
+    Data3: -1351291252
+    Data4: 390599462
+  Banks:
+  - {fileID: -1174159171848661689}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1920167161442398699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,7 +128,7 @@ MonoBehaviour:
   - False
   - True
   Exists: 1
---- !u!114 &3490191385684655911
+--- !u!114 &-1699352899407433699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,24 +138,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Sarah Room/Interact - Confirm
+  m_Name: event:/1. Apartment/Sarah Room/Ambience/Window Ambience - 3D
   m_EditorClassIdentifier: 
-  Path: event:/Sarah Room/Interact - Confirm
+  Path: event:/1. Apartment/Sarah Room/Ambience/Window Ambience - 3D
   Guid:
-    Data1: -1094593421
-    Data2: 1277123325
-    Data3: -1351291252
-    Data4: 390599462
+    Data1: 1287763590
+    Data2: 1083997819
+    Data3: 284611458
+    Data4: -940833091
   Banks:
-  - {fileID: -513470832386228412}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
+  - {fileID: -1174159171848661689}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
---- !u!114 &3770519285996459655
+  Length: 69328
+--- !u!114 &-1174159171848661689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,16 +165,144 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Music.bank
+  m_Name: bank:/SFX.bank
   m_EditorClassIdentifier: 
-  Path: ../../../FMOD/Horror Game Jam3-20240122T193447Z-001/Horror Game Jam3/Build/Desktop/Music.bank
-  Name: Music
-  StudioPath: bank:/Music
-  lastModified: 638415599736762008
+  Path: ../../../FMOD/6 Feb/Horror Game Jam3-20240209T122423Z-001/Horror Game Jam3/Build/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 638427797720000000
   FileSizes:
   - Name: Desktop
-    Value: 3942688
+    Value: 1734304
   Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 467312298001308356}
+  - {fileID: 312701954219202944}
+  - {fileID: 4607826855518460135}
+  - {fileID: -1174159171848661689}
+  EditorEvents:
+  - {fileID: 3817039179731167273}
+  - {fileID: 4328272056354368712}
+  - {fileID: 2681932125849569873}
+  - {fileID: 6996525720375052702}
+  - {fileID: -4694896976986791605}
+  - {fileID: -1699352899407433699}
+  EditorParameters:
+  - {fileID: 5805326428083443872}
+  - {fileID: -8791575487959238553}
+  MasterBanks:
+  - {fileID: 312701954219202944}
+  StringsBanks:
+  - {fileID: 467312298001308356}
+  cacheTime: 638427797720000000
+  cacheVersion: 131616
+--- !u!114 &312701954219202944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../FMOD/6 Feb/Horror Game Jam3-20240209T122423Z-001/Horror Game Jam3/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638427797700000000
+  FileSizes:
+  - Name: Desktop
+    Value: 2000
+  Exists: 1
+--- !u!114 &467312298001308356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../FMOD/6 Feb/Horror Game Jam3-20240209T122423Z-001/Horror Game Jam3/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638427797700000000
+  FileSizes:
+  - Name: Desktop
+    Value: 1674
+  Exists: 1
+--- !u!114 &2093171511605214218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Sarah Room Music/ExitLevel1
+  m_EditorClassIdentifier: 
+  Name: ExitLevel1
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 764102604
+    data2: 2457549293
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - False
+  - True
+  Exists: 1
+--- !u!114 &2681932125849569873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/1. Apartment/Sarah Room/Music/Sarah Room Music
+  m_EditorClassIdentifier: 
+  Path: event:/1. Apartment/Sarah Room/Music/Sarah Room Music
+  Guid:
+    Data1: 1019273178
+    Data2: 1259812128
+    Data3: -1311829614
+    Data4: -1978220333
+  Banks:
+  - {fileID: 4607826855518460135}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -1920167161442398699}
+  - {fileID: 2093171511605214218}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 328971
 --- !u!114 &3817039179731167273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +322,7 @@ MonoBehaviour:
     Data3: 688767131
     Data4: -1850800714
   Banks:
-  - {fileID: -513470832386228412}
+  - {fileID: -1174159171848661689}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -252,6 +333,35 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &4328272056354368712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/2. Hallway/Music/Hallway Music
+  m_EditorClassIdentifier: 
+  Path: event:/2. Hallway/Music/Hallway Music
+  Guid:
+    Data1: 1982945837
+    Data2: 1249980047
+    Data3: 1544730298
+    Data4: 964118762
+  Banks:
+  - {fileID: 4607826855518460135}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 5153299287632497698}
+  - {fileID: 6712649297789178918}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 257658
 --- !u!114 &4548603469395243094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,63 +391,7 @@ MonoBehaviour:
   - Stone
   - Wood
   Exists: 1
---- !u!114 &4812289030801996350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Sarah Room/Rain from Window
-  m_EditorClassIdentifier: 
-  Path: event:/Sarah Room/Rain from Window
-  Guid:
-    Data1: 1207516762
-    Data2: 1111685044
-    Data3: -649909575
-    Data4: -1798928509
-  Banks:
-  - {fileID: -513470832386228412}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 39627
---- !u!114 &5248572348923051697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Sarah Room/Music/Sarah Room Music
-  m_EditorClassIdentifier: 
-  Path: event:/Sarah Room/Music/Sarah Room Music
-  Guid:
-    Data1: 1019273178
-    Data2: 1259812128
-    Data3: -1311829614
-    Data4: -1978220333
-  Banks:
-  - {fileID: 3770519285996459655}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 125203493961964594}
-  - {fileID: 8193279347784278639}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 328971
---- !u!114 &6976143046903419603
+--- !u!114 &4607826855518460135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,44 +401,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
+  m_Name: bank:/Music.bank
   m_EditorClassIdentifier: 
-  Path: ../../../FMOD/Horror Game Jam3-20240122T193447Z-001/Horror Game Jam3/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638415599735223967
+  Path: ../../../FMOD/6 Feb/Horror Game Jam3-20240209T122423Z-001/Horror Game Jam3/Build/Desktop/Music.bank
+  Name: Music
+  StudioPath: bank:/Music
+  lastModified: 638427797710000000
   FileSizes:
   - Name: Desktop
-    Value: 1398
+    Value: 7627328
   Exists: 1
---- !u!114 &7049236430578570790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Sarah Room/Room Ambience
-  m_EditorClassIdentifier: 
-  Path: event:/Sarah Room/Room Ambience
-  Guid:
-    Data1: -1225870486
-    Data2: 1213328100
-    Data3: 1471498900
-    Data4: -1142925523
-  Banks:
-  - {fileID: -513470832386228412}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 221309
---- !u!114 &8193279347784278639
+--- !u!114 &5153299287632497698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -394,19 +421,96 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Sarah Room Music/ExitLevel1
+  m_Name: parameter:/Hallway Music/Danger
   m_EditorClassIdentifier: 
-  Name: ExitLevel1
+  Name: Danger
   StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
-    data1: 764102604
-    data2: 2457549293
+    data1: 1478256109
+    data2: 1183565978
   Type: 2
-  IsGlobal: 0
+  IsGlobal: 1
   Labels:
-  - False
-  - True
+  - Non-Danger
+  - Danger
   Exists: 1
+--- !u!114 &5805326428083443872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Danger
+  m_EditorClassIdentifier: 
+  Name: Danger
+  StudioPath: parameter:/Danger
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1478256109
+    data2: 1183565978
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Non-Danger
+  - Danger
+  Exists: 1
+--- !u!114 &6712649297789178918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Hallway Music/Proximity
+  m_EditorClassIdentifier: 
+  Name: Proximity
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 10
+  ID:
+    data1: 518785873
+    data2: 459573575
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &6996525720375052702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/2. Hallway/Ambience/Stairwell - Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/2. Hallway/Ambience/Stairwell - Ambience
+  Guid:
+    Data1: 2104233490
+    Data2: 1334453591
+    Data3: -1559423863
+    Data4: 1035996859
+  Banks:
+  - {fileID: -1174159171848661689}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 33776

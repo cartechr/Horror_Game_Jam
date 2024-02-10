@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class Interaction : MonoBehaviour
 {
-    [SerializeField] float interactionDistance = 3f;
+
+    [Header("Assignments")]
     [SerializeField] BasicInventory inventory;
+    [SerializeField] FPSCONTROL fpsControl;
+
+    [Header("Interaction Variables")]
+    [SerializeField] float interactionDistance = 3f;
+
+    CommentaryScript commentaryScript;
 
     private void Start()
     {
@@ -16,6 +23,7 @@ public class Interaction : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+
             DoorInteract();
             NoteInteraction();
             DialogueInteractions();
@@ -33,14 +41,36 @@ public class Interaction : MonoBehaviour
 
                 if (doorScript != null)
                 {
-                    if (!doorScript.IsLocked() || (doorScript.IsLocked() && inventory.hasKey))
+                    if (!doorScript.isLocked)
                     {
                         doorScript.ToggleDoor();
                     }
-                    else
+
+                    if (doorScript.isLocked)
                     {
                         doorScript.LockedDialogue();
                     }
+                    
+                    if(doorScript.isLocked && doorScript.requireRedKey && inventory.hasRedKey) 
+                    {
+                        doorScript.DoorLockControl();
+                    }
+
+                    if(doorScript.isLocked && doorScript.requireBlackKey && inventory.hasBlackKey)
+                    {
+                        doorScript.DoorLockControl();
+                    }
+
+                    if(doorScript.isLocked && doorScript.requireBlueKey && inventory.hasBlueKey)
+                    {
+                        doorScript.DoorLockControl();
+                    }
+
+                    if(doorScript.isLocked && doorScript.requireGreenKey && inventory.hasGreenKey)
+                    {
+                        doorScript.DoorLockControl();
+                    }
+
                 }
             }
         }
@@ -72,6 +102,7 @@ public class Interaction : MonoBehaviour
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
            out RaycastHit hit, interactionDistance))
         {
+
             var dialogueScript = hit.collider.GetComponent<CommentaryScript>();
 
             if (dialogueScript != null && !dialogueScript.inDialogue)

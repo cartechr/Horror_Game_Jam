@@ -1,14 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasicInventory : MonoBehaviour
 {
+    [Header("UI Section Assign Relevant UI Elements")]
+    [Tooltip("Assign the relevant UI element")]
+    public GameObject keysPanel; //Disabling and enabling can be complicated instead make the background transparent
+    public GameObject redKeyUI;
+    public GameObject blueKeyUI;
+    public GameObject greenKeyUI;
+    public GameObject blackKeyUI;
 
-    [SerializeField] GameObject[] items;
 
-    [SerializeField] public bool hasKey;
-    [SerializeField] public GameObject key;
+    [Header("Section for Items")]
+    [SerializeField] List<GameObject> items = new List<GameObject>();
+
+    [Header("Section for Keys")]
+    [SerializeField] List<GameObject> keys = new List<GameObject>();
+
+    [Header("Bool Checks")]
+    [SerializeField] public bool hasBlackKey;
+    [SerializeField] public bool hasRedKey;
+    [SerializeField] public bool hasGreenKey;
+    [SerializeField] public bool hasBlueKey;
+
+    [Header("Interaction Settings")]
     [SerializeField] public float interactionDistance = 3f;
 
     private void Update()
@@ -21,21 +39,90 @@ public class BasicInventory : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Key"))
                 {
+                    GameObject key = hit.collider.gameObject;
                     Debug.Log("Ray Hitting Key");
-                    //Toggle Door opening and closing
-                    PickupKey();
+                    
+                    PickupKey(key);
                 }
             }
         }
+
+        ControlUI();
+
     }
 
 
-    public void PickupKey()
+    public void PickupKey(GameObject key)
     {
-        key = GameObject.FindWithTag("Key");
-        hasKey = true;
-        Object.Destroy(key);
+
+        keys.Add(key);
+
+        if(key.transform.name == "Key_Red")
+        {
+            hasRedKey = true;
+            Object.Destroy(key);
+        }
+
+        if (key.transform.name == "Key_Blue")
+        {
+            hasBlueKey = true;
+            Object.Destroy(key);
+        }
+
+        if (key.transform.name == "Key_Green")
+        {
+            hasGreenKey = true;
+            Object.Destroy(key);
+        }
+
+        if (key.transform.name == "Key_Black")
+        {
+            hasBlackKey = true;
+            Object.Destroy(key);
+        }
+
     }
 
+    void ControlUI()
+    {
+        if(hasRedKey)
+        {
+            redKeyUI.SetActive(true);
+
+        }
+        else
+        {
+            redKeyUI.SetActive(false);
+        }
+
+        if (hasBlueKey)
+        {
+            blueKeyUI.SetActive(true);
+        }
+        else
+        {
+            blueKeyUI.SetActive(false);
+        }
+
+        if (hasGreenKey)
+        {
+            greenKeyUI.SetActive(true);
+        }
+        else
+        {
+            greenKeyUI.SetActive(false);
+        }
+
+        if (hasBlackKey)
+        {
+            blackKeyUI.SetActive(true);
+        }
+        else
+        {
+            blackKeyUI.SetActive(false);
+        }
+
+
+    }
 
 }

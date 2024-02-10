@@ -6,12 +6,23 @@ using FMODUnity;
 public class FMODEvents : MonoBehaviour
 {
 
-    [field: Header("SFX")]
+    [field: Header("Music")]
+    [field: SerializeField] public EventReference sarahRoomMusic { get; private set; }
+    [field: SerializeField] public EventReference hallwayMusic { get; private set; }
 
-    [field: SerializeField] public EventReference sarahRoom { get; private set; }
-    [field: SerializeField] public EventReference windowRain { get; private set; }
+
+    [field: Header("Ambiance")]
+    [field: SerializeField] public EventReference stairWellAmbiance { get; private set; }
+    [field: SerializeField] public EventReference rainAmbiance { get; private set; }
+
+
+    [field: Header("Item & Interaction")]
+    [field: SerializeField] public EventReference uiInteractSFX { get; private set; }
+
+
+    [field: Header("Footstep Specific")]
     [field: SerializeField] public EventReference footStep { get; private set; }
-    [field: SerializeField] public EventReference music {  get; private set; }
+
 
     public static FMODEvents instance { get; private set; }
     
@@ -43,7 +54,7 @@ public class FMODEvents : MonoBehaviour
 
     private void Start()
     {
-        PlayMusic();
+        //PlayMusic();
         
     }
 
@@ -78,10 +89,24 @@ public class FMODEvents : MonoBehaviour
         
     }
 
-    void PlayMusic()
+    void PlayHallwayMusic()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.music, this.transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.sarahRoomMusic, this.transform.position);
     }
 
+    void PlaySarahRoomMusic()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.hallwayMusic, this.transform.position);
+    }
+
+    void PlayRainAmbiance()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.rainAmbiance, this.transform.position);
+    }
+
+    void PlayStairWellAmbiance()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.stairWellAmbiance, this.transform.position);
+    }
 
 }

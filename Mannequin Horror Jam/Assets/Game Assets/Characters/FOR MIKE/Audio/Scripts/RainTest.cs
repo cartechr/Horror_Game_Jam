@@ -6,11 +6,10 @@ using UnityEngine;
 public class RainTest : MonoBehaviour
 {
 
-    public void OnTriggerEnter(Collider other)
+    void Start()
     {
 
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.windowRain, this.transform.position);
-
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.rainAmbiance, this.transform.position);
 
     }
 

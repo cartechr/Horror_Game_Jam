@@ -12,10 +12,15 @@ public class NoteScript : MonoBehaviour
     [SerializeField] public string enterText;
     [Tooltip("Assign Relevant Note UI within player to here")]
     [SerializeField] GameObject noteUI;
+    [Tooltip("Assign Note Image here")]
+    [SerializeField] Sprite noteImageSprite;
+    [Tooltip("Assign Note Image UI Component Here")]
+    [SerializeField] Image noteImageUIComponent;
     [Tooltip("Assign Relevant Note UI element withing player to here")]
     [SerializeField] TextMeshProUGUI noteTextUI;
 
-    FPSCONTROL fpsControl;
+    [Tooltip("Assign FPS Control Here")]
+    public FPSCONTROL fpsControl;
 
     bool noteIsOpen = false;
 
@@ -24,8 +29,15 @@ public class NoteScript : MonoBehaviour
         fpsControl = GameObject.FindWithTag("Player").GetComponent<FPSCONTROL>();
     }
 
+    private void Update()
+    {
+
+    }
+
     public void ToggleNote()
     {
+       
+
         if(!noteIsOpen)
         {
             OpenNote();
@@ -39,9 +51,11 @@ public class NoteScript : MonoBehaviour
 
     void OpenNote()
     {
+        fpsControl.animator.SetBool("isInteracting", true);
         fpsControl.disableLook = true;
         fpsControl.disableMovement = true;
         noteUI.SetActive(true);
+        noteImageUIComponent.sprite = noteImageSprite;
         noteTextUI.text = enterText;
         noteIsOpen = true;
         Debug.Log("noteIsOpen " + noteIsOpen);
@@ -50,6 +64,7 @@ public class NoteScript : MonoBehaviour
 
     void CloseNote()
     {
+        fpsControl.animator.SetBool("isInteracting", false);
         fpsControl.disableLook = false;
         fpsControl.disableMovement = false;
         noteUI.SetActive(false);
