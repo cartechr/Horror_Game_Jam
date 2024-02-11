@@ -9,6 +9,7 @@ using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
+using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
@@ -46,6 +47,8 @@ public class EnemyController : MonoBehaviour
     public LayerMask targetMask;
     [Tooltip("Wall Layer Mask")]
     public LayerMask wallMask;
+    GameObject playerHead;
+    GameObject aiHead;
 
 
     [Space(15)]
@@ -86,11 +89,11 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         Head = GameObject.FindGameObjectWithTag("Head");
+        playerHead = GameObject.FindGameObjectWithTag("CinemachineTarget");
+        aiHead = GameObject.FindGameObjectWithTag("aiHead");
 
         animNum = Random.Range(0, 2);
         animator.SetFloat("Idle", animNum);
-
-        //Debug.Log ("Array " + animNames.Length);
     }
     private void Update()
     {
@@ -307,7 +310,7 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("isIdle", false);
         }
 
-        if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position) < WhenAtIdlePoint)
+        if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position) <= WhenAtIdlePoint)
         {
             currentWaypoint = (currentWaypoint + 1) % patrolWaypoints.Length;
             //Debug.Log("Current Waypoint is " + currentWaypoint);
@@ -360,11 +363,12 @@ public class EnemyController : MonoBehaviour
     {
         if (switchState)
         {
+            Debug.Log("switched to Alerted State");
             agent.SetDestination(lastknownlocation.position);
             animator.SetBool("isIdle", false);
         }
 
-        if (Vector3.Distance(transform.position, lastknownlocation.position) < WhenAtIdlePoint)
+        if (Vector3.Distance(transform.position, lastknownlocation.position) <= WhenAtIdlePoint)
         {
             animator.SetBool("isIdle", true);
 
@@ -376,9 +380,12 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Attack Player");
+                animator.SetBool("isIdle", true);
+                agent.SetDestination(transform.position);
                 state = 5;
                 switchState = true;
+
+                Debug.Log("Attack Player");
                 return;
             }
         }
@@ -400,47 +407,56 @@ public class EnemyController : MonoBehaviour
             Head.GetComponent<MultiAimConstraint>().weight = 0f;
             animator.SetBool("isIdle", true);
             agent.SetDestination(transform.position);
+
             state = 5;
             switchState = true;
+
+            Debug.Log("Attack Player");
+            return;
+        }
+
+        Debug.Log("Chasing Chasing Chasing");
+        if (!inGreen && !inYellow && !inRed && !inAttack)
+        {
+            Debug.Log("Lost Player");
+            Head.GetComponent<MultiAimConstraint>().weight = 0f;
+            lastknownlocation.position = playerRef.transform.position;
+            state = 3;
+            switchState = true;
+
             return;
         }
 
         switchState = false;
-
-
-      /*  if (inAttack)
-        {
-            state = 5;
-
-            animator.SetBool("isAttacking", true);
-
-            agent.SetDestination(transform.position);
-            playerRef.transform.LookAt(transform.position);
-            fpscontroller.disableLook = true;
-            fpscontroller.disableMovement = true;
-
-            Debug.Log("Attacking");
-            return;
-        }
-        else
-        {
-            animator.SetBool("isIdle", false);
-            agent.SetDestination(playerRef.transform.position);
-            Head.GetComponent<MultiAimConstraint>().weight = 1.0f;
-        } */
-
     }
 
     private void Attack()
     {
-        playerRef.transform.LookAt(transform.position);
-        fpscontroller.disableLook = true;
-        fpscontroller.disableMovement = true;
+        if (switchState)
+        {
+            this.transform.LookAt(new Vector3(playerRef.transform.position.x, transform.position.y, playerRef.transform.position.z));
+            playerRef.transform.LookAt(new Vector3(transform.position.x, playerRef.transform.position.y, transform.position.z));
+            playerHead.transform.LookAt(aiHead.transform.position);
 
+            fpscontroller.disableLook = true;
+            fpscontroller.disableMovement = true;
+            animator.SetBool("isAttack", true);
+        }
+
+        switchState = false;
     }
 
+    private void switchToGrapple()
+    {
+        switchState = true;
+        state = 6;
+        Debug.Log("Play grapple");
+    }
     private void grappleAttack()
     {
+        animator.SetBool("IsGrapple", true);
+        
+
        /* int Decider = 0;
 
         for (float startClock = 0f; startClock < Clock; startClock += Time.deltaTime)
