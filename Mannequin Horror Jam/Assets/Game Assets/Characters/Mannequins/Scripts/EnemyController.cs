@@ -27,6 +27,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float idleTime;
     [Tooltip("How close should AI get to point before idling?")]
     [SerializeField] float WhenAtIdlePoint;
+    [Tooltip("How long Ai should remain stunned")]
+    [SerializeField] float stunTime;
     [SerializeField] float Clock;
     [Tooltip("Number player has to reach to win the grapple")]
     [SerializeField] int playerWins;
@@ -126,6 +128,10 @@ public class EnemyController : MonoBehaviour
             case 7:
                 Stunned();
                 Name = "Stunned";
+                break;
+            case 8:
+                UnStunned();
+                Name = "UnStunned";
                 break;
         }
     }
@@ -454,53 +460,96 @@ public class EnemyController : MonoBehaviour
     }
     private void grappleAttack()
     {
+        animator.SetBool("isAttack", false);
         animator.SetBool("IsGrapple", true);
-        
 
-       /* int Decider = 0;
 
-        for (float startClock = 0f; startClock < Clock; startClock += Time.deltaTime)
-        {
+        /* int Decider = 0;
 
-            //Player presses one of these buttons in time
-            if (Input.GetKeyDown(KeyCode.A) && startClock < Clock || Input.GetKeyDown(KeyCode.D) && startClock < Clock)
-            {
-                //player wins struggle
-                if (Decider == playerWins)
-                {
-                    state = 6; 
-                    break;
-                }
+         for (float startClock = 0f; startClock < Clock; startClock += Time.deltaTime)
+         {
 
-                startClock = 0f;
-                Decider++;
-            }
-            //Player doesn't press a button in time
-            if (startClock > Clock)
-            {
-                if (Decider != mannequinWins) 
-                {
-                    Decider--;
-                }
+             //Player presses one of these buttons in time
+             if (Input.GetKeyDown(KeyCode.A) && startClock < Clock || Input.GetKeyDown(KeyCode.D) && startClock < Clock)
+             {
+                 //player wins struggle
+                 if (Decider == playerWins)
+                 {
+                     state = 6; 
+                     break;
+                 }
 
-                //player losing struggle
-                else
-                {
-                    //Player take damage
+                 startClock = 0f;
+                 Decider++;
+             }
+             //Player doesn't press a button in time
+             if (startClock > Clock)
+             {
+                 if (Decider != mannequinWins) 
+                 {
+                     Decider--;
+                 }
 
-                    //if player takes enough damage
-                    //Stop state machine or add a state that kills the player
-                    //state = 0; //Not a state machine state, so state machine should "Stop"
-                    //break;
-                }
+                 //player losing struggle
+                 else
+                 {
+                     //Player take damage
 
-                startClock = 0f;
-            }
-        }*/
+                     //if player takes enough damage
+                     //Stop state machine or add a state that kills the player
+                     //state = 0; //Not a state machine state, so state machine should "Stop"
+                     //break;
+                 }
+
+                 startClock = 0f;
+             }
+         }*/
+
+        switchState = true;
     }
 
     private void Stunned()
     {
-        //state 6
+        Debug.Log("Play Stun");
+        //state 7
+        if (switchState)
+        {
+            animator.SetBool("IsGrapple", false);
+            animator.SetBool("Stunned", true);
+
+            fpscontroller.disableLook = true;
+            fpscontroller.disableMovement = true;
+        }
+        switchState = false;
+    }
+
+    private void switchToUnStunned()
+    {
+        StartCoroutine(StunTime());
+    }
+    IEnumerator StunTime()
+    {
+        yield return new WaitForSeconds(stunTime);
+        state = 8;
+        switchState = true;
+        Debug.Log("Play UnStun");
+
+    }
+
+    private void UnStunned()
+    {
+        //state 8
+        if (switchState)
+        {
+            animator.SetBool("Stunned", false);
+            animator.SetBool("UnStunned", true);
+        }
+        switchState = false;
+    }
+    private void switchToIdle()
+    {
+        state = 2;
+        animator.SetBool("UnStunned", false);
+        switchState = true;
     }
 }
