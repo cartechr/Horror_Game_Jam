@@ -8,6 +8,8 @@ public class Interaction : MonoBehaviour
     [Header("Assignments")]
     [SerializeField] BasicInventory inventory;
     [SerializeField] FPSCONTROL fpsControl;
+    [SerializeField] GameObject flashlight;
+    [SerializeField] GameObject walkieTalkieObj;
 
     [Header("Interaction Variables")]
     [SerializeField] float interactionDistance = 3f;
@@ -27,6 +29,8 @@ public class Interaction : MonoBehaviour
             DoorInteract();
             NoteInteraction();
             DialogueInteractions();
+            FlashlightInteraction();
+            WalkieTalkieInteraction();
         }
     }
 
@@ -112,5 +116,37 @@ public class Interaction : MonoBehaviour
         }
     }
 
+    void FlashlightInteraction()
+    {
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+           out RaycastHit hit, interactionDistance))
+        {
+            if (hit.collider.CompareTag("Flashlight"))
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.flashlightPickup, this.transform.position);
+                GameObject flashLight = hit.collider.gameObject;
+                inventory.hasFlashlight = true;
+                Destroy(flashLight);
+                flashlight.SetActive(true);
+
+            }
+        }
+    }
+
+    void WalkieTalkieInteraction()
+    {
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+           out RaycastHit hit, interactionDistance))
+        {
+            if (hit.collider.CompareTag("WalkieTalkie"))
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.walkiePickup, this.transform.position);
+                GameObject walkieTalkie = hit.collider.gameObject;
+                inventory.hasWalkieTalkie = true;
+                Destroy(walkieTalkie);
+                walkieTalkieObj.SetActive(true);
+            }
+        }
+    }
 
 }

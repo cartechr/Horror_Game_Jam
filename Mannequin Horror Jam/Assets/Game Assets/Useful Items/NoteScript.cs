@@ -54,6 +54,7 @@ public class NoteScript : MonoBehaviour
         fpsControl.animator.SetBool("isInteracting", true);
         fpsControl.disableLook = true;
         fpsControl.disableMovement = true;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.notePickup, this.transform.position);
         noteUI.SetActive(true);
         noteImageUIComponent.sprite = noteImageSprite;
         noteTextUI.text = enterText;
@@ -67,6 +68,7 @@ public class NoteScript : MonoBehaviour
         fpsControl.animator.SetBool("isInteracting", false);
         fpsControl.disableLook = false;
         fpsControl.disableMovement = false;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.notePickup, this.transform.position);
         noteUI.SetActive(false);
         noteIsOpen = false;
         Debug.Log("noteIsOpen " + noteIsOpen);
