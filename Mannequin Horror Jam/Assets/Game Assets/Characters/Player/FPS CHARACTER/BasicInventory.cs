@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Animations.Rigging;
 
 public class BasicInventory : MonoBehaviour
 {
@@ -25,9 +26,19 @@ public class BasicInventory : MonoBehaviour
     [SerializeField] public bool hasRedKey;
     [SerializeField] public bool hasGreenKey;
     [SerializeField] public bool hasBlueKey;
+    public bool hasFlashlight;
+    public bool hasWalkieTalkie;
 
     [Header("Interaction Settings")]
     [SerializeField] public float interactionDistance = 3f;
+
+    [Header("Flashlight Section")]
+    [SerializeField] Light flashlightLight;
+    [SerializeField] bool lightOn = true;
+
+    [Header("Bone IK Stuff")]
+    [SerializeField] TwoBoneIKConstraint walkieTalkieConstraint;
+    [SerializeField] TwoBoneIKConstraint flashlightConstraint;
 
     private void Update()
     {
@@ -48,7 +59,43 @@ public class BasicInventory : MonoBehaviour
         }
 
         ControlUI();
+        FlashlightControl();
+        BoneIKControl();
 
+    }
+
+    void BoneIKControl()
+    {
+        if (hasWalkieTalkie)
+        {
+            walkieTalkieConstraint.weight = 1f;
+            
+        }
+
+        if (hasFlashlight)
+        {
+            flashlightConstraint.weight += 1f;
+        }
+    }
+
+    void FlashlightControl()
+    {
+        if (hasFlashlight)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.flashlightClick, this.transform.position);
+                lightOn = !lightOn;
+                if (!lightOn)
+                {
+                    flashlightLight.enabled = false;
+                }
+                else
+                {
+                    flashlightLight.enabled = true;
+                }
+            }
+        }
     }
 
 
@@ -56,8 +103,9 @@ public class BasicInventory : MonoBehaviour
     {
 
         keys.Add(key);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.keyPickup, this.transform.position);
 
-        if(key.transform.name == "Key_Red")
+        if (key.transform.name == "Key_Red")
         {
             hasRedKey = true;
             Object.Destroy(key);
