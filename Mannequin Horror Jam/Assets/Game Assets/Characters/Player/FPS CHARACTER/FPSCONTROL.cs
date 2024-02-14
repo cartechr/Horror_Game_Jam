@@ -88,6 +88,7 @@ public class FPSCONTROL : MonoBehaviour
     public GameObject health1;
     [SerializeField] float regenTime;
     public float timeStart;
+    public bool playerDead;
 
     private void Awake()
     {
@@ -485,7 +486,7 @@ public class FPSCONTROL : MonoBehaviour
 
     #endregion
 
-    #region AI
+    #region Player Health
 
     private void aiInteraction()
     {
@@ -528,6 +529,11 @@ public class FPSCONTROL : MonoBehaviour
             health1.gameObject.SetActive(false);
 
             //kill player
+            if (!playerDead)
+            {
+                playerDead = true;
+            }
+
         }
     }
 

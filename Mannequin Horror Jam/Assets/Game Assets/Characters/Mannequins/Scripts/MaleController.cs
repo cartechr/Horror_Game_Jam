@@ -13,7 +13,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 
-public class EnemyController : MonoBehaviour
+public class MaleController : MonoBehaviour
 {
     [Header("Current State")]
     [Space(6)]
@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float idleTime;
     [Tooltip("How close should AI get to point before idling?")]
     [SerializeField] float WhenAtIdlePoint;
-    [SerializeField] float alertedPoint;
+    bool reachedPoint;
 
     [Space(6)]
     [Header("Grapple")]
@@ -51,10 +51,8 @@ public class EnemyController : MonoBehaviour
     [Header("Stun")]
     [SerializeField] float stunTime;
 
-    [Space(15)]
-    [Tooltip("Current Assigned Waypoint")]
     [Space(6)]
-    [SerializeField] int currentWaypoint;
+    //[SerializeField] int currentWaypoint;
     [Tooltip("Assign Patrol Waypoints Here")]
     [SerializeField] Transform[] patrolWaypoints;
 
@@ -111,7 +109,7 @@ public class EnemyController : MonoBehaviour
     bool switchUI = true;
 
 
-    /*[field: SerializeField] public EventReference mannequinMovement {  get; private set; }
+   /* [field: SerializeField] public EventReference mannequinMovement { get; private set; }
     private EventInstance mannequinMovementInst;
 
     private static PARAMETER_ID GetParamID(EventInstance instance, ParamRef parameter)
@@ -136,9 +134,7 @@ public class EnemyController : MonoBehaviour
         playerHead = GameObject.FindGameObjectWithTag("CinemachineTarget");
         aiHead = GameObject.FindGameObjectWithTag("aiHead");
         //Bar = GetComponent<Slider>();
-        
 
-        alertedPoint = WhenAtIdlePoint;
 
 
         spam = spamDecider;
@@ -151,8 +147,8 @@ public class EnemyController : MonoBehaviour
         switch (state)
         {
             case 1:
-                Patrol();
-                Name = "Patrol";
+                Stay();
+                Name = "Stay";
                 break;
             case 2:
                 Idle();
@@ -198,10 +194,11 @@ public class EnemyController : MonoBehaviour
 
     private void SearchCheck()
     {
+        Debug.Log("Actively Searching");
         Transform target;
         Vector3 directionToTarget;
         float distanceToTarget;
-        
+
         Collider[] greenChecks = Physics.OverlapSphere(transform.position, radiusGreen, targetMask);
         Collider[] yellowChecks = Physics.OverlapSphere(transform.position, radiusYellow, targetMask);
         Collider[] redChecks = Physics.OverlapSphere(transform.position, radiusRed, targetMask);
@@ -226,10 +223,11 @@ public class EnemyController : MonoBehaviour
                 inGreen = false;
             }
         }
-        else if (inGreen)
-        {
+
+       else if (inGreen)
+       {
             inGreen = false;
-        }
+       }
 
         //Yellow Area
         if (yellowChecks.Length != 0 && redChecks.Length == 0 && attackChecks.Length == 0)
@@ -251,6 +249,7 @@ public class EnemyController : MonoBehaviour
         else if (inYellow)
         {
             inYellow = false;
+            Debug.Log("Not in Yellow");
         }
 
         //Red Area
@@ -268,6 +267,7 @@ public class EnemyController : MonoBehaviour
             else
             {
                 inRed = false;
+                Debug.Log("Not in red");
             }
         }
         else if (inRed)
@@ -309,6 +309,8 @@ public class EnemyController : MonoBehaviour
                 {
                     lastknownlocation = playerRef.transform;
                     state = 3;
+
+                    reachedPoint = false;
                     switchState = true;
                     //Debug.Log("Alerted");
                     return;
@@ -322,6 +324,8 @@ public class EnemyController : MonoBehaviour
                 {
                     lastknownlocation = playerRef.transform;
                     state = 3;
+
+                    reachedPoint = false;
                     switchState = true;
                     //Debug.Log("Alerted");
                     return;
@@ -331,6 +335,8 @@ public class EnemyController : MonoBehaviour
                 if (fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
                 {
                     state = 4;
+
+                    reachedPoint = false;
                     switchState = true;
                     //Debug.Log("Chasing");
                     return;
@@ -343,6 +349,8 @@ public class EnemyController : MonoBehaviour
                 if (fpscontroller.isWalking || fpscontroller.isSprinting && fpscontroller.move != Vector2.zero)
                 {
                     state = 4;
+
+                    reachedPoint = false;
                     switchState = true;
                     //Debug.Log("Chasing");
                     return;
@@ -350,9 +358,22 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+    private void aiFootSteps()
+    {
+        //AudioManager.instance.PlayOneShot(FMODEvents.instance.mannequinMovement, this.transform.position);
+        // AudioManager.instance.Re
 
-   private void Patrol()
-   {
+        // mannequinMovementInst = FMODUnity.RuntimeManager.CreateInstance(mannequinMovement);
+        // mannequinMovementInst.start();
+        //mannequinMovementInst.release();
+
+        // mannequinMovementInst.setParameterByIDWithLabel(mannequinMovement, "PickupObject");
+
+
+    }
+
+    private void Stay()
+    {
         if (patrolWaypoints.Length == 0)
         {
             Debug.LogError("No waypoints assigned. Please assign waypoints in the inspector");
@@ -361,39 +382,26 @@ public class EnemyController : MonoBehaviour
 
         if (switchState)
         {
-            agent.SetDestination(patrolWaypoints[currentWaypoint].position);
+            agent.SetDestination(patrolWaypoints[0].position);
             animator.SetBool("isIdle", false);
         }
-
-        if (Vector3.Distance(transform.position, patrolWaypoints[currentWaypoint].position) <= WhenAtIdlePoint)
+        if (Vector3.Distance(transform.position, patrolWaypoints[0].position) <= WhenAtIdlePoint)
         {
-            currentWaypoint = (currentWaypoint + 1) % patrolWaypoints.Length;
-            //Debug.Log("Current Waypoint is " + currentWaypoint);
-            switchState = true;
-            state = 2;
-            return;
+            if (!reachedPoint)
+            {
+                reachedPoint = true;
+                animator.SetBool("isIdle", true);
+                animNum = Random.Range(0, 2);
+                animator.SetFloat("Idle", animNum);
+            }
         }
 
         switchState = false;
     }
-
-    private void aiFootSteps()
-    {
-      //  AudioManager.instance.PlayOneShot(FMODEvents.instance.mannequinMovement, this.transform.position);
-        // AudioManager.instance.Re
-
-       // mannequinMovementInst = FMODUnity.RuntimeManager.CreateInstance(mannequinMovement);
-       // mannequinMovementInst.start();
-        //mannequinMovementInst.release();
-
-       // mannequinMovementInst.setParameterByIDWithLabel(mannequinMovement, "PickupObject");
-
-        
-    }
     private void Idle()
     {
-        IEnumerator waitCoroutine = WaitThenPatrol();
-        
+        IEnumerator waitCoroutine = WaitThenReturn();
+
         //start timer, will transition when it ends
         StartCoroutine(waitCoroutine);
 
@@ -407,20 +415,20 @@ public class EnemyController : MonoBehaviour
 
         switchState = false;
     }
-    IEnumerator WaitThenPatrol()
+    IEnumerator WaitThenReturn()
     {
-            //float timer = idleTime;
-            for (float timeWaited = 0f; timeWaited <= idleTime; timeWaited += Time.deltaTime)
-            {
+        //float timer = idleTime;
+        for (float timeWaited = 0f; timeWaited <= idleTime; timeWaited += Time.deltaTime)
+        {
             //Debug.Log(timeWaited);
-                if (state != 2)
-                {
-                    yield break;
-                }
-            yield return new WaitForSeconds(Time.deltaTime);
+            if (state != 2)
+            {
+                yield break;
             }
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
 
-    if (state == 2)
+        if (state == 2)
         {
             state = 1;
             switchState = true;
@@ -471,12 +479,12 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("isIdle", false);
         }
 
-        Head.GetComponent<MultiAimConstraint>().weight = 1.0f;
+        //Head.GetComponent<MultiAimConstraint>().weight = 1.0f;
         agent.SetDestination(playerRef.transform.position);
 
         if (Vector3.Distance(transform.position, playerRef.transform.position) <= radiusAttack)
         {
-            Head.GetComponent<MultiAimConstraint>().weight = 0f;
+            //Head.GetComponent<MultiAimConstraint>().weight = 0f;
             animator.SetBool("isIdle", true);
             agent.SetDestination(transform.position);
 
@@ -515,7 +523,7 @@ public class EnemyController : MonoBehaviour
 
             //Player looks at AI
             playerHead.transform.LookAt(aiHead.transform.position);
-            
+
 
             fpscontroller.disableLook = true;
             fpscontroller.disableMovement = true;
@@ -533,7 +541,7 @@ public class EnemyController : MonoBehaviour
     }
     private void grappleAttack()
     {
-       if (switchState)
+        if (switchState)
         {
             animator.SetBool("isAttack", false);
             animator.SetBool("IsGrapple", true);
@@ -541,7 +549,7 @@ public class EnemyController : MonoBehaviour
             barObject.gameObject.SetActive(true);
         }
 
-       
+
 
         if (switchUI)
         {
@@ -573,8 +581,8 @@ public class EnemyController : MonoBehaviour
         }
 
 
-             //if player is currently still alive and grapple hasnt ended
-        if (fpscontroller.Health !=0 && spam <= 6)
+        //if player is currently still alive and grapple hasnt ended
+        if (fpscontroller.Health != 0 && spam <= 6)
         {
             //Losing Struggle/Health
             if (spam > 1)
@@ -618,12 +626,12 @@ public class EnemyController : MonoBehaviour
         else
         {
 
-           /* if (playerHealth == 0)
-            {
+            /* if (playerHealth == 0)
+             {
 
-                return;
-                //Player dies
-            }*/
+                 return;
+                 //Player dies
+             }*/
 
             if (spam >= 6)
             {
@@ -645,7 +653,7 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        
+
 
         switchState = false;
     }
@@ -674,7 +682,7 @@ public class EnemyController : MonoBehaviour
         state = 8;
         switchState = true;
         //Debug.Log("Play UnStun");
-
+        
     }
 
     private void UnStunned()
