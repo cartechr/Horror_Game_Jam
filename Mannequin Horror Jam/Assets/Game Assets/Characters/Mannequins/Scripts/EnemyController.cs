@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using FMODUnity;
 using JetBrains.Annotations;
 using StarterAssets;
 using Unity.VisualScripting;
@@ -9,52 +11,69 @@ using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
     [Header("Current State")]
+    [Space(6)]
     [Tooltip("Current State Number")]
     [SerializeField] int state;
     [Tooltip("Current State Name")]
     [SerializeField] string Name;
     [Tooltip("A bool that checks if a state switch has occured")]
     [SerializeField] bool switchState;
+    bool ignoreseekspeed;
 
-    [Space(10)]
+    [Space(15)]
     [Header("AI Variables")]
+
+    [Space(6)]
+    [Header("Idle")]
     [Tooltip("Time in which AI is in idle state")]
     [SerializeField] float idleTime;
     [Tooltip("How close should AI get to point before idling?")]
     [SerializeField] float WhenAtIdlePoint;
-    [Tooltip("How long Ai should remain stunned")]
-    [SerializeField] float stunTime;
-    [SerializeField] float Clock;
-    [Tooltip("Number player has to reach to win the grapple")]
-    [SerializeField] int playerWins;
-    [Tooltip("Numer mannequin has to reach to win the grapple")]
-    [SerializeField] int mannequinWins;
+    [SerializeField] float alertedPoint;
 
-    [Space(10)]
+    [Space(6)]
+    [Header("Grapple")]
+    [Tooltip("How long before AI hurts player")]
+    [SerializeField] float healthDelay;
+    [SerializeField] float timeStart;
+    [Tooltip("How long Ai should remain stunned")]
+    [SerializeField] float spamDecider = 4;
+    [SerializeField] float spam;
+    [SerializeField] float spamDamage;
+    [SerializeField] float aiSpamDamage;
+
+    [Space(6)]
+    [Header("Stun")]
+    [SerializeField] float stunTime;
+
+    [Space(15)]
     [Tooltip("Current Assigned Waypoint")]
+    [Space(6)]
     [SerializeField] int currentWaypoint;
     [Tooltip("Assign Patrol Waypoints Here")]
     [SerializeField] Transform[] patrolWaypoints;
 
     [Space(10)]
     [Header("Player Detection")]
+    [Space(6)]
     [Tooltip("Reference to Player (DONT ADD ANYTHING HERE)")]
     public GameObject playerRef;
     [Tooltip("Player Layer Mask")]
     public LayerMask targetMask;
     [Tooltip("Wall Layer Mask")]
     public LayerMask wallMask;
-    GameObject playerHead;
-    GameObject aiHead;
+    public GameObject playerHead;
+    [SerializeField] GameObject aiHead;
 
 
     [Space(15)]
     [Header("Radius")]
+    [Space(6)]
     public float radiusRed;
     public bool inRed;
     public float radiusYellow;
@@ -72,12 +91,35 @@ public class EnemyController : MonoBehaviour
 
 
     [Space(10)]
+    [Space(6)]
     [Header("FPS Controller")]
     [Tooltip("DONT ADD ANYTHING HERE")]
     public FPSCONTROL fpscontroller;
+
+
     NavMeshAgent agent;
     Animator animator;
     int animNum;
+
+    [Space(20)]
+    //Button Smashing UI
+    float Clock = .2f;
+    float startClock = 0;
+    public GameObject UI1;
+    public GameObject UI2;
+    public GameObject barObject;
+    bool switchUI = true;
+
+
+    /*[field: SerializeField] public EventReference mannequinMovement {  get; private set; }
+    private EventInstance mannequinMovementInst;
+
+    private static PARAMETER_ID GetParamID(EventInstance instance, ParamRef parameter)
+    {
+        instance.getDescription(out EventDescription eventDesc);
+        eventDesc.getParameterDescriptionByName(parameter.Name, out PARAMETER_DESCRIPTION paramDesc);
+        return paramDesc.id;
+    }*/
 
 
     private void Start()
@@ -93,6 +135,13 @@ public class EnemyController : MonoBehaviour
         Head = GameObject.FindGameObjectWithTag("Head");
         playerHead = GameObject.FindGameObjectWithTag("CinemachineTarget");
         aiHead = GameObject.FindGameObjectWithTag("aiHead");
+        //Bar = GetComponent<Slider>();
+        
+
+        alertedPoint = WhenAtIdlePoint;
+
+
+        spam = spamDecider;
 
         animNum = Random.Range(0, 2);
         animator.SetFloat("Idle", animNum);
@@ -261,7 +310,7 @@ public class EnemyController : MonoBehaviour
                     lastknownlocation = playerRef.transform;
                     state = 3;
                     switchState = true;
-                    Debug.Log("Alerted");
+                    //Debug.Log("Alerted");
                     return;
                 }
             }
@@ -274,7 +323,7 @@ public class EnemyController : MonoBehaviour
                     lastknownlocation = playerRef.transform;
                     state = 3;
                     switchState = true;
-                    Debug.Log("Alerted");
+                    //Debug.Log("Alerted");
                     return;
                 }
 
@@ -283,7 +332,7 @@ public class EnemyController : MonoBehaviour
                 {
                     state = 4;
                     switchState = true;
-                    Debug.Log("Chasing");
+                    //Debug.Log("Chasing");
                     return;
                 }
             }
@@ -295,7 +344,7 @@ public class EnemyController : MonoBehaviour
                 {
                     state = 4;
                     switchState = true;
-                    Debug.Log("Chasing");
+                    //Debug.Log("Chasing");
                     return;
                 }
             }
@@ -328,6 +377,19 @@ public class EnemyController : MonoBehaviour
         switchState = false;
     }
 
+    private void aiFootSteps()
+    {
+      //  AudioManager.instance.PlayOneShot(FMODEvents.instance.mannequinMovement, this.transform.position);
+        // AudioManager.instance.Re
+
+       // mannequinMovementInst = FMODUnity.RuntimeManager.CreateInstance(mannequinMovement);
+       // mannequinMovementInst.start();
+        //mannequinMovementInst.release();
+
+       // mannequinMovementInst.setParameterByIDWithLabel(mannequinMovement, "PickupObject");
+
+        
+    }
     private void Idle()
     {
         IEnumerator waitCoroutine = WaitThenPatrol();
@@ -395,6 +457,10 @@ public class EnemyController : MonoBehaviour
                 return;
             }
         }
+        else
+        {
+            Debug.Log("Not At Point");
+        }
         switchState = false;
     }
 
@@ -426,13 +492,14 @@ public class EnemyController : MonoBehaviour
         {
             Debug.Log("Lost Player");
             Head.GetComponent<MultiAimConstraint>().weight = 0f;
-            lastknownlocation.position = playerRef.transform.position;
+            //agent.SetDestination(lastknownlocation.position);
             state = 3;
             switchState = true;
 
             return;
         }
 
+        lastknownlocation = playerRef.transform;
         switchState = false;
     }
 
@@ -440,9 +507,15 @@ public class EnemyController : MonoBehaviour
     {
         if (switchState)
         {
+            Debug.Log("Attacking Player fdjdglfkg");
+
+            //Face Each Other
             this.transform.LookAt(new Vector3(playerRef.transform.position.x, transform.position.y, playerRef.transform.position.z));
             playerRef.transform.LookAt(new Vector3(transform.position.x, playerRef.transform.position.y, transform.position.z));
+
+            //Player looks at AI
             playerHead.transform.LookAt(aiHead.transform.position);
+            
 
             fpscontroller.disableLook = true;
             fpscontroller.disableMovement = true;
@@ -460,65 +533,133 @@ public class EnemyController : MonoBehaviour
     }
     private void grappleAttack()
     {
-        animator.SetBool("isAttack", false);
-        animator.SetBool("IsGrapple", true);
+       if (switchState)
+        {
+            animator.SetBool("isAttack", false);
+            animator.SetBool("IsGrapple", true);
+
+            barObject.gameObject.SetActive(true);
+        }
+
+       
+
+        if (switchUI)
+        {
+            UI1.gameObject.SetActive(true);
+            UI2.gameObject.SetActive(false);
+        }
+        else
+        {
+            UI1.gameObject.SetActive(false);
+            UI2.gameObject.SetActive(true);
+        }
+
+        if (startClock < Clock)
+        {
+            startClock += Time.deltaTime;
+        }
+        else
+        {
+            startClock = 0;
+
+            if (switchUI)
+            {
+                switchUI = false;
+            }
+            else
+            {
+                switchUI = true;
+            }
+        }
 
 
-        /* int Decider = 0;
+             //if player is currently still alive and grapple hasnt ended
+        if (fpscontroller.Health !=0 && spam <= 6)
+        {
+            //Losing Struggle/Health
+            if (spam > 1)
+            {
+                spam -= aiSpamDamage * Time.deltaTime;
+                barObject.GetComponent<Slider>().value = spam;
+                animator.SetFloat("Grapple", spam);
+            }
+            else
+            {
+                spam = 1;
+                animator.SetFloat("Grapple", spam);
+            }
 
-         for (float startClock = 0f; startClock < Clock; startClock += Time.deltaTime)
-         {
+            if (timeStart < healthDelay)
+            {
+                timeStart += Time.deltaTime;
+            }
+            else
+            {
+                timeStart = 0;
 
-             //Player presses one of these buttons in time
-             if (Input.GetKeyDown(KeyCode.A) && startClock < Clock || Input.GetKeyDown(KeyCode.D) && startClock < Clock)
-             {
-                 //player wins struggle
-                 if (Decider == playerWins)
-                 {
-                     state = 6; 
-                     break;
-                 }
+                //Decrease player health
+                fpscontroller.Health -= 1;
 
-                 startClock = 0f;
-                 Decider++;
-             }
-             //Player doesn't press a button in time
-             if (startClock > Clock)
-             {
-                 if (Decider != mannequinWins) 
-                 {
-                     Decider--;
-                 }
+                //Reset regen timer
+                fpscontroller.timeStart = 0;
 
-                 //player losing struggle
-                 else
-                 {
-                     //Player take damage
+                Debug.Log("Player currently has " + fpscontroller.Health + " health");
+            }
 
-                     //if player takes enough damage
-                     //Stop state machine or add a state that kills the player
-                     //state = 0; //Not a state machine state, so state machine should "Stop"
-                     //break;
-                 }
+            //Fighting/Winning Struggle
+            if (Input.GetKeyDown(KeyCode.A) || (Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.A)) && (Input.GetKeyDown(KeyCode.D)))
+            {
+                spam += spamDamage;
+                barObject.GetComponent<Slider>().value = spam;
+                animator.SetFloat("Grapple", spam);
+            }
 
-                 startClock = 0f;
-             }
-         }*/
+        }
+        else
+        {
 
-        switchState = true;
+           /* if (playerHealth == 0)
+            {
+
+                return;
+                //Player dies
+            }*/
+
+            if (spam >= 6)
+            {
+                startClock = 0;
+                state = 7;
+                timeStart = 0;
+
+                switchState = true;
+
+                spam = spamDecider;
+                UI1.gameObject.SetActive(false);
+                UI2.gameObject.SetActive(false);
+                barObject.gameObject.SetActive(false);
+                barObject.GetComponent<Slider>().value = spam;
+
+
+                return;
+                //switch to Stun
+            }
+        }
+
+        
+
+        switchState = false;
     }
-
     private void Stunned()
     {
-        Debug.Log("Play Stun");
+        //Debug.Log("Play Stun");
         //state 7
         if (switchState)
         {
             animator.SetBool("IsGrapple", false);
             animator.SetBool("Stunned", true);
 
-            fpscontroller.disableLook = true;
-            fpscontroller.disableMovement = true;
+            fpscontroller.disableLook = false;
+            fpscontroller.disableMovement = false;
         }
         switchState = false;
     }
@@ -532,7 +673,7 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(stunTime);
         state = 8;
         switchState = true;
-        Debug.Log("Play UnStun");
+        //Debug.Log("Play UnStun");
 
     }
 

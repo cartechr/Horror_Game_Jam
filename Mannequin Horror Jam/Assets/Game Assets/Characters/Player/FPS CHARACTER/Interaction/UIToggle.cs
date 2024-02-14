@@ -9,13 +9,29 @@ public class UIToggle : MonoBehaviour
     [SerializeField] GameObject uiPanel;
     bool isPaused = false;
 
+    public GameObject Player;
+    public GameObject DeadUI;
+    public GameObject SpamUI;
+
+
+    private void Start()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePause();
+            if (!Player.GetComponent<FPSCONTROL>().playerDead)
+            {
+                TogglePause();
+            }
         }
+
+
+        Dead_UI();
     }
 
     public void TogglePause()
@@ -46,6 +62,21 @@ public class UIToggle : MonoBehaviour
         Time.timeScale = 1f; // Resume the game
         Cursor.lockState = CursorLockMode.Locked; // Lock mouse
         Cursor.visible = false; // Make mouse invisible
+    }
+
+    void Dead_UI()
+    {
+        if (Player.GetComponent<FPSCONTROL>().playerDead)
+        {
+            DeadUI.gameObject.SetActive(true);
+            SpamUI.gameObject.SetActive(false);
+            PauseTheGame();
+            Cursor.visible = true;
+            Debug.Log("Player Dead");
+            Player.GetComponent<FPSCONTROL>().Health = 3;
+        }
+
+        Player.GetComponent<FPSCONTROL>().playerDead = false;
     }
 
 }

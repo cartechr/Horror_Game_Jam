@@ -8,7 +8,6 @@ using UnityEngine.Windows;
 [RequireComponent(typeof(CharacterController))]
 public class FPSCONTROL : MonoBehaviour
 {
-
     [Header("Player Movement")]
     public Vector2 move;
     public Vector2 look;
@@ -82,6 +81,15 @@ public class FPSCONTROL : MonoBehaviour
 
     public Transform walkieTalkiePos;
 
+    //Player Health
+    [Header("Health")]
+    public int Health = 3;
+    public GameObject health2;
+    public GameObject health1;
+    [SerializeField] float regenTime;
+    public float timeStart;
+    public bool playerDead;
+
     private void Awake()
     {
         // get a reference to our main camera
@@ -113,6 +121,8 @@ public class FPSCONTROL : MonoBehaviour
         GravityControls();
 
         GroundedCheck();
+
+        aiInteraction();
 
     }
 
@@ -472,6 +482,59 @@ public class FPSCONTROL : MonoBehaviour
         // set sphere position, with offset
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
         isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
+    }
+
+    #endregion
+
+    #region Player Health
+
+    private void aiInteraction()
+    {
+        if (Health < 3)
+        {
+            if (timeStart < regenTime)
+            {
+                timeStart += Time.deltaTime;
+            }
+            else
+            {
+                timeStart = 0;
+                Health += 1;
+            }
+        }
+        else
+        {
+            timeStart = 0;
+            //Debug.Log("Damage UI should go away");
+            health2.gameObject.SetActive(false);
+        }
+
+
+
+        if (Health == 2)
+        {
+            health1.gameObject.SetActive(false);
+            health2.gameObject.SetActive(true);
+            
+            //Debug.Log("Health is at 2");
+        }
+        if (Health == 1)
+        {
+            health2.gameObject.SetActive(false);
+            health1.gameObject.SetActive(true);
+            //Debug.Log("Health is at 1");
+        }
+        if (Health == 0)
+        {
+            health1.gameObject.SetActive(false);
+
+            //kill player
+            if (!playerDead)
+            {
+                playerDead = true;
+            }
+
+        }
     }
 
     #endregion

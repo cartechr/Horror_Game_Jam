@@ -7,15 +7,25 @@ public class NextScene : MonoBehaviour
 {
 
     [SerializeField] string nextSceneName;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        SceneManager.LoadScene(nextSceneName);
-    }
+    public GameObject toggle;
 
     public void LoadScene()
     {
         SceneManager.LoadScene(nextSceneName);
+        Time.timeScale = 1.0f;
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+
+    public void Restart()
+    {
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
+        Time.timeScale = 1.0f;
     }
 
     public void TerminateProgram()

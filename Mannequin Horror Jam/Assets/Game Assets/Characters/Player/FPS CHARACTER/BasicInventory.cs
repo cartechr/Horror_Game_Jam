@@ -69,7 +69,7 @@ public class BasicInventory : MonoBehaviour
         if (hasWalkieTalkie)
         {
             walkieTalkieConstraint.weight = 1f;
-            
+            Debug.Log(walkieTalkieConstraint.weight);
         }
 
         if (hasFlashlight)
