@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357.3334
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 321}
   m_MaxSize: {x: 10000, y: 10000}
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneHierarchyWindow
+  m_Name: EventBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -272,10 +272,10 @@ MonoBehaviour:
 <<<<<<< Updated upstream
     x: 378
     y: 0
-    width: 271
-    height: 675
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+    width: 542
+    height: 667
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -317,10 +317,10 @@ MonoBehaviour:
 <<<<<<< Updated upstream
     x: 649
     y: 0
-    width: 936
-    height: 675
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+    width: 584
+    height: 667
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -385,7 +385,7 @@ MonoBehaviour:
     y: 0
 <<<<<<< Updated upstream
     width: 751
-    height: 264
+    height: 272
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 22}
@@ -421,7 +421,7 @@ MonoBehaviour:
     y: 0
 <<<<<<< Updated upstream
     width: 834
-    height: 264
+    height: 272
   m_MinSize: {x: 102, y: 121}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 23}
@@ -465,8 +465,8 @@ MonoBehaviour:
 <<<<<<< Updated upstream
     width: 335
     height: 939
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 27}
   m_Panes:
   - {fileID: 27}
@@ -535,9 +535,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 2a8e0000
-      m_LastClickedID: 36394
-      m_ExpandedIDs: 04fbffff0c8e0000228e00002a8e0000368e0000388e0000888e0000908e0000a48e0000b28e00003e8f00007e8f000036900000549000005c9000007e900000
+      m_SelectedIDs: 54f40000
+      m_LastClickedID: 62548
+      m_ExpandedIDs: d8bbffff02c2ffffa8e4ffff04fbffffbe8e000052dd000074dd0000b0dd0000a8ef000016f2000046f700004af80000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -743,7 +743,7 @@ MonoBehaviour:
       m_SearchString: 
 <<<<<<< Updated upstream
     noSearchExpandState: 
-    selectedObject: {fileID: -8791575487959238553, guid: b1a7d9ecd7ea1dc4fba8f2108800d6cd, type: 2}
+    selectedObject: {fileID: 2681932125849569873, guid: b1a7d9ecd7ea1dc4fba8f2108800d6cd, type: 2}
     itemPaths:
     - folder:event:/
     - folder:snapshot:/
@@ -778,7 +778,22 @@ MonoBehaviour:
     - event:/UI SFX/Interact - Confirm
     - parameter:/Danger
     - parameter:/Proximity
-    itemIDs: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f00000020000000
+    - folder:event:/Character/Clothes
+    - folder:event:/Mannequins
+    - folder:event:/Tools
+    - event:/UI SFX/Key Pickup
+    - event:/UI SFX/Note Pick Up
+    - event:/UI SFX/TakingDamage
+    - event:/UI SFX/TestInteract
+    - parameter:/Health
+    - parameter:/MannProximity
+    - folder:event:/Mannequins/Headturns
+    - folder:event:/Mannequins/Movement
+    - event:/Mannequins/Headturns/Headturns
+    - event:/Mannequins/Movement/MannequinMovement
+    - event:/Mannequins/Movement/MaskRattle
+    - event:/Character/Clothes/ClothesRustling
+    itemIDs: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f000000
     typeFilter: 7
     dragEnabled: 1
 =======
@@ -1101,7 +1116,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 378
+    x: 459
     y: 73
     width: 269
     height: 654
@@ -1950,9 +1965,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 751
-    y: 748
+    y: 740
     width: 832
-    height: 243
+    height: 251
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
