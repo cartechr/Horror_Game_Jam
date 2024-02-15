@@ -15,6 +15,7 @@ public class Interaction : MonoBehaviour
     [SerializeField] float interactionDistance = 3f;
 
     CommentaryScript commentaryScript;
+    NextScene nextScene;
 
     private void Start()
     {
@@ -31,6 +32,23 @@ public class Interaction : MonoBehaviour
             DialogueInteractions();
             FlashlightInteraction();
             WalkieTalkieInteraction();
+            SceneTransition();
+        }
+    }
+
+    public void SceneTransition()
+    {
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+           out RaycastHit hit, interactionDistance))
+        {
+            if (hit.collider.CompareTag("SceneTransition"))
+            {
+
+                var nextScene = hit.collider.GetComponent<NextScene>();
+
+                nextScene.LoadScene();
+
+            }
         }
     }
 

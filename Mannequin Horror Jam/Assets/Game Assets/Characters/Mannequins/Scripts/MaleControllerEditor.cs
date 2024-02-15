@@ -6,6 +6,7 @@ using UnityEngine;
 [CustomEditor(typeof(MaleController))]
 public class MaleControllerEditor : Editor
 {
+    
     private void OnSceneGUI()
     {
         MaleController fovR = (MaleController)target;
@@ -48,4 +49,6 @@ public class MaleControllerEditor : Editor
             Handles.DrawLine(fovAttack.transform.position, fovAttack.playerRef.transform.position, 5);
         }
     }
+
+    
 }
