@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(MaleController))]
-public class MaleControllerEditor : Editor
+//[CustomEditor(typeof(MaleController))]
+public class MaleControllerEditor : MonoBehaviour //Editor
 {
+    /*
     private void OnSceneGUI()
     {
         MaleController fovR = (MaleController)target;
@@ -48,4 +49,6 @@ public class MaleControllerEditor : Editor
             Handles.DrawLine(fovAttack.transform.position, fovAttack.playerRef.transform.position, 5);
         }
     }
+
+    */
 }

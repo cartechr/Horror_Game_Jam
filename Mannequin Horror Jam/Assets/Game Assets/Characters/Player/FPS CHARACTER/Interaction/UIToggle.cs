@@ -22,6 +22,11 @@ public class UIToggle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Player == null)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!Player.GetComponent<FPSCONTROL>().playerDead)

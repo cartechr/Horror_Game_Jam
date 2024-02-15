@@ -55,6 +55,10 @@ public class FPSCONTROL : MonoBehaviour
     [Tooltip("For locking the camera position on all axis")]
     public bool LockCameraPosition = false;
 
+    [Header("Player Controller Variables")]
+    public float standingHeightSet;
+    public float crouchingHeightSet;
+
     //Private assignments
     CharacterController characterController;
     PlayerInput playerInput;
@@ -403,7 +407,7 @@ public class FPSCONTROL : MonoBehaviour
         {
             animator.SetBool("isCrouching", true);
 
-            characterController.height = 1.5f;
+            characterController.height = crouchingHeightSet;
 
             //Debug.Log("Crouching activated");
             
@@ -412,7 +416,7 @@ public class FPSCONTROL : MonoBehaviour
         {
             animator.SetBool("isCrouching", false);
 
-            characterController.height = 2.5f;
+            characterController.height = standingHeightSet;
 
             //Debug.Log("Crouching deactivated");
         }

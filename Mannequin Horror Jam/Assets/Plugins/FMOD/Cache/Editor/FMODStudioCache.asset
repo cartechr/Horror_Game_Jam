@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8791575487959238553
+--- !u!114 &-8957306191284032830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,22 +9,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/MannProximity
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
   m_EditorClassIdentifier: 
-  Name: MannProximity
-  StudioPath: parameter:/MannProximity
-  Min: 0
-  Max: 10
-  Default: 10
-  ID:
-    data1: 518785873
-    data2: 459573575
-  Type: 0
-  IsGlobal: 1
-  Labels: []
+  Path: ../../../FMOD/13 Feb/Horror Game Jam3/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638434649720000000
+  FileSizes:
+  - Name: Desktop
+    Value: 6092
   Exists: 1
---- !u!114 &-8764349971482629687
+--- !u!114 &-6803718670201016291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Foley/Clothes/ClothesRustling
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Foley/Clothes/ClothesRustling
+  Guid:
+    Data1: 1090342325
+    Data2: 1090574812
+    Data3: -542554437
+    Data4: 428759163
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5177861764300027216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,7 +74,99 @@ MonoBehaviour:
   - Walk
   - Run
   Exists: 1
---- !u!114 &-8750636650706461165
+--- !u!114 &-5145978190606866481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Dialogue.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../FMOD/13 Feb/Horror Game Jam3/Build/Desktop/Dialogue.bank
+  Name: Dialogue
+  StudioPath: bank:/Dialogue
+  lastModified: 638434649720000000
+  FileSizes:
+  - Name: Desktop
+    Value: 494
+  Exists: 1
+--- !u!114 &-4956894361945631720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../FMOD/13 Feb/Horror Game Jam3/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638434649720000000
+  FileSizes:
+  - Name: Desktop
+    Value: 2610
+  Exists: 1
+--- !u!114 &-4860014037825743937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Danger
+  m_EditorClassIdentifier: 
+  Name: Danger
+  StudioPath: parameter:/Danger
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1478256109
+    data2: 1183565978
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Non-Danger
+  - Danger
+  Exists: 1
+--- !u!114 &-4760223650252193174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Hallway Music/Danger
+  m_EditorClassIdentifier: 
+  Name: Danger
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1478256109
+    data2: 1183565978
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Non-Danger
+  - Danger
+  Exists: 1
+--- !u!114 &-3803823435893362200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,7 +185,7 @@ MonoBehaviour:
     Data3: 502886532
     Data4: 124088143
   Banks:
-  - {fileID: -4204914096776544163}
+  - {fileID: -8957306191284032830}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -78,7 +193,244 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
---- !u!114 &-8477297283585424759
+--- !u!114 &-3645615476370952224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX.bank
+  m_EditorClassIdentifier: 
+  Path: ../../../FMOD/13 Feb/Horror Game Jam3/Build/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 638434649730000000
+  FileSizes:
+  - Name: Desktop
+    Value: 3179808
+  Exists: 1
+--- !u!114 &-2676952940100178800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI SFX/TakingDamage
+  m_EditorClassIdentifier: 
+  Path: event:/UI SFX/TakingDamage
+  Guid:
+    Data1: -630914179
+    Data2: 1080977610
+    Data3: -1977747813
+    Data4: -1030658980
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 913820689038794682}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6765
+--- !u!114 &-2579386371303415235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/Puddle
+  m_EditorClassIdentifier: 
+  Name: Puddle
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3546198679
+    data2: 494121118
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-2349758131626682923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/2. Hallway/Ambience/Stairwell - Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/2. Hallway/Ambience/Stairwell - Ambience
+  Guid:
+    Data1: 2104233490
+    Data2: 1334453591
+    Data3: -1559423863
+    Data4: 1035996859
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 33776
+--- !u!114 &-1760052875594965219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI SFX/TestInteract
+  m_EditorClassIdentifier: 
+  Path: event:/UI SFX/TestInteract
+  Guid:
+    Data1: -1094593421
+    Data2: 1277123325
+    Data3: -1351291252
+    Data4: 390599462
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1650604034280681611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character/Foley/Footsteps
+  m_EditorClassIdentifier: 
+  Path: event:/Character/Foley/Footsteps
+  Guid:
+    Data1: -1895247470
+    Data2: 1233824186
+    Data3: 688767131
+    Data4: -1850800714
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3141419459722184757}
+  - {fileID: -5177861764300027216}
+  - {fileID: -2579386371303415235}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-939239026716071002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI SFX/Note Pick Up
+  m_EditorClassIdentifier: 
+  Path: event:/UI SFX/Note Pick Up
+  Guid:
+    Data1: 1554467676
+    Data2: 1078503292
+    Data3: -297958260
+    Data4: 48107618
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-361028550005364069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tools/WalkieT/WalkiePickup
+  m_EditorClassIdentifier: 
+  Path: event:/Tools/WalkieT/WalkiePickup
+  Guid:
+    Data1: 695255930
+    Data2: 1340818703
+    Data3: 653883801
+    Data4: -1678848240
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-318646872453060556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tools/Flashlight/FlashlightClick
+  m_EditorClassIdentifier: 
+  Path: event:/Tools/Flashlight/FlashlightClick
+  Guid:
+    Data1: 1550505791
+    Data2: 1241083288
+    Data3: 2054202502
+    Data4: -1201377426
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-317693145693224852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,232 +458,7 @@ MonoBehaviour:
   - 2
   - 3
   Exists: 1
---- !u!114 &-8261282281035787601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Footsteps/Puddle
-  m_EditorClassIdentifier: 
-  Name: Puddle
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3546198679
-    data2: 494121118
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-7694241400772420638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Mannequins/Movement/MaskRattle
-  m_EditorClassIdentifier: 
-  Path: event:/Mannequins/Movement/MaskRattle
-  Guid:
-    Data1: 1186577267
-    Data2: 1260372115
-    Data3: -274498128
-    Data4: 1155326896
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-6814442449050390511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../FMOD/12 Feb/Horror Game Jam3-20240212T141250Z-001/Horror Game Jam3/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638432590640000000
-  FileSizes:
-  - Name: Desktop
-    Value: 2412
-  Exists: 1
---- !u!114 &-6297967190879424019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Tools/Flashlight/FlashlightPickup
-  m_EditorClassIdentifier: 
-  Path: event:/Tools/Flashlight/FlashlightPickup
-  Guid:
-    Data1: 1589544663
-    Data2: 1250866777
-    Data3: -734127479
-    Data4: 733960148
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-5420223745322639079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI SFX/Note Pick Up
-  m_EditorClassIdentifier: 
-  Path: event:/UI SFX/Note Pick Up
-  Guid:
-    Data1: 1554467676
-    Data2: 1078503292
-    Data3: -297958260
-    Data4: 48107618
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-4204914096776544163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../FMOD/12 Feb/Horror Game Jam3-20240212T141250Z-001/Horror Game Jam3/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638432590640000000
-  FileSizes:
-  - Name: Desktop
-    Value: 5800
-  Exists: 1
---- !u!114 &-3955006291366585312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI SFX/TestInteract
-  m_EditorClassIdentifier: 
-  Path: event:/UI SFX/TestInteract
-  Guid:
-    Data1: -1094593421
-    Data2: 1277123325
-    Data3: -1351291252
-    Data4: 390599462
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-2397736806256817705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Tools/Flashlight/FlashlightClick
-  m_EditorClassIdentifier: 
-  Path: event:/Tools/Flashlight/FlashlightClick
-  Guid:
-    Data1: 1550505791
-    Data2: 1241083288
-    Data3: 2054202502
-    Data4: -1201377426
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-1920167161442398699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Sarah Room Music/PickupObject
-  m_EditorClassIdentifier: 
-  Name: PickupObject
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1813082052
-    data2: 947874234
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - False
-  - True
-  Exists: 1
---- !u!114 &-1775548484727009440
+--- !u!114 &-198880621030045755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -343,276 +470,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Music.bank
   m_EditorClassIdentifier: 
-  Path: ../../../FMOD/12 Feb/Horror Game Jam3-20240212T141250Z-001/Horror Game Jam3/Build/Desktop/Music.bank
+  Path: ../../../FMOD/13 Feb/Horror Game Jam3/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638432590640000000
+  lastModified: 638434649720000000
   FileSizes:
   - Name: Desktop
     Value: 7627392
   Exists: 1
---- !u!114 &-1699352899407433699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/1. Apartment/Sarah Room/Ambience/Window Ambience - 3D
-  m_EditorClassIdentifier: 
-  Path: event:/1. Apartment/Sarah Room/Ambience/Window Ambience - 3D
-  Guid:
-    Data1: 1287763590
-    Data2: 1083997819
-    Data3: 284611458
-    Data4: -940833091
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 69328
---- !u!114 &-887724619617473314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI SFX/TakingDamage
-  m_EditorClassIdentifier: 
-  Path: event:/UI SFX/TakingDamage
-  Guid:
-    Data1: -630914179
-    Data2: 1080977610
-    Data3: -1977747813
-    Data4: -1030658980
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 5239237506159103312}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 8264
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
-  m_Name: FMODStudioCache
-  m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: -6814442449050390511}
-  - {fileID: -4204914096776544163}
-  - {fileID: -1775548484727009440}
-  - {fileID: 3845014925448344234}
-  EditorEvents:
-  - {fileID: 3817039179731167273}
-  - {fileID: 4328272056354368712}
-  - {fileID: 2681932125849569873}
-  - {fileID: 6996525720375052702}
-  - {fileID: -1699352899407433699}
-  - {fileID: 5410813430078311542}
-  - {fileID: 4275729475863180876}
-  - {fileID: -8750636650706461165}
-  - {fileID: -2397736806256817705}
-  - {fileID: 6356160247206706824}
-  - {fileID: -5420223745322639079}
-  - {fileID: -7694241400772420638}
-  - {fileID: -3955006291366585312}
-  - {fileID: 1818680794279401429}
-  - {fileID: -887724619617473314}
-  - {fileID: 1175679186054688948}
-  - {fileID: 7086664177398663247}
-  - {fileID: 7470099940265911673}
-  - {fileID: -6297967190879424019}
-  EditorParameters:
-  - {fileID: 5805326428083443872}
-  - {fileID: -8791575487959238553}
-  - {fileID: -8477297283585424759}
-  MasterBanks:
-  - {fileID: -4204914096776544163}
-  StringsBanks:
-  - {fileID: -6814442449050390511}
-  cacheTime: 638432590660000000
-  cacheVersion: 131616
---- !u!114 &1175679186054688948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Mannequins/Movement/MannequinMovement
-  m_EditorClassIdentifier: 
-  Path: event:/Mannequins/Movement/MannequinMovement
-  Guid:
-    Data1: 999490452
-    Data2: 1089341444
-    Data3: -1551289178
-    Data4: 828852951
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &1818680794279401429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Tools/WalkieT/WalkiePickup
-  m_EditorClassIdentifier: 
-  Path: event:/Tools/WalkieT/WalkiePickup
-  Guid:
-    Data1: 695255930
-    Data2: 1340818703
-    Data3: 653883801
-    Data4: -1678848240
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &2681932125849569873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/1. Apartment/Sarah Room/Music/Sarah Room Music
-  m_EditorClassIdentifier: 
-  Path: event:/1. Apartment/Sarah Room/Music/Sarah Room Music
-  Guid:
-    Data1: 1019273178
-    Data2: 1259812128
-    Data3: -1311829614
-    Data4: -1978220333
-  Banks:
-  - {fileID: -1775548484727009440}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -1920167161442398699}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 328971
---- !u!114 &3817039179731167273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Character/Foley/Footsteps
-  m_EditorClassIdentifier: 
-  Path: event:/Character/Foley/Footsteps
-  Guid:
-    Data1: -1895247470
-    Data2: 1233824186
-    Data3: 688767131
-    Data4: -1850800714
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 4548603469395243094}
-  - {fileID: -8764349971482629687}
-  - {fileID: -8261282281035787601}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &3845014925448344234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/SFX.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../FMOD/12 Feb/Horror Game Jam3-20240212T141250Z-001/Horror Game Jam3/Build/Desktop/SFX.bank
-  Name: SFX
-  StudioPath: bank:/SFX
-  lastModified: 638432590660000000
-  FileSizes:
-  - Name: Desktop
-    Value: 3421088
-  Exists: 1
---- !u!114 &4275729475863180876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: snapshot:/FSRev-MedRoom
-  m_EditorClassIdentifier: 
-  Path: snapshot:/FSRev-MedRoom
-  Guid:
-    Data1: 1804145771
-    Data2: 1098798429
-    Data3: -1899755886
-    Data4: -471529050
-  Banks:
-  - {fileID: -4204914096776544163}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 0
---- !u!114 &4328272056354368712
+--- !u!114 &-110445590726994881
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -631,17 +497,202 @@ MonoBehaviour:
     Data3: 1544730298
     Data4: 964118762
   Banks:
-  - {fileID: -1775548484727009440}
+  - {fileID: -198880621030045755}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 5153299287632497698}
-  - {fileID: 6712649297789178918}
+  - {fileID: -4760223650252193174}
+  - {fileID: 4893748649078435710}
   MinDistance: 1
   MaxDistance: 20
   Length: 257658
---- !u!114 &4548603469395243094
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -4956894361945631720}
+  - {fileID: -5145978190606866481}
+  - {fileID: -8957306191284032830}
+  - {fileID: -198880621030045755}
+  - {fileID: -3645615476370952224}
+  EditorEvents:
+  - {fileID: 500991951517074728}
+  - {fileID: 7563754432094075898}
+  - {fileID: -3803823435893362200}
+  - {fileID: -110445590726994881}
+  - {fileID: 8821044061377856476}
+  - {fileID: -2349758131626682923}
+  - {fileID: -318646872453060556}
+  - {fileID: 5369236325049039309}
+  - {fileID: -939239026716071002}
+  - {fileID: 8829945126828073164}
+  - {fileID: -1760052875594965219}
+  - {fileID: -361028550005364069}
+  - {fileID: -2676952940100178800}
+  - {fileID: 8262136167194092076}
+  - {fileID: -1650604034280681611}
+  - {fileID: 5335238866621588065}
+  - {fileID: 1155644092197047875}
+  - {fileID: 1373389886183911306}
+  - {fileID: -6803718670201016291}
+  - {fileID: 551460669764353925}
+  EditorParameters:
+  - {fileID: -317693145693224852}
+  - {fileID: -4860014037825743937}
+  - {fileID: 6919293194782472630}
+  MasterBanks:
+  - {fileID: -8957306191284032830}
+  StringsBanks:
+  - {fileID: -4956894361945631720}
+  cacheTime: 638434649730000000
+  cacheVersion: 131616
+--- !u!114 &500991951517074728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/FSRev-SmallRoom
+  m_EditorClassIdentifier: 
+  Path: snapshot:/FSRev-SmallRoom
+  Guid:
+    Data1: -1878634464
+    Data2: 1160857171
+    Data3: -577345635
+    Data4: 1095513618
+  Banks:
+  - {fileID: -8957306191284032830}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &551460669764353925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Menu/Game Start
+  m_EditorClassIdentifier: 
+  Path: event:/Menu/Game Start
+  Guid:
+    Data1: -833475100
+    Data2: 1127486737
+    Data3: 787662270
+    Data4: -1078463680
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &913820689038794682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TakingDamage/Health
+  m_EditorClassIdentifier: 
+  Name: Health
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 3
+  ID:
+    data1: 2809453277
+    data2: 2884082709
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Dead
+  - 1
+  - 2
+  - 3
+  Exists: 1
+--- !u!114 &1155644092197047875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI SFX/Key Pickup
+  m_EditorClassIdentifier: 
+  Path: event:/UI SFX/Key Pickup
+  Guid:
+    Data1: -851448124
+    Data2: 1302309685
+    Data3: 398218169
+    Data4: 670634446
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1373389886183911306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tools/Flashlight/FlashlightPickup
+  m_EditorClassIdentifier: 
+  Path: event:/Tools/Flashlight/FlashlightPickup
+  Guid:
+    Data1: 1589544663
+    Data2: 1250866777
+    Data3: -734127479
+    Data4: 733960148
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3141419459722184757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -670,7 +721,7 @@ MonoBehaviour:
   - Stone
   - Wood
   Exists: 1
---- !u!114 &5153299287632497698
+--- !u!114 &4685029457285579006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -680,131 +731,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Hallway Music/Danger
+  m_Name: parameter:/Sarah Room Music/PickupObject
   m_EditorClassIdentifier: 
-  Name: Danger
+  Name: PickupObject
   StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
-    data1: 1478256109
-    data2: 1183565978
+    data1: 1813082052
+    data2: 947874234
   Type: 2
-  IsGlobal: 1
+  IsGlobal: 0
   Labels:
-  - Non-Danger
-  - Danger
+  - False
+  - True
   Exists: 1
---- !u!114 &5239237506159103312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TakingDamage/Health
-  m_EditorClassIdentifier: 
-  Name: Health
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 3
-  ID:
-    data1: 2809453277
-    data2: 2884082709
-  Type: 2
-  IsGlobal: 1
-  Labels:
-  - Dead
-  - 1
-  - 2
-  - 3
-  Exists: 1
---- !u!114 &5410813430078311542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: snapshot:/FSRev-SmallRoom
-  m_EditorClassIdentifier: 
-  Path: snapshot:/FSRev-SmallRoom
-  Guid:
-    Data1: -1878634464
-    Data2: 1160857171
-    Data3: -577345635
-    Data4: 1095513618
-  Banks:
-  - {fileID: -4204914096776544163}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 0
---- !u!114 &5805326428083443872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Danger
-  m_EditorClassIdentifier: 
-  Name: Danger
-  StudioPath: parameter:/Danger
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1478256109
-    data2: 1183565978
-  Type: 2
-  IsGlobal: 1
-  Labels:
-  - Non-Danger
-  - Danger
-  Exists: 1
---- !u!114 &6356160247206706824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Mannequins/Headturns/Headturns
-  m_EditorClassIdentifier: 
-  Path: event:/Mannequins/Headturns/Headturns
-  Guid:
-    Data1: 942655062
-    Data2: 1250484786
-    Data3: 1929739445
-    Data4: -1755361059
-  Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &6712649297789178918
+--- !u!114 &4893748649078435710
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -828,7 +771,7 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &6996525720375052702
+--- !u!114 &5335238866621588065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -838,51 +781,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/2. Hallway/Ambience/Stairwell - Ambience
+  m_Name: event:/Mannequins/Movement/MannequinMovement
   m_EditorClassIdentifier: 
-  Path: event:/2. Hallway/Ambience/Stairwell - Ambience
+  Path: event:/Mannequins/Movement/MannequinMovement
   Guid:
-    Data1: 2104233490
-    Data2: 1334453591
-    Data3: -1559423863
-    Data4: 1035996859
+    Data1: 999490452
+    Data2: 1089341444
+    Data3: -1551289178
+    Data4: 828852951
   Banks:
-  - {fileID: 3845014925448344234}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 33776
---- !u!114 &7086664177398663247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Character/Clothes/ClothesRustling
-  m_EditorClassIdentifier: 
-  Path: event:/Character/Clothes/ClothesRustling
-  Guid:
-    Data1: 1090342325
-    Data2: 1090574812
-    Data3: -542554437
-    Data4: 428759163
-  Banks:
-  - {fileID: 3845014925448344234}
+  - {fileID: -3645615476370952224}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &7470099940265911673
+--- !u!114 &5369236325049039309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -892,18 +808,151 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI SFX/Key Pickup
+  m_Name: event:/Mannequins/Headturns/Headturns
   m_EditorClassIdentifier: 
-  Path: event:/UI SFX/Key Pickup
+  Path: event:/Mannequins/Headturns/Headturns
   Guid:
-    Data1: -851448124
-    Data2: 1302309685
-    Data3: 398218169
-    Data4: 670634446
+    Data1: 942655062
+    Data2: 1250484786
+    Data3: 1929739445
+    Data4: -1755361059
   Banks:
-  - {fileID: 3845014925448344234}
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6919293194782472630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/MannProximity
+  m_EditorClassIdentifier: 
+  Name: MannProximity
+  StudioPath: parameter:/MannProximity
+  Min: 0
+  Max: 10
+  Default: 10
+  ID:
+    data1: 518785873
+    data2: 459573575
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &7563754432094075898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/FSRev-MedRoom
+  m_EditorClassIdentifier: 
+  Path: snapshot:/FSRev-MedRoom
+  Guid:
+    Data1: 1804145771
+    Data2: 1098798429
+    Data3: -1899755886
+    Data4: -471529050
+  Banks:
+  - {fileID: -8957306191284032830}
   IsStream: 0
   Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &8262136167194092076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/1. Apartment/Sarah Room/Ambience/Window Ambience - 3D
+  m_EditorClassIdentifier: 
+  Path: event:/1. Apartment/Sarah Room/Ambience/Window Ambience - 3D
+  Guid:
+    Data1: 1287763590
+    Data2: 1083997819
+    Data3: 284611458
+    Data4: -940833091
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 69328
+--- !u!114 &8821044061377856476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/1. Apartment/Sarah Room/Music/Sarah Room Music
+  m_EditorClassIdentifier: 
+  Path: event:/1. Apartment/Sarah Room/Music/Sarah Room Music
+  Guid:
+    Data1: 1019273178
+    Data2: 1259812128
+    Data3: -1311829614
+    Data4: -1978220333
+  Banks:
+  - {fileID: -198880621030045755}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 4685029457285579006}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 328971
+--- !u!114 &8829945126828073164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Mannequins/Movement/MaskRattle
+  m_EditorClassIdentifier: 
+  Path: event:/Mannequins/Movement/MaskRattle
+  Guid:
+    Data1: 1186577267
+    Data2: 1260372115
+    Data3: -274498128
+    Data4: 1155326896
+  Banks:
+  - {fileID: -3645615476370952224}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
