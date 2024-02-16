@@ -9,7 +9,7 @@ public class MusicControl : MonoBehaviour
 
     void Start()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.sarahRoomMusic, this.transform.position);
+        //AudioManager.instance.PlayOneShot(FMODEvents.instance.sarahRoomMusic, this.transform.position);
 
         
 

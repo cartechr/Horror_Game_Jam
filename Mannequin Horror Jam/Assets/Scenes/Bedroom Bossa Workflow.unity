@@ -35827,49 +35827,162 @@ MonoBehaviour:
   doorLocked: The door is locked!
   doorUnlocked: Door is unlocked!
   inventory: {fileID: 1034800628392659593}
+  eventsObject: {fileID: 0}
   fmodEvents: {fileID: 1854970743}
-  <doorCreak>k__BackingField:
-    Guid:
-      Data1: 259921025
-      Data2: 1108266405
-      Data3: -813249141
-      Data4: -452016925
-    Path: event:/1. Apartment/SFX/Door Creak
-  <doorRattle>k__BackingField:
-    Guid:
-      Data1: 1705449414
-      Data2: 1138889897
-      Data3: 1741275065
-      Data4: 198087735
-    Path: event:/1. Apartment/SFX/Door Rattle
-  <doorUnlock>k__BackingField:
-    Guid:
-      Data1: -2027799816
-      Data2: 1169759639
-      Data3: -1245825145
-      Data4: 1863834977
-    Path: event:/1. Apartment/SFX/Door Unlock
-  <metalDoorClose>k__BackingField:
-    Guid:
-      Data1: 743720632
-      Data2: 1263355967
-      Data3: -160242524
-      Data4: -1109154024
-    Path: event:/1. Apartment/SFX/Metal Door Close
-  <metalDoorOpen>k__BackingField:
-    Guid:
-      Data1: 1360986980
-      Data2: 1094747345
-      Data3: 1520489616
-      Data4: 2039308027
-    Path: event:/1. Apartment/SFX/Metal Door Open
   <sarahRoomMusic>k__BackingField:
     Guid:
-      Data1: 1019273178
-      Data2: 1259812128
-      Data3: -1311829614
-      Data4: -1978220333
-    Path: event:/1. Apartment/Sarah Room/Music/Sarah Room Music
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <hallwayMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <stairWellAmbiance>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <rainAmbiance>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <uiInteractSFX>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <keyPickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <notePickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <doorCreak>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <doorRattle>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <doorUnlock>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <floorCreak>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <metalDoorClose>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <metalDoorOpen>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <footStep>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <clothesRustling>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <headTurns>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <mannequinMovement>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <maskRattle>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <flashlightClick>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <flashlightPickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <walkiePickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <takingDamage>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &890932213
 GameObject:
   m_ObjectHideFlags: 0
@@ -76194,7 +76307,57 @@ MonoBehaviour:
   doorLocked: Door is locked!
   doorUnlocked: Door is unlocked!
   inventory: {fileID: 1034800628392659593}
+  eventsObject: {fileID: 0}
   fmodEvents: {fileID: 0}
+  <sarahRoomMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <hallwayMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <stairWellAmbiance>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <rainAmbiance>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <uiInteractSFX>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <keyPickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <notePickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <doorCreak>k__BackingField:
     Guid:
       Data1: 0
@@ -76216,6 +76379,13 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <floorCreak>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <metalDoorClose>k__BackingField:
     Guid:
       Data1: 0
@@ -76230,7 +76400,63 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
-  <sarahRoomMusic>k__BackingField:
+  <footStep>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <clothesRustling>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <headTurns>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <mannequinMovement>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <maskRattle>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <flashlightClick>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <flashlightPickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <walkiePickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <takingDamage>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0
@@ -88842,205 +89068,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1129999413580534391, guid: edb02028d59ccac4ca6641a183fa7346, type: 3}
   m_PrefabInstance: {fileID: 217228795}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1854970741
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1854970742}
-  - component: {fileID: 1854970743}
-  m_Layer: 0
-  m_Name: FMOD Events
-  m_TagString: FMODEvents
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1854970742
+--- !u!4 &1854970742 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+  m_PrefabInstance: {fileID: 8555414468272159141}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1854970741}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1356924596}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1854970743
+--- !u!114 &1854970743 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+  m_PrefabInstance: {fileID: 8555414468272159141}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1854970741}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f268b827c4428604ba2b6732a0920c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <sarahRoomMusic>k__BackingField:
-    Guid:
-      Data1: 1019273178
-      Data2: 1259812128
-      Data3: -1311829614
-      Data4: -1978220333
-    Path: event:/1. Apartment/Sarah Room/Music/Sarah Room Music
-  <hallwayMusic>k__BackingField:
-    Guid:
-      Data1: 1982945837
-      Data2: 1249980047
-      Data3: 1544730298
-      Data4: 964118762
-    Path: event:/2. Hallway/Music/Hallway Music
-  <stairWellAmbiance>k__BackingField:
-    Guid:
-      Data1: 2104233490
-      Data2: 1334453591
-      Data3: -1559423863
-      Data4: 1035996859
-    Path: event:/2. Hallway/Ambience/Stairwell - Ambience
-  <rainAmbiance>k__BackingField:
-    Guid:
-      Data1: 1287763590
-      Data2: 1083997819
-      Data3: 284611458
-      Data4: -940833091
-    Path: event:/1. Apartment/Sarah Room/Ambience/Window Ambience - 3D
-  <uiInteractSFX>k__BackingField:
-    Guid:
-      Data1: -1094593421
-      Data2: 1277123325
-      Data3: -1351291252
-      Data4: 390599462
-    Path: event:/UI SFX/TestInteract
-  <keyPickup>k__BackingField:
-    Guid:
-      Data1: -851448124
-      Data2: 1302309685
-      Data3: 398218169
-      Data4: 670634446
-    Path: event:/UI SFX/Key Pickup
-  <notePickup>k__BackingField:
-    Guid:
-      Data1: 1554467676
-      Data2: 1078503292
-      Data3: -297958260
-      Data4: 48107618
-    Path: event:/UI SFX/Note Pick Up
-  <doorCreak>k__BackingField:
-    Guid:
-      Data1: 259921025
-      Data2: 1108266405
-      Data3: -813249141
-      Data4: -452016925
-    Path: event:/1. Apartment/SFX/Door Creak
-  <doorRattle>k__BackingField:
-    Guid:
-      Data1: 1705449414
-      Data2: 1138889897
-      Data3: 1741275065
-      Data4: 198087735
-    Path: event:/1. Apartment/SFX/Door Rattle
-  <doorUnlock>k__BackingField:
-    Guid:
-      Data1: -2027799816
-      Data2: 1169759639
-      Data3: -1245825145
-      Data4: 1863834977
-    Path: event:/1. Apartment/SFX/Door Unlock
-  <floorCreak>k__BackingField:
-    Guid:
-      Data1: -268052434
-      Data2: 1289009348
-      Data3: 1124871555
-      Data4: -252486931
-    Path: event:/1. Apartment/SFX/Floor Creak
-  <metalDoorClose>k__BackingField:
-    Guid:
-      Data1: 743720632
-      Data2: 1263355967
-      Data3: -160242524
-      Data4: -1109154024
-    Path: event:/1. Apartment/SFX/Metal Door Close
-  <metalDoorOpen>k__BackingField:
-    Guid:
-      Data1: 1360986980
-      Data2: 1094747345
-      Data3: 1520489616
-      Data4: 2039308027
-    Path: event:/1. Apartment/SFX/Metal Door Open
-  <footStep>k__BackingField:
-    Guid:
-      Data1: -1895247470
-      Data2: 1233824186
-      Data3: 688767131
-      Data4: -1850800714
-    Path: event:/Character/Foley/Footsteps
-  <clothesRustling>k__BackingField:
-    Guid:
-      Data1: 1090342325
-      Data2: 1090574812
-      Data3: -542554437
-      Data4: 428759163
-    Path: event:/Character/Foley/Clothes/ClothesRustling
-  <headTurns>k__BackingField:
-    Guid:
-      Data1: 942655062
-      Data2: 1250484786
-      Data3: 1929739445
-      Data4: -1755361059
-    Path: event:/Mannequins/Headturns/Headturns
-  <mannequinMovement>k__BackingField:
-    Guid:
-      Data1: 999490452
-      Data2: 1089341444
-      Data3: -1551289178
-      Data4: 828852951
-    Path: event:/Mannequins/Movement/MannequinMovement
-  <maskRattle>k__BackingField:
-    Guid:
-      Data1: 1186577267
-      Data2: 1260372115
-      Data3: -274498128
-      Data4: 1155326896
-    Path: event:/Mannequins/Movement/MaskRattle
-  <flashlightClick>k__BackingField:
-    Guid:
-      Data1: 1550505791
-      Data2: 1241083288
-      Data3: 2054202502
-      Data4: -1201377426
-    Path: event:/Tools/Flashlight/FlashlightClick
-  <flashlightPickup>k__BackingField:
-    Guid:
-      Data1: 1589544663
-      Data2: 1250866777
-      Data3: -734127479
-      Data4: 733960148
-    Path: event:/Tools/Flashlight/FlashlightPickup
-  <walkiePickup>k__BackingField:
-    Guid:
-      Data1: 695255930
-      Data2: 1340818703
-      Data3: 653883801
-      Data4: -1678848240
-    Path: event:/Tools/WalkieT/WalkiePickup
-  <takingDamage>k__BackingField:
-    Guid:
-      Data1: -630914179
-      Data2: 1080977610
-      Data3: -1977747813
-      Data4: -1030658980
-    Path: event:/UI SFX/TakingDamage
-  musicVolume: 1
 --- !u!1001 &1863215755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90420,7 +90463,57 @@ MonoBehaviour:
   doorLocked: Door is locked!
   doorUnlocked: Door is unlocked!
   inventory: {fileID: 1034800628392659593}
+  eventsObject: {fileID: 0}
   fmodEvents: {fileID: 0}
+  <sarahRoomMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <hallwayMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <stairWellAmbiance>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <rainAmbiance>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <uiInteractSFX>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <keyPickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <notePickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <doorCreak>k__BackingField:
     Guid:
       Data1: 0
@@ -90442,6 +90535,13 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <floorCreak>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <metalDoorClose>k__BackingField:
     Guid:
       Data1: 0
@@ -90456,7 +90556,63 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
-  <sarahRoomMusic>k__BackingField:
+  <footStep>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <clothesRustling>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <headTurns>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <mannequinMovement>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <maskRattle>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <flashlightClick>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <flashlightPickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <walkiePickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <takingDamage>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0
@@ -113507,6 +113663,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 597943903745383818}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &8555414468272159141
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1356924596}
+    m_Modifications:
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739526619917982531, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_Name
+      value: FMOD Events
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
 --- !u!1 &8562821952052014767
 GameObject:
   m_ObjectHideFlags: 0
