@@ -7,7 +7,7 @@ public class CinematicSophieSFX : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.sarahRoomMusic, this.transform.position);
+
     }
 
 
