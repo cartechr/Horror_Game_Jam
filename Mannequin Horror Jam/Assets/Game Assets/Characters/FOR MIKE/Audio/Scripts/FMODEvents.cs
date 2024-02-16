@@ -4,6 +4,7 @@ using UnityEngine;
 using FMODUnity;
 using UnityEngine.Playables;
 using FMOD.Studio;
+using FMOD;
 
 public class FMODEvents : MonoBehaviour
 {
@@ -20,7 +21,6 @@ public class FMODEvents : MonoBehaviour
     public EventInstance stairWellAmbianceInst;
     [field: SerializeField] public EventReference rainAmbiance { get; private set; }
     public EventInstance rainAmbianceInst;
-
 
     [field: Header("Item & Interaction")]
     [field: SerializeField] public EventReference uiInteractSFX { get; private set; }
@@ -73,9 +73,9 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference takingDamage { get; private set; }
     public EventInstance takingDamageInst;
 
+    //public FMOD.Studio.System.create 
 
-
-    EmitterGameEvent sarahRoomTrigger;
+    //EmitterGameEvent sarahRoomTrigger;
 
     public static FMODEvents instance { get; private set; }
     
@@ -95,7 +95,7 @@ public class FMODEvents : MonoBehaviour
     {
         if(instance != null)
         {
-            Debug.LogError(" Found more than one FMOD Events instance in the scene");
+            UnityEngine.Debug.LogError(" Found more than one FMOD Events instance in the scene");
         }
         instance = this;
 
@@ -107,7 +107,8 @@ public class FMODEvents : MonoBehaviour
 
     private void Start()
     {
-        startFX(sarahRoomMusicInst, sarahRoomMusic);
+        //startSarah();
+        startHallWay(gameObject);
     }
 
     private void Update()
@@ -117,7 +118,12 @@ public class FMODEvents : MonoBehaviour
         SFX.setVolume(SFXVolume);
         Master.setVolume(MasterVolume);
         */
-
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            changeHallway();
+            //changeSarah();
+            UnityEngine.Debug.Log("change hallway music");
+        }
 
 
 
@@ -146,27 +152,48 @@ public class FMODEvents : MonoBehaviour
     }
 
 
-    public void parameterChange(EventInstance eventInstance, string parameterName, string label)
+    #region Music
+
+    //-------------------------------------------SARAH ROOM--------------------------------------------------------------
+    public void startSarah()
     {
-        eventInstance.setParameterByNameWithLabel(parameterName, label);
+        sarahRoomMusicInst = FMODUnity.RuntimeManager.CreateInstance(sarahRoomMusic);
+        sarahRoomMusicInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        sarahRoomMusicInst.start();
+        UnityEngine.Debug.Log(sarahRoomMusicInst.ToString());
+        //sarahRoomMusicInst.release();
     }
 
-
-    public void startFX(EventInstance eventInstance, EventReference eventReference)
+    public void changeSarah()
     {
-        eventInstance = FMODUnity.RuntimeManager.CreateInstance(eventReference);
-        eventInstance.start();
+        sarahRoomMusicInst.setParameterByNameWithLabel("PickupObject", "True", true);
+    }
+    public void stopSarah()
+    {
+        sarahRoomMusicInst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 
-    public void stopImmediateFX(EventInstance eventInstance, EventReference eventReference)
+    //-------------------------------------------HALLWAY MUSIC--------------------------------------------------------------
+
+    public void startHallWay(GameObject gameobject)
     {
-        eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        eventInstance.release();
+        hallwayMusicInst = FMODUnity.RuntimeManager.CreateInstance(hallwayMusic);
+        hallwayMusicInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        hallwayMusicInst.start();
+        //hallwayMusicInst.release();
     }
 
-    public void stopFadeFX(EventInstance eventInstance, EventReference eventReference)
+    public void changeHallway()
     {
-        eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        eventInstance.release();
+        //hallwayMusicInst.setParameterByName("Danger", 1, true);
+        //FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Danger", 1, true);
+        FMOD.Studio.System.create(out FMOD.Studio.System system);
+        system.setParameterByName("Danger", 1, true);
     }
+    #endregion
+
+    #region Ambiance
+
+    #endregion
+
 }

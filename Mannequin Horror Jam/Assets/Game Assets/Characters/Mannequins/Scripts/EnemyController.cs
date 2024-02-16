@@ -110,6 +110,9 @@ public class EnemyController : MonoBehaviour
     public GameObject barObject;
     bool switchUI = true;
 
+    [SerializeField] GameObject eventsObject;
+    [SerializeField] FMODEvents fmodEvents;
+
 
     /*[field: SerializeField] public EventReference mannequinMovement {  get; private set; }
     private EventInstance mannequinMovementInst;
@@ -140,6 +143,12 @@ public class EnemyController : MonoBehaviour
 
         alertedPoint = WhenAtIdlePoint;
         spam = spamDecider;
+
+
+        eventsObject = GameObject.FindGameObjectWithTag("FMODEvents");
+        fmodEvents = eventsObject.GetComponent<FMODEvents>();
+
+        //fmodEvents.startHallWay(playerRef);
     }
     private void Update()
     {
@@ -464,6 +473,9 @@ public class EnemyController : MonoBehaviour
         if (switchState)
         {
             animator.SetBool("isIdle", false);
+
+            //fmodEvents.changeHallway();
+            //Debug.Log("chase switch state");
         }
 
         Head.GetComponent<MultiAimConstraint>().weight = 1.0f;

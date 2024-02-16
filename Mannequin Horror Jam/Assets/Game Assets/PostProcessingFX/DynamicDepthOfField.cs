@@ -48,7 +48,7 @@ public class PostProcessing : MonoBehaviour
         if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Raycast hit: " + hit.transform.name);
+            //Debug.Log("Raycast hit: " + hit.transform.name);
 
             //Calculate the distance between camera and the raycast hit
             distanceBetween = Vector3.Distance(Camera.main.transform.position, hit.point);
