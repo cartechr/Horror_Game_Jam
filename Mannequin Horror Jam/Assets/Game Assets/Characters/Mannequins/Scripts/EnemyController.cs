@@ -42,7 +42,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float healthDelay;
     [SerializeField] float timeStart;
     [Tooltip("How long Ai should remain stunned")]
-    [SerializeField] float spamDecider = 4;
+    [SerializeField] float spamDecider = 1;
     [SerializeField] float spam;
     [SerializeField] float spamDamage;
     [SerializeField] float aiSpamDamage;
@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
     public float radiusAttack;
     public bool inAttack;
 
-    Transform lastknownlocation;
+    public GameObject lastknownlocation;
     public GameObject Head;
 
 
@@ -135,16 +135,11 @@ public class EnemyController : MonoBehaviour
         Head = GameObject.FindGameObjectWithTag("Head");
         playerHead = GameObject.FindGameObjectWithTag("CinemachineTarget");
         aiHead = GameObject.FindGameObjectWithTag("aiHead");
-        //Bar = GetComponent<Slider>();
-        
+        lastknownlocation = GameObject.FindGameObjectWithTag("last");
+
 
         alertedPoint = WhenAtIdlePoint;
-
-
         spam = spamDecider;
-
-        animNum = Random.Range(0, 2);
-        animator.SetFloat("Idle", animNum);
     }
     private void Update()
     {
@@ -307,7 +302,7 @@ public class EnemyController : MonoBehaviour
                 //Alerted
                 if (fpscontroller.isSprinting)
                 {
-                    lastknownlocation = playerRef.transform;
+                    lastknownlocation.transform.position = new Vector3(playerRef.transform.position.x, transform.position.y, playerRef.transform.position.z);
                     state = 3;
                     switchState = true;
                     //Debug.Log("Alerted");
@@ -320,7 +315,7 @@ public class EnemyController : MonoBehaviour
                 //Alerted
                 if (fpscontroller.isWalking)
                 {
-                    lastknownlocation = playerRef.transform;
+                    lastknownlocation.transform.position = new Vector3(playerRef.transform.position.x, transform.position.y, playerRef.transform.position.z);
                     state = 3;
                     switchState = true;
                     //Debug.Log("Alerted");
@@ -432,11 +427,11 @@ public class EnemyController : MonoBehaviour
         if (switchState)
         {
             Debug.Log("switched to Alerted State");
-            agent.SetDestination(lastknownlocation.position);
+            agent.SetDestination(lastknownlocation.transform.position);
             animator.SetBool("isIdle", false);
         }
 
-        if (Vector3.Distance(transform.position, lastknownlocation.position) <= WhenAtIdlePoint)
+        if (Vector3.Distance(transform.position, lastknownlocation.transform.position) <= WhenAtIdlePoint)
         {
             animator.SetBool("isIdle", true);
 
@@ -493,13 +488,13 @@ public class EnemyController : MonoBehaviour
             Debug.Log("Lost Player");
             Head.GetComponent<MultiAimConstraint>().weight = 0f;
             //agent.SetDestination(lastknownlocation.position);
+            lastknownlocation.transform.position = new Vector3(playerRef.transform.position.x, transform.position.y, playerRef.transform.position.z);
             state = 3;
             switchState = true;
 
             return;
         }
 
-        lastknownlocation = playerRef.transform;
         switchState = false;
     }
 
@@ -539,6 +534,13 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("IsGrapple", true);
 
             barObject.gameObject.SetActive(true);
+
+            //Player can't regen during grapple
+            fpscontroller.startRegen = false;
+
+            //Player loses 1 health immediately
+            fpscontroller.Health -= 1;
+            Debug.Log("Player currently has " + fpscontroller.Health + " health");
         }
 
        
@@ -573,37 +575,41 @@ public class EnemyController : MonoBehaviour
         }
 
 
-             //if player is currently still alive and grapple hasnt ended
+         //if player is currently still alive and grapple hasnt ended
         if (fpscontroller.Health !=0 && spam <= 6)
         {
-            //Losing Struggle/Health
+            
+            //Spam Bar
             if (spam > 1)
             {
                 spam -= aiSpamDamage * Time.deltaTime;
                 barObject.GetComponent<Slider>().value = spam;
                 animator.SetFloat("Grapple", spam);
+
+                timeStart = 0;
             }
+            //Player will start to lose health
             else
             {
                 spam = 1;
                 animator.SetFloat("Grapple", spam);
-            }
 
-            if (timeStart < healthDelay)
-            {
-                timeStart += Time.deltaTime;
-            }
-            else
-            {
-                timeStart = 0;
+                if (timeStart < healthDelay)
+                {
+                    timeStart += Time.deltaTime;
+                }
+                else
+                {
+                    timeStart = 0;
 
-                //Decrease player health
-                fpscontroller.Health -= 1;
+                    //Decrease player health
+                    fpscontroller.Health -= 1;
 
-                //Reset regen timer
-                fpscontroller.timeStart = 0;
+                    //Reset regen timer
+                    fpscontroller.timeStart = 0;
 
-                Debug.Log("Player currently has " + fpscontroller.Health + " health");
+                    Debug.Log("Player currently has " + fpscontroller.Health + " health");
+                }
             }
 
             //Fighting/Winning Struggle
@@ -618,35 +624,36 @@ public class EnemyController : MonoBehaviour
         else
         {
 
-           /* if (playerHealth == 0)
+            if (fpscontroller.Health == 0)
             {
 
                 return;
                 //Player dies
-            }*/
+            }
 
             if (spam >= 6)
             {
-                startClock = 0;
-                state = 7;
+                //Player can now start self-healing
+                fpscontroller.startRegen = true;
+
+                //Grapple Mechanic
+                spam = spamDecider;
                 timeStart = 0;
 
-                switchState = true;
+                //UI
+                startClock = 0;
 
-                spam = spamDecider;
                 UI1.gameObject.SetActive(false);
                 UI2.gameObject.SetActive(false);
                 barObject.gameObject.SetActive(false);
                 barObject.GetComponent<Slider>().value = spam;
 
-
+                //Switch State to Stun
+                switchState = true;
+                state = 7;
                 return;
-                //switch to Stun
             }
         }
-
-        
-
         switchState = false;
     }
     private void Stunned()

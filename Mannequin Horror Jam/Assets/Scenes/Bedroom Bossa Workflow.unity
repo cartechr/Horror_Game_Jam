@@ -88768,7 +88768,7 @@ GameObject:
   - component: {fileID: 1854970743}
   m_Layer: 0
   m_Name: FMOD Events
-  m_TagString: Untagged
+  m_TagString: FMODEvents
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88862,7 +88862,7 @@ MonoBehaviour:
       Data2: 1090574812
       Data3: -542554437
       Data4: 428759163
-    Path: event:/Character/Clothes/ClothesRustling
+    Path: event:/Character/Foley/Clothes/ClothesRustling
   <headTurns>k__BackingField:
     Guid:
       Data1: 942655062
@@ -110767,6 +110767,8 @@ MonoBehaviour:
   regenTime: 0
   timeStart: 0
   playerDead: 0
+  startRegen: 1
+  currentlyGrappled: 0
 --- !u!1 &5207878244868836643
 GameObject:
   m_ObjectHideFlags: 0

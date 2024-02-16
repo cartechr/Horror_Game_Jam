@@ -93,6 +93,8 @@ public class FPSCONTROL : MonoBehaviour
     [SerializeField] float regenTime;
     public float timeStart;
     public bool playerDead;
+    public bool startRegen = true;
+    public bool currentlyGrappled;
 
     private void Awake()
     {
@@ -494,32 +496,36 @@ public class FPSCONTROL : MonoBehaviour
 
     private void aiInteraction()
     {
-        if (Health < 3)
+        if (startRegen)
         {
-            if (timeStart < regenTime)
+            if (Health < 3)
             {
-                timeStart += Time.deltaTime;
+                if (timeStart < regenTime)
+                {
+                    timeStart += Time.deltaTime;
+                }
+                else
+                {
+                    timeStart = 0;
+                    Health += 1;
+                }
             }
             else
             {
                 timeStart = 0;
-                Health += 1;
             }
         }
-        else
+
+
+        if (Health == 3)
         {
-            timeStart = 0;
-            //Debug.Log("Damage UI should go away");
             health2.gameObject.SetActive(false);
         }
-
-
-
         if (Health == 2)
         {
             health1.gameObject.SetActive(false);
             health2.gameObject.SetActive(true);
-            
+
             //Debug.Log("Health is at 2");
         }
         if (Health == 1)
@@ -537,7 +543,6 @@ public class FPSCONTROL : MonoBehaviour
             {
                 playerDead = true;
             }
-
         }
     }
 

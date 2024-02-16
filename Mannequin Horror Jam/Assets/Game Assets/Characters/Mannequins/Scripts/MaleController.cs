@@ -82,7 +82,7 @@ public class MaleController : MonoBehaviour
     public float radiusAttack;
     public bool inAttack;
 
-    Transform lastknownlocation;
+    public GameObject lastknownlocation;
     public GameObject Head;
 
 
@@ -133,7 +133,8 @@ public class MaleController : MonoBehaviour
         Head = GameObject.FindGameObjectWithTag("Head");
         playerHead = GameObject.FindGameObjectWithTag("CinemachineTarget");
         aiHead = GameObject.FindGameObjectWithTag("aiHead");
-        //Bar = GetComponent<Slider>();
+
+        lastknownlocation = GameObject.FindGameObjectWithTag("last");
 
 
 
@@ -249,7 +250,6 @@ public class MaleController : MonoBehaviour
         else if (inYellow)
         {
             inYellow = false;
-            Debug.Log("Not in Yellow");
         }
 
         //Red Area
@@ -267,7 +267,6 @@ public class MaleController : MonoBehaviour
             else
             {
                 inRed = false;
-                Debug.Log("Not in red");
             }
         }
         else if (inRed)
@@ -307,7 +306,7 @@ public class MaleController : MonoBehaviour
                 //Alerted
                 if (fpscontroller.isSprinting)
                 {
-                    lastknownlocation = playerRef.transform;
+                    lastknownlocation.transform.position = new Vector3(playerRef.transform.position.x, transform.position.y, playerRef.transform.position.z);
                     state = 3;
 
                     reachedPoint = false;
@@ -322,7 +321,7 @@ public class MaleController : MonoBehaviour
                 //Alerted
                 if (fpscontroller.isWalking)
                 {
-                    lastknownlocation = playerRef.transform;
+                    lastknownlocation.transform.position = new Vector3(playerRef.transform.position.x, transform.position.y, playerRef.transform.position.z);
                     state = 3;
 
                     reachedPoint = false;
@@ -385,9 +384,9 @@ public class MaleController : MonoBehaviour
             agent.SetDestination(patrolWaypoints[0].position);
             animator.SetBool("isIdle", false);
         }
-        if (Vector3.Distance(transform.position, patrolWaypoints[0].position) <= WhenAtIdlePoint)
+        if (!reachedPoint)
         {
-            if (!reachedPoint)
+            if (Vector3.Distance(transform.position, patrolWaypoints[0].position) <= WhenAtIdlePoint)
             {
                 reachedPoint = true;
                 animator.SetBool("isIdle", true);
@@ -440,11 +439,11 @@ public class MaleController : MonoBehaviour
         if (switchState)
         {
             Debug.Log("switched to Alerted State");
-            agent.SetDestination(lastknownlocation.position);
+            agent.SetDestination(lastknownlocation.transform.position);
             animator.SetBool("isIdle", false);
         }
 
-        if (Vector3.Distance(transform.position, lastknownlocation.position) <= WhenAtIdlePoint)
+        if (Vector3.Distance(transform.position, lastknownlocation.transform.position) <= WhenAtIdlePoint)
         {
             animator.SetBool("isIdle", true);
 
@@ -499,15 +498,14 @@ public class MaleController : MonoBehaviour
         if (!inGreen && !inYellow && !inRed && !inAttack)
         {
             Debug.Log("Lost Player");
-            Head.GetComponent<MultiAimConstraint>().weight = 0f;
+            //Head.GetComponent<MultiAimConstraint>().weight = 0f;
             //agent.SetDestination(lastknownlocation.position);
+            lastknownlocation.transform.position = new Vector3(playerRef.transform.position.x, transform.position.y, playerRef.transform.position.z);
             state = 3;
             switchState = true;
 
             return;
         }
-
-        lastknownlocation = playerRef.transform;
         switchState = false;
     }
 

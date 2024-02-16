@@ -10,43 +10,56 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Music")]
     [field: SerializeField] public EventReference sarahRoomMusic { get; private set; }
-    EventInstance sarahRoomMusicInst; //Event Instance
+    public EventInstance sarahRoomMusicInst;
     [field: SerializeField] public EventReference hallwayMusic { get; private set; }
-    EventInstance hallwayMusicInst;
+    public EventInstance hallwayMusicInst;
 
 
     [field: Header("Ambiance")]
     [field: SerializeField] public EventReference stairWellAmbiance { get; private set; }
+    public EventInstance stairWellAmbianceInst;
     [field: SerializeField] public EventReference rainAmbiance { get; private set; }
-    EventInstance rainAmbianceInst;
+    public EventInstance rainAmbianceInst;
 
 
     [field: Header("Item & Interaction")]
     [field: SerializeField] public EventReference uiInteractSFX { get; private set; }
+    public EventInstance uiInteractSFXInst;
     [field: SerializeField] public EventReference keyPickup { get; private set; }
+    public EventInstance keyPickupInst;
     [field: SerializeField] public EventReference notePickup { get; private set; }
+    public EventInstance notePickupInst;
 
 
     [field: Header("Footstep Specific")]
     [field: SerializeField] public EventReference footStep { get; private set; }
+    public EventInstance footStepInst;
 
     [field: Header("Clothes SFX")]
     [field: SerializeField] public EventReference clothesRustling { get; private set; }
+    public EventInstance clothesRustlingInst;
 
     [field: Header("Mannequins")]
     [field: SerializeField] public EventReference headTurns { get; private set; }
+    public EventInstance headTurnInst;
     [field: SerializeField] public EventReference mannequinMovement { get; private set; }
+    public EventInstance mannequinMovementInst;
     [field: SerializeField] public EventReference maskRattle { get; private set; }
+    public EventInstance maskRattleInst;
 
     [field: Header("Flashlight")]
     [field: SerializeField] public EventReference flashlightClick { get; private set; }
+    public EventInstance flashlightClickInst;
     [field: SerializeField] public EventReference flashlightPickup { get; private set; }
+    public EventInstance flashlightPickupInst;
 
     [field: Header("Walkie-Talkie")]
     [field: SerializeField] public EventReference walkiePickup { get; private set; }
+    public EventInstance walkiePickupInst;
 
     [field: Header("Damage Indicator")]
     [field: SerializeField] public EventReference takingDamage { get; private set; }
+    public EventInstance takingDamageInst;
 
 
 
@@ -83,7 +96,6 @@ public class FMODEvents : MonoBehaviour
     private void Start()
     {
         //PlayMusic();
-        
     }
 
     private void Update()
@@ -93,6 +105,10 @@ public class FMODEvents : MonoBehaviour
         SFX.setVolume(SFXVolume);
         Master.setVolume(MasterVolume);
         */
+
+
+
+
     }
 
     /*
@@ -117,60 +133,28 @@ public class FMODEvents : MonoBehaviour
         
     }
 
-    public void PlayHallwayMusic()
+
+    public void parameterChange(EventInstance eventInstance, string parameterName, string label)
     {
-        //AudioManager.instance.PlayOneShot(FMODEvents.instance.sarahRoomMusic, this.transform.position);
-
-        hallwayMusicInst = FMODUnity.RuntimeManager.CreateInstance(hallwayMusic);
-        hallwayMusicInst.start();
-        hallwayMusicInst.release();
-
-
+        eventInstance.setParameterByNameWithLabel(parameterName, label);
     }
 
-    public void PlaySarahRoomMusic()
+
+    public void startFX(EventInstance eventInstance, EventReference eventReference)
     {
-        //AudioManager.instance.PlayOneShot(FMODEvents.instance.hallwayMusic, this.transform.position);
-
-        sarahRoomMusicInst = FMODUnity.RuntimeManager.CreateInstance(sarahRoomMusic);
-        sarahRoomMusicInst.setParameterByNameWithLabel("PickupObject", "True");
-        sarahRoomMusicInst.start();
-        sarahRoomMusicInst.release();
-        
-
+        eventInstance = FMODUnity.RuntimeManager.CreateInstance(eventReference);
+        eventInstance.start();
     }
 
-    public void SarahRoomWithParameter(string parameterName, bool parameterBool)
+    public void stopImmediateFX(EventInstance eventInstance, EventReference eventReference)
     {
-        sarahRoomMusicInst = FMODUnity.RuntimeManager.CreateInstance(sarahRoomMusic);
-        //sarahRoomMusicInst.setParameterByName("PickupObject", );
-        sarahRoomMusicInst.start();
-        sarahRoomMusicInst.release();
+        eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        eventInstance.release();
     }
 
-    public void PlayRainAmbiance()
+    public void stopFadeFX(EventInstance eventInstance, EventReference eventReference)
     {
-        //AudioManager.instance.PlayOneShot(FMODEvents.instance.rainAmbiance, this.transform.position);
-        rainAmbianceInst = FMODUnity.RuntimeManager.CreateInstance(rainAmbiance);
-        rainAmbianceInst.start();
-        rainAmbianceInst.release();
-        
+        eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        eventInstance.release();
     }
-
-    public void PlayStairWellAmbiance()
-    {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.stairWellAmbiance, this.transform.position);
-    }
-
-    public void PlayerNoteInteraction()
-    {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.notePickup, this.transform.position);
-    }
-
-    public void SarahRoommMusicChange()
-    {
-        //FMOD.Studio.PARAMETER_ID id = //HOW TO REACH TO THE PARAMETER PROPERT?!?!
-
-    }
-
 }
