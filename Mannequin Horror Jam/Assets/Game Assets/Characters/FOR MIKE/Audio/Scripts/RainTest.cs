@@ -6,6 +6,8 @@ using UnityEngine;
 public class RainTest : MonoBehaviour
 {
 
+    FMODEvents fmodEvents;
+
     void Start()
     {
 

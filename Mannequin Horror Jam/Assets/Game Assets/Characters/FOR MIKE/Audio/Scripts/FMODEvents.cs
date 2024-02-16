@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using UnityEngine.Playables;
+using FMOD.Studio;
 
 public class FMODEvents : MonoBehaviour
 {
 
     [field: Header("Music")]
     [field: SerializeField] public EventReference sarahRoomMusic { get; private set; }
+    EventInstance sarahRoomMusicInst; //Event Instance
     [field: SerializeField] public EventReference hallwayMusic { get; private set; }
+    EventInstance hallwayMusicInst;
 
 
     [field: Header("Ambiance")]
     [field: SerializeField] public EventReference stairWellAmbiance { get; private set; }
     [field: SerializeField] public EventReference rainAmbiance { get; private set; }
+    EventInstance rainAmbianceInst;
 
 
     [field: Header("Item & Interaction")]
@@ -43,6 +47,8 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Damage Indicator")]
     [field: SerializeField] public EventReference takingDamage { get; private set; }
+
+
 
     EmitterGameEvent sarahRoomTrigger;
 
@@ -113,17 +119,42 @@ public class FMODEvents : MonoBehaviour
 
     public void PlayHallwayMusic()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.sarahRoomMusic, this.transform.position);
+        //AudioManager.instance.PlayOneShot(FMODEvents.instance.sarahRoomMusic, this.transform.position);
+
+        hallwayMusicInst = FMODUnity.RuntimeManager.CreateInstance(hallwayMusic);
+        hallwayMusicInst.start();
+        hallwayMusicInst.release();
+
+
     }
 
     public void PlaySarahRoomMusic()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.hallwayMusic, this.transform.position);
+        //AudioManager.instance.PlayOneShot(FMODEvents.instance.hallwayMusic, this.transform.position);
+
+        sarahRoomMusicInst = FMODUnity.RuntimeManager.CreateInstance(sarahRoomMusic);
+        sarahRoomMusicInst.setParameterByNameWithLabel("PickupObject", "True");
+        sarahRoomMusicInst.start();
+        sarahRoomMusicInst.release();
+        
+
+    }
+
+    public void SarahRoomWithParameter(string parameterName, bool parameterBool)
+    {
+        sarahRoomMusicInst = FMODUnity.RuntimeManager.CreateInstance(sarahRoomMusic);
+        //sarahRoomMusicInst.setParameterByName("PickupObject", );
+        sarahRoomMusicInst.start();
+        sarahRoomMusicInst.release();
     }
 
     public void PlayRainAmbiance()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.rainAmbiance, this.transform.position);
+        //AudioManager.instance.PlayOneShot(FMODEvents.instance.rainAmbiance, this.transform.position);
+        rainAmbianceInst = FMODUnity.RuntimeManager.CreateInstance(rainAmbiance);
+        rainAmbianceInst.start();
+        rainAmbianceInst.release();
+        
     }
 
     public void PlayStairWellAmbiance()
