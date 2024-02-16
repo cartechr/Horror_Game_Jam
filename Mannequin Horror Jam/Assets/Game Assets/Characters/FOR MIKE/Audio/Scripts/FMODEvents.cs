@@ -29,6 +29,18 @@ public class FMODEvents : MonoBehaviour
     public EventInstance keyPickupInst;
     [field: SerializeField] public EventReference notePickup { get; private set; }
     public EventInstance notePickupInst;
+    [field: SerializeField] public EventReference doorCreak { get; private set; }
+    public EventInstance doorCreakInst;
+    [field: SerializeField] public EventReference doorRattle { get; private set; }
+    public EventInstance doorRattleInst;
+    [field: SerializeField] public EventReference doorUnlock { get; private set; }
+    public EventInstance doorUnlockInst;
+    [field: SerializeField] public EventReference floorCreak {  get; private set; }
+    public EventInstance floorCreakInst;
+    [field: SerializeField] public EventReference metalDoorClose { get; private set; }
+    public EventInstance metalDoorCloseInst;
+    [field: SerializeField] public EventReference metalDoorOpen { get; private set; }
+    public EventInstance metalDoorOpenInst;
 
 
     [field: Header("Footstep Specific")]
@@ -95,7 +107,7 @@ public class FMODEvents : MonoBehaviour
 
     private void Start()
     {
-        //PlayMusic();
+        startFX(sarahRoomMusicInst, sarahRoomMusic);
     }
 
     private void Update()

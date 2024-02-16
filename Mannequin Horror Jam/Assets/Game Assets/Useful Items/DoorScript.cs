@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,16 +34,35 @@ public class DoorScript : MonoBehaviour
 
     [Tooltip("Assign relevant script")]
     [SerializeField] BasicInventory inventory;
+    [SerializeField] FMODEvents fmodEvents;
 
     private bool isOpening = false;
     private Quaternion initialRotation;
+
+    [field: Header("FMOD Related SFX")]
+    [field: SerializeField] public EventReference doorCreak { get; private set; }
+    public EventInstance doorCreakInst;
+    [field: SerializeField] public EventReference doorRattle { get; private set; }
+    public EventInstance doorRattleInst;
+    [field: SerializeField] public EventReference doorUnlock { get; private set; }
+    public EventInstance doorUnlockInst;
+    [field: SerializeField] public EventReference metalDoorClose { get; private set; }
+    public EventInstance metalDoorCloseInst;
+    [field: SerializeField] public EventReference metalDoorOpen { get; private set; }
+    public EventInstance metalDoorOpenInst;
+    [field: SerializeField] public EventReference sarahRoomMusic { get; private set; }
+    public EventInstance sarahRoomMusicInst;
 
     private void Start()
     {
         // Store the initial rotation of the door
         initialRotation = transform.rotation;
+
         GameObject player = GameObject.FindWithTag("Player");
         inventory = player.GetComponent<BasicInventory>();
+
+        GameObject fmodEventsObj = GameObject.FindWithTag("FMODEvents");
+        fmodEvents = fmodEventsObj.GetComponent<FMODEvents>();
         
     }
 
@@ -60,6 +81,7 @@ public class DoorScript : MonoBehaviour
         {
             // Use Mathf.Lerp to smoothly rotate the door towards the open position
             transform.rotation = Quaternion.Lerp(transform.rotation, initialRotation * Quaternion.Euler(0, openAngle, 0), openSpeed * Time.deltaTime);
+
         }
         else
         {
@@ -71,11 +93,24 @@ public class DoorScript : MonoBehaviour
 
     }
 
+    public void PlaySFXOnLocation(EventInstance eventInstance, EventReference eventReference)
+    {
+        
+        eventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        eventInstance.start();
+        eventInstance.release();
+    }
+
+
     public void ToggleDoor()
     {
 
         if (!isLocked)
         {
+            fmodEvents.startFX(doorCreakInst, doorCreak);
+
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.doorCreak, this.transform.position);
+
             // Toggle the door state (open/close)
             isOpening = !isOpening;
         }
@@ -88,6 +123,7 @@ public class DoorScript : MonoBehaviour
             if (inventory.hasRedKey)
             {
                 isLocked = false;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.doorUnlock, this.transform.position); //SFX
                 Debug.Log("isLocked " + isLocked);
                 inventory.hasRedKey = false;
                 Debug.Log("Has key?" + inventory.hasRedKey);
@@ -100,6 +136,7 @@ public class DoorScript : MonoBehaviour
             if (inventory.hasGreenKey)
             {
                 isLocked = false;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.doorUnlock, this.transform.position); //SFX
                 Debug.Log("isLocked " + isLocked);
                 inventory.hasGreenKey = false;
                 Debug.Log("Has key?" + inventory.hasGreenKey);
@@ -113,6 +150,7 @@ public class DoorScript : MonoBehaviour
             if (inventory.hasBlueKey)
             {
                 isLocked = false;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.doorUnlock, this.transform.position); //SFX
                 Debug.Log("isLocked " + isLocked);
                 inventory.hasBlueKey = false;
                 Debug.Log("Has key?" + inventory.hasBlueKey);
@@ -125,6 +163,7 @@ public class DoorScript : MonoBehaviour
             if (inventory.hasBlackKey)
             {
                 isLocked = false;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.doorUnlock, this.transform.position); //SFX
                 Debug.Log("isLocked " + isLocked);
                 inventory.hasBlackKey = false;
                 Debug.Log("Has key?" + inventory.hasBlackKey);
@@ -144,6 +183,11 @@ public class DoorScript : MonoBehaviour
         Debug.Log("Door Locked Coroutine Started");
         commentaryPanel.SetActive(true);
         commentaryText.text = doorLocked;
+        //fmodEvents.startFX(doorRattleInst, doorRattle); //FMOD SFX
+        //PlaySFXOnLocation(doorRattleInst, doorRattle); //FMOD FX
+
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.doorRattle, this.transform.position); //SFX
+
         yield return new WaitForSeconds(2f);
         commentaryPanel.SetActive(false);
     }
@@ -153,8 +197,18 @@ public class DoorScript : MonoBehaviour
         Debug.Log("Door Unlock Coroutine Started");
         commentaryPanel.SetActive(true);
         commentaryText.text = doorUnlocked;
+
+        //fmodEvents.startFX(doorUnlockInst, doorUnlock); //FMOD SFX
+
+        //fmodEvents.parameterChange(sarahRoomMusicInst, "PickupObject", "True");
+
+        sarahRoomMusicInst = FMODUnity.RuntimeManager.CreateInstance(sarahRoomMusic);
+        sarahRoomMusicInst.setParameterByNameWithLabel("PickupObject", "True");
+
         yield return new WaitForSeconds(2f);
         commentaryPanel.SetActive(false);
     }
+
+
 
 }

@@ -35827,6 +35827,49 @@ MonoBehaviour:
   doorLocked: The door is locked!
   doorUnlocked: Door is unlocked!
   inventory: {fileID: 1034800628392659593}
+  fmodEvents: {fileID: 1854970743}
+  <doorCreak>k__BackingField:
+    Guid:
+      Data1: 259921025
+      Data2: 1108266405
+      Data3: -813249141
+      Data4: -452016925
+    Path: event:/1. Apartment/SFX/Door Creak
+  <doorRattle>k__BackingField:
+    Guid:
+      Data1: 1705449414
+      Data2: 1138889897
+      Data3: 1741275065
+      Data4: 198087735
+    Path: event:/1. Apartment/SFX/Door Rattle
+  <doorUnlock>k__BackingField:
+    Guid:
+      Data1: -2027799816
+      Data2: 1169759639
+      Data3: -1245825145
+      Data4: 1863834977
+    Path: event:/1. Apartment/SFX/Door Unlock
+  <metalDoorClose>k__BackingField:
+    Guid:
+      Data1: 743720632
+      Data2: 1263355967
+      Data3: -160242524
+      Data4: -1109154024
+    Path: event:/1. Apartment/SFX/Metal Door Close
+  <metalDoorOpen>k__BackingField:
+    Guid:
+      Data1: 1360986980
+      Data2: 1094747345
+      Data3: 1520489616
+      Data4: 2039308027
+    Path: event:/1. Apartment/SFX/Metal Door Open
+  <sarahRoomMusic>k__BackingField:
+    Guid:
+      Data1: 1019273178
+      Data2: 1259812128
+      Data3: -1311829614
+      Data4: -1978220333
+    Path: event:/1. Apartment/Sarah Room/Music/Sarah Room Music
 --- !u!1 &890932213
 GameObject:
   m_ObjectHideFlags: 0
@@ -76151,6 +76194,49 @@ MonoBehaviour:
   doorLocked: Door is locked!
   doorUnlocked: Door is unlocked!
   inventory: {fileID: 1034800628392659593}
+  fmodEvents: {fileID: 0}
+  <doorCreak>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <doorRattle>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <doorUnlock>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <metalDoorClose>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <metalDoorOpen>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <sarahRoomMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!65 &1597052771
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -88849,6 +88935,48 @@ MonoBehaviour:
       Data3: -297958260
       Data4: 48107618
     Path: event:/UI SFX/Note Pick Up
+  <doorCreak>k__BackingField:
+    Guid:
+      Data1: 259921025
+      Data2: 1108266405
+      Data3: -813249141
+      Data4: -452016925
+    Path: event:/1. Apartment/SFX/Door Creak
+  <doorRattle>k__BackingField:
+    Guid:
+      Data1: 1705449414
+      Data2: 1138889897
+      Data3: 1741275065
+      Data4: 198087735
+    Path: event:/1. Apartment/SFX/Door Rattle
+  <doorUnlock>k__BackingField:
+    Guid:
+      Data1: -2027799816
+      Data2: 1169759639
+      Data3: -1245825145
+      Data4: 1863834977
+    Path: event:/1. Apartment/SFX/Door Unlock
+  <floorCreak>k__BackingField:
+    Guid:
+      Data1: -268052434
+      Data2: 1289009348
+      Data3: 1124871555
+      Data4: -252486931
+    Path: event:/1. Apartment/SFX/Floor Creak
+  <metalDoorClose>k__BackingField:
+    Guid:
+      Data1: 743720632
+      Data2: 1263355967
+      Data3: -160242524
+      Data4: -1109154024
+    Path: event:/1. Apartment/SFX/Metal Door Close
+  <metalDoorOpen>k__BackingField:
+    Guid:
+      Data1: 1360986980
+      Data2: 1094747345
+      Data3: 1520489616
+      Data4: 2039308027
+    Path: event:/1. Apartment/SFX/Metal Door Open
   <footStep>k__BackingField:
     Guid:
       Data1: -1895247470
@@ -90292,6 +90420,49 @@ MonoBehaviour:
   doorLocked: Door is locked!
   doorUnlocked: Door is unlocked!
   inventory: {fileID: 1034800628392659593}
+  fmodEvents: {fileID: 0}
+  <doorCreak>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <doorRattle>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <doorUnlock>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <metalDoorClose>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <metalDoorOpen>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <sarahRoomMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!65 &1903063832
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -107435,14 +107606,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4803519197118052111}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.66125685, y: 0.34586722, z: 0.22130191, w: 0.62780637}
-  m_LocalPosition: {x: -0.4764, y: -0.0399, z: 0.0103}
+  m_LocalRotation: {x: 0.19364066, y: 0.79775697, z: 0.2561349, w: 0.5103743}
+  m_LocalPosition: {x: -0.345, y: 0.812, z: 0.464}
   m_LocalScale: {x: 0.30000004, y: 0.30000022, z: 0.30000004}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3086202350899535662}
   m_Father: {fileID: 597943903745383818}
-  m_LocalEulerAnglesHint: {x: -8.5, y: 34.38, z: -24.26}
+  m_LocalEulerAnglesHint: {x: -12.181, y: 110.845, z: 35.7}
 --- !u!1 &1417359023191861972
 GameObject:
   m_ObjectHideFlags: 0
@@ -108045,7 +108216,6 @@ GameObject:
   - component: {fileID: 9013212293043568193}
   - component: {fileID: 9013212293043568195}
   - component: {fileID: 9013212293043568194}
-  - component: {fileID: 9013212293043568196}
   - component: {fileID: 9013212293043568197}
   m_Layer: 0
   m_Name: Cinematic Sarah
@@ -113889,18 +114059,6 @@ MonoBehaviour:
   - m_Rig: {fileID: 998600334}
     m_Active: 1
   m_Effectors: []
---- !u!114 &9013212293043568196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2359499913433595521}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daab69a6d7008034ebf9592cbb4e970d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9013212293043568197
 MonoBehaviour:
   m_ObjectHideFlags: 0
