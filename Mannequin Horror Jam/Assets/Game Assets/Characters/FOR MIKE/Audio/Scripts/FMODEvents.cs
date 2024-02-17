@@ -108,7 +108,7 @@ public class FMODEvents : MonoBehaviour
     private void Start()
     {
         //startSarah();
-        startHallWay(gameObject);
+        //startHallWay(gameObject);
     }
 
     private void Update()
