@@ -168,9 +168,15 @@ public class FMODEvents : MonoBehaviour
     {
         sarahRoomMusicInst.setParameterByNameWithLabel("PickupObject", "True", true);
     }
-    public void stopSarah()
+    public void stopImmediateSarah()
     {
         sarahRoomMusicInst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        sarahRoomMusicInst.release();
+    }
+    public void stopFadeSarah()
+    {
+        sarahRoomMusicInst.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        sarahRoomMusicInst.release();
     }
 
     //-------------------------------------------HALLWAY MUSIC--------------------------------------------------------------

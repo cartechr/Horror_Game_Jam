@@ -172,7 +172,8 @@ public class DoorScript : MonoBehaviour
         Debug.Log("Door Locked Coroutine Started");
         commentaryPanel.SetActive(true);
         commentaryText.text = doorLocked;
-        //fmodEvents.playSFXOnLocation(fmodEvents.doorRattleInst, fmodEvents.doorRattle, this.gameObject); //FMOD FX
+
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.doorRattle, this.transform.position);
 
 
         yield return new WaitForSeconds(2f);

@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
+using Cinemachine;
 
 [RequireComponent(typeof(CharacterController))]
 public class FPSCONTROL : MonoBehaviour
@@ -96,6 +97,9 @@ public class FPSCONTROL : MonoBehaviour
     public bool startRegen = true;
     public bool currentlyGrappled;
 
+    public CinemachineBrain cinemachineBrain;
+    
+
     private void Awake()
     {
         // get a reference to our main camera
@@ -103,10 +107,12 @@ public class FPSCONTROL : MonoBehaviour
         {
             mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         }
+        cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
     }
 
     private void Start()
     {
+        //DontDestroyOnLoad(gameObject);
 
         characterController = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
@@ -117,24 +123,32 @@ public class FPSCONTROL : MonoBehaviour
 
     private void Update()
     {
+        if (!cinemachineBrain.IsBlending)
+        {
+            hasAnimator = TryGetComponent(out animator);
 
-        hasAnimator = TryGetComponent(out animator);
+            Move();
+
+            CheckCrouchingBackwards();
+
+            GravityControls();
+
+            GroundedCheck();
+
+            aiInteraction();
+
+        }
+
         
-        Move();
-
-        CheckCrouchingBackwards();
-
-        GravityControls();
-
-        GroundedCheck();
-
-        aiInteraction();
 
     }
 
     private void LateUpdate()
     {
-        CameraRotation();
+        if (!cinemachineBrain.IsBlending)
+        {
+            CameraRotation();
+        }
     }
 
     #region Animation Related
