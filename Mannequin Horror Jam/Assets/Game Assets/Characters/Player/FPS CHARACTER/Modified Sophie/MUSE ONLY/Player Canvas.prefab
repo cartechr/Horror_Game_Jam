@@ -1305,6 +1305,39 @@ MonoBehaviour:
   m_Spacing: {x: 1, y: 1}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &1785970633271793623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8795835276669441113}
+  m_Layer: 0
+  m_Name: MANAGERS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8795835276669441113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785970633271793623}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -925.88525, y: -533.391, z: -15.055011}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5435216396006873131}
+  - {fileID: 1161128928011567483}
+  m_Father: {fileID: 1734261418334417405}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2094639963224640281
 GameObject:
   m_ObjectHideFlags: 0
@@ -5242,3 +5275,225 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &5540553155499104310
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8795835276669441113}
+    m_Modifications:
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Path
+      value: event:/Dialogue/Breathing/SprintBreathing
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Path
+      value: event:/Dialogue/Choking/Choking
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Path
+      value: event:/Dialogue/Breathing/GaspingAfterChoking
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Path
+      value: event:/Menu/Menu Open
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Path
+      value: event:/Menu/Game Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Path
+      value: event:/Dialogue/Story/1. You in there
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Path
+      value: event:/Menu/Button Press
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Path
+      value: event:/Dialogue/Story/2. Finally awake
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Guid.Data1
+      value: 2002269434
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Guid.Data2
+      value: 1090330136
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Guid.Data3
+      value: 616884631
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Guid.Data4
+      value: 1360212818
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Guid.Data1
+      value: 96536249
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Guid.Data2
+      value: 1331521182
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Guid.Data3
+      value: -857779534
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Guid.Data4
+      value: 1887064004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Guid.Data1
+      value: 1012994000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Guid.Data2
+      value: 1178570437
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Guid.Data3
+      value: 827352503
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Guid.Data4
+      value: -929788293
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Guid.Data1
+      value: -1905700161
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Guid.Data2
+      value: 1272396385
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Guid.Data3
+      value: 1907814788
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Guid.Data4
+      value: 1696181146
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Guid.Data1
+      value: -833475100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Guid.Data2
+      value: 1127486737
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Guid.Data3
+      value: 787662270
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Guid.Data4
+      value: -1078463680
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Guid.Data1
+      value: -1586600153
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Guid.Data2
+      value: 1118571023
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Guid.Data3
+      value: 866057912
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Guid.Data4
+      value: -1912660383
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Guid.Data1
+      value: -1235472120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Guid.Data2
+      value: 1183352183
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Guid.Data3
+      value: 744765876
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Guid.Data4
+      value: -928392734
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Guid.Data1
+      value: -1793873714
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Guid.Data2
+      value: 1286600425
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Guid.Data3
+      value: -1382611837
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Guid.Data4
+      value: 1367035532
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739526619917982531, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_Name
+      value: FMOD Events
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+--- !u!4 &1161128928011567483 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+  m_PrefabInstance: {fileID: 5540553155499104310}
+  m_PrefabAsset: {fileID: 0}
