@@ -129,7 +129,7 @@ public class FMODEvents : MonoBehaviour
     {
         if(instance != null)
         {
-            UnityEngine.Debug.LogError(" Found more than one FMOD Events instance in the scene");
+
         }
         instance = this;
 
@@ -152,12 +152,6 @@ public class FMODEvents : MonoBehaviour
         SFX.setVolume(SFXVolume);
         Master.setVolume(MasterVolume);
         */
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            changeHallway();
-            //changeSarah();
-            UnityEngine.Debug.Log("change hallway music");
-        }
 
 
 

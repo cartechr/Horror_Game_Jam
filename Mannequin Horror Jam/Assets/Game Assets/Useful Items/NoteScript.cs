@@ -26,12 +26,15 @@ public class NoteScript : MonoBehaviour
 
     private void Start()
     {
-        fpsControl = GameObject.FindWithTag("Player").GetComponent<FPSCONTROL>();
+
     }
 
     private void Update()
     {
-
+        if (fpsControl == null) 
+        {
+            fpsControl = GameObject.FindWithTag("Player").GetComponent<FPSCONTROL>();
+        }
     }
 
     public void ToggleNote()

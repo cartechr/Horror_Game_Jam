@@ -98,7 +98,9 @@ public class FPSCONTROL : MonoBehaviour
     public bool currentlyGrappled;
 
     public CinemachineBrain cinemachineBrain;
-    
+    public GameObject PlayerCanvas;
+
+
 
     private void Awake()
     {
@@ -119,6 +121,7 @@ public class FPSCONTROL : MonoBehaviour
 
         AssignAnimationIDs();
 
+        DontDestroyOnLoad(PlayerCanvas);
     }
 
     private void Update()
@@ -136,7 +139,6 @@ public class FPSCONTROL : MonoBehaviour
             GroundedCheck();
 
             aiInteraction();
-
         }
 
         
@@ -534,23 +536,25 @@ public class FPSCONTROL : MonoBehaviour
         if (Health == 3)
         {
             health2.gameObject.SetActive(false);
+            health1.gameObject.SetActive(false);
         }
         if (Health == 2)
         {
-            health1.gameObject.SetActive(false);
-            health2.gameObject.SetActive(true);
+            health1.gameObject.SetActive(true);
+            health2.gameObject.SetActive(false);
 
             //Debug.Log("Health is at 2");
         }
         if (Health == 1)
         {
-            health2.gameObject.SetActive(false);
+            health2.gameObject.SetActive(true);
             health1.gameObject.SetActive(true);
             //Debug.Log("Health is at 1");
         }
         if (Health == 0)
         {
             health1.gameObject.SetActive(false);
+            health2.gameObject.SetActive(false);
 
             //kill player
             if (!playerDead)

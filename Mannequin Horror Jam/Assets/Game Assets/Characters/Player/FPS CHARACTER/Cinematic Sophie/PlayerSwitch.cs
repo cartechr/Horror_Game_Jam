@@ -11,12 +11,18 @@ public class PlayerSwitch : MonoBehaviour
     public GameObject fmodObject;
     FMODEvents fmodEvents;
 
+    GameObject Door; 
+
     private void Start()
     {
         fmodObject = GameObject.FindGameObjectWithTag("FMODEvents");
         fmodEvents = fmodObject.GetComponent<FMODEvents>();
 
+        Door = GameObject.FindGameObjectWithTag("Door");
+
         fmodEvents.startSarah();
+        //fmodEvents.InThere(Door);
+
     }
     void SwitchToPlayer()
     {

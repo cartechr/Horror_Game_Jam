@@ -16,7 +16,7 @@ public class UIToggle : MonoBehaviour
 
     private void Start()
     {
-        Player = GameObject.FindGameObjectWithTag("Player");
+
     }
 
     // Update is called once per frame
@@ -35,6 +35,12 @@ public class UIToggle : MonoBehaviour
             }
         }
 
+
+       /* if (!switchMusic)
+        {
+            switchMusic = true;
+            fmodEvents.startHallWay(Player);
+        }*/
 
         Dead_UI();
     }
