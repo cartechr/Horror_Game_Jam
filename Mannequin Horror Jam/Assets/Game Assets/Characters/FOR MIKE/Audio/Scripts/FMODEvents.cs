@@ -73,12 +73,46 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference takingDamage { get; private set; }
     public EventInstance takingDamageInst;
 
-    //public FMOD.Studio.System.create 
+
+    [field: Header("Dialogue")]
+
+    [field: SerializeField] public EventReference gasping { get; private set; }
+    public EventInstance gaspingInst;
+    [field: SerializeField] public EventReference sprint { get; private set; }
+    public EventInstance sprintInst;
+    [field: SerializeField] public EventReference choking { get; private set; }
+    public EventInstance chokingInst;
+
+    [field: SerializeField] public EventReference YouInThere { get; private set; }
+    public EventInstance YouInThereInst;
+
+    [field: SerializeField] public EventReference FinallyAwake { get; private set; }
+    public EventInstance FinallyAwakeInst;
+
+    [field: SerializeField] public EventReference buttonPress { get; private set; }
+    public EventInstance buttonPressInst;
+
+    [field: SerializeField] public EventReference gameStart { get; private set; }
+    public EventInstance gameStartInst;
+
+    [field: SerializeField] public EventReference menuOpen { get; private set; }
+    public EventInstance menuOpenInst;
+
+
 
     //EmitterGameEvent sarahRoomTrigger;
 
     public static FMODEvents instance { get; private set; }
     
+
+
+    [Header("Global Parameters")]
+
+    [Range(0, 10)]
+    public float Promixity;
+
+    bool isChasing;
+
 
     FMOD.Studio.Bus Music;
     FMOD.Studio.Bus SFX;
@@ -189,17 +223,155 @@ public class FMODEvents : MonoBehaviour
         //hallwayMusicInst.release();
     }
 
-    public void changeHallway()
+    public void dangerHallway() 
+    { 
+        hallwayMusicInst.setParameterByName("Danger", 1, true);
+
+        isChasing = true;
+    }
+
+    public void peaceHallway()
     {
-        //hallwayMusicInst.setParameterByName("Danger", 1, true);
-        //FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Danger", 1, true);
-        FMOD.Studio.System.create(out FMOD.Studio.System system);
-        system.setParameterByName("Danger", 1, true);
+        hallwayMusicInst.setParameterByName("Danger", 0, true);
+
+        isChasing = false;
+    }
+
+    public void stopHallway()
+    {
+        hallwayMusicInst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        hallwayMusicInst.release();
     }
     #endregion
 
-    #region Ambiance
+    #region Dialogue
+
+
+    public void InThere(GameObject gameobject)
+    {
+        YouInThereInst = FMODUnity.RuntimeManager.CreateInstance(YouInThere);
+        YouInThereInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        YouInThereInst.start();
+        YouInThereInst.release();
+    }
+
+    public void finAwake(GameObject gameobject)
+    {
+        FinallyAwakeInst = FMODUnity.RuntimeManager.CreateInstance(FinallyAwake);
+        FinallyAwakeInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        FinallyAwakeInst.start();
+        FinallyAwakeInst.release();
+    }
 
     #endregion
 
+    #region Item & Interaction
+
+    public void startRattle(GameObject gameobject)
+    {
+        doorCreakInst = FMODUnity.RuntimeManager.CreateInstance(doorRattle);
+        doorCreakInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        doorCreakInst.start();
+        doorCreakInst.release();
+    }
+
+    public void stopRattle()
+    {
+
+    }
+
+    public void doorUnluck(GameObject gameobject)
+    {
+        doorUnlockInst = FMODUnity.RuntimeManager.CreateInstance(doorUnlock);
+        doorUnlockInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        doorUnlockInst.start();
+        doorUnlockInst.release();
+    }
+
+    #endregion
+
+    #region AI
+
+    public void startMannequinMove(GameObject gameobject)
+    {
+        mannequinMovementInst = FMODUnity.RuntimeManager.CreateInstance(mannequinMovement);
+        mannequinMovementInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        mannequinMovementInst.start();
+        //mannequinMovementInst.release();
+    }
+
+    public void stopMannequinMove()
+    {
+        mannequinMovementInst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        mannequinMovementInst.release();
+    }
+    public void startGasping(GameObject gameobject)
+    {
+        gaspingInst = FMODUnity.RuntimeManager.CreateInstance(gasping);
+        gaspingInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        gaspingInst.start();
+    }
+
+    public void stopGasping()
+    {
+        gaspingInst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        gaspingInst.release();
+    }
+
+    public void startChoking(GameObject gameobject)
+    {
+        chokingInst = FMODUnity.RuntimeManager.CreateInstance(choking);
+        chokingInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        chokingInst.start();
+    }
+
+    public void stopChoking()
+    {
+        chokingInst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        chokingInst.release();
+    }
+
+    public void changeToFullHealth(GameObject gameobject)
+    {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("FullHealth", 0, true);
+
+        takingDamageInst = FMODUnity.RuntimeManager.CreateInstance(takingDamage);
+        takingDamageInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        takingDamageInst.start();
+        takingDamageInst.release();
+    }
+
+    public void changeToHealth(GameObject gameobject)
+    {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("FullHealth", 1, true);
+
+        takingDamageInst = FMODUnity.RuntimeManager.CreateInstance(takingDamage);
+        takingDamageInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        takingDamageInst.start();
+        takingDamageInst.release();
+    }
+
+    #endregion
+
+
+    public void pressButton()
+    {
+        buttonPressInst = FMODUnity.RuntimeManager.CreateInstance(buttonPress);
+        buttonPressInst.start();
+        buttonPressInst.release();
+    }
+
+    public void startGame()
+    {
+        gameStartInst = FMODUnity.RuntimeManager.CreateInstance(gameStart);
+        gameStartInst.start();
+        gameStartInst.release();
+    }
+
+    public void openMenu()
+    {
+        menuOpenInst = FMODUnity.RuntimeManager.CreateInstance(menuOpen);
+        menuOpenInst.start();
+        menuOpenInst.release();
+    }
 }
