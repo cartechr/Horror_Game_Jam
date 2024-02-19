@@ -8,14 +8,17 @@ using FMOD;
 
 public class FMODEvents : MonoBehaviour
 {
-
+    //-----------------------------------------------EventReferences + EventInstances---------------------------------------------------
+    #region Music
     [field: Header("Music")]
     [field: SerializeField] public EventReference sarahRoomMusic { get; private set; }
     public EventInstance sarahRoomMusicInst;
     [field: SerializeField] public EventReference hallwayMusic { get; private set; }
     public EventInstance hallwayMusicInst;
 
+    #endregion
 
+    #region Ambiance
     [field: Header("Ambiance")]
     [field: SerializeField] public EventReference stairWellAmbiance { get; private set; }
     public EventInstance stairWellAmbianceInst;
@@ -42,7 +45,9 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference metalDoorOpen { get; private set; }
     public EventInstance metalDoorOpenInst;
 
+    #endregion
 
+    #region SFX
     [field: Header("Footstep Specific")]
     [field: SerializeField] public EventReference footStep { get; private set; }
     public EventInstance footStepInst;
@@ -73,7 +78,9 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference takingDamage { get; private set; }
     public EventInstance takingDamageInst;
 
+    #endregion
 
+    #region Dialogue
     [field: Header("Dialogue")]
 
     [field: SerializeField] public EventReference gasping { get; private set; }
@@ -83,12 +90,52 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference choking { get; private set; }
     public EventInstance chokingInst;
 
+    [field: SerializeField] public EventReference Eating { get; private set; }
+    public EventInstance EatingInst;
+
+    //---------------------------------------------------------------------------
+
     [field: SerializeField] public EventReference YouInThere { get; private set; }
     public EventInstance YouInThereInst;
 
     [field: SerializeField] public EventReference FinallyAwake { get; private set; }
     public EventInstance FinallyAwakeInst;
 
+    [field: SerializeField] public EventReference YouReading { get; private set; }
+    public EventInstance YouReadingInst;
+
+    [field: SerializeField] public EventReference Someone { get; private set; }
+    public EventInstance FSomeoneInst;
+
+    [field: SerializeField] public EventReference Traitors { get; private set; }
+    public EventInstance TraitorsInst;
+
+    [field: SerializeField] public EventReference SafeToTalk { get; private set; }
+    public EventInstance SafeToTalkInst;
+
+    [field: SerializeField] public EventReference TheyDontBelieve { get; private set; }
+    public EventInstance TheyDontBelieveInst;
+
+    [field: SerializeField] public EventReference HungerDriveYou { get; private set; }
+    public EventInstance HungerDriveYouInst;
+
+    [field: SerializeField] public EventReference ChewCrunch { get; private set; }
+    public EventInstance ChewCrunchInst;
+
+    [field: SerializeField] public EventReference YouDontRecognise { get; private set; }
+    public EventInstance YouDontRecogniseInst;
+
+    [field: SerializeField] public EventReference EatSarah { get; private set; }
+    public EventInstance EatSarahInst;
+
+    [field: SerializeField] public EventReference Freedom { get; private set; }
+    public EventInstance FreedomInst;
+
+    [field: SerializeField] public EventReference LibertaliaForever { get; private set; }
+    public EventInstance LibertaliaForeverInst;
+    #endregion
+
+    #region Menu
     [field: SerializeField] public EventReference buttonPress { get; private set; }
     public EventInstance buttonPressInst;
 
@@ -98,15 +145,17 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference menuOpen { get; private set; }
     public EventInstance menuOpenInst;
 
+    #endregion
+
+    //-----------------------------------------------------------------------------------------------------------------------------------
+    // Music Buses
     public Bus Music;
     public Bus SFX;
     public Bus Dialogue;
 
     public bool Options;
 
-    //EmitterGameEvent sarahRoomTrigger;
-
-    public static FMODEvents instance { get; private set; }
+   public static FMODEvents instance { get; private set; }
 
 
     [Header("Global Parameters")]
@@ -180,7 +229,6 @@ public class FMODEvents : MonoBehaviour
 
     private void Update()
     {
-        Music.setVolume(MusicVolume);
 
         if (Options)
         {

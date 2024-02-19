@@ -3949,6 +3949,467 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1129999413580534391, guid: edb02028d59ccac4ca6641a183fa7346, type: 3}
   m_PrefabInstance: {fileID: 775576394}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &118328676
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1974625125}
+    m_Modifications:
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: Options
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Eating>k__BackingField.Path
+      value: event:/Dialogue/Eating/SarahEating
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Path
+      value: event:/Dialogue/Breathing/SprintBreathing
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Freedom>k__BackingField.Path
+      value: event:/Dialogue/Story/12. This is what freedom
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Someone>k__BackingField.Path
+      value: event:/Dialogue/Story/4. Someones in there
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Path
+      value: event:/Dialogue/Choking/Choking
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Path
+      value: event:/Dialogue/Breathing/GaspingAfterChoking
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <EatSarah>k__BackingField.Path
+      value: event:/Dialogue/Story/11. Eat Sarah
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Traitors>k__BackingField.Path
+      value: event:/Dialogue/Story/5. Traitors
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Path
+      value: event:/Menu/Menu Open
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Path
+      value: event:/Menu/Game Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <ChewCrunch>k__BackingField.Path
+      value: event:/Dialogue/Story/9. Chew Crunch
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <SafeToTalk>k__BackingField.Path
+      value: event:/Dialogue/Story/6. Safe to talk
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Path
+      value: event:/Dialogue/Story/1. You in there
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouReading>k__BackingField.Path
+      value: event:/Dialogue/Story/3. You reading
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Path
+      value: event:/Menu/Button Press
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Eating>k__BackingField.Guid.Data1
+      value: -600004848
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Eating>k__BackingField.Guid.Data2
+      value: 1076233744
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Eating>k__BackingField.Guid.Data3
+      value: -366921054
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Eating>k__BackingField.Guid.Data4
+      value: -1620770777
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Path
+      value: event:/Dialogue/Story/2. Finally awake
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Guid.Data1
+      value: 2002269434
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Guid.Data2
+      value: 1090330136
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Guid.Data3
+      value: 616884631
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <sprint>k__BackingField.Guid.Data4
+      value: 1360212818
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Freedom>k__BackingField.Guid.Data1
+      value: 300903884
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Freedom>k__BackingField.Guid.Data2
+      value: 1288465844
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Freedom>k__BackingField.Guid.Data3
+      value: 448077477
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Freedom>k__BackingField.Guid.Data4
+      value: 1798731156
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Someone>k__BackingField.Guid.Data1
+      value: 2129223281
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Someone>k__BackingField.Guid.Data2
+      value: 1157105469
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Someone>k__BackingField.Guid.Data3
+      value: -83748165
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Someone>k__BackingField.Guid.Data4
+      value: -1433119223
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Guid.Data1
+      value: 96536249
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Guid.Data2
+      value: 1331521182
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Guid.Data3
+      value: -857779534
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <choking>k__BackingField.Guid.Data4
+      value: 1887064004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Guid.Data1
+      value: 1012994000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Guid.Data2
+      value: 1178570437
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Guid.Data3
+      value: 827352503
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gasping>k__BackingField.Guid.Data4
+      value: -929788293
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <EatSarah>k__BackingField.Guid.Data1
+      value: 1178634941
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <EatSarah>k__BackingField.Guid.Data2
+      value: 1333183839
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <EatSarah>k__BackingField.Guid.Data3
+      value: 912431495
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <EatSarah>k__BackingField.Guid.Data4
+      value: -844858946
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <HungerDriveYou>k__BackingField.Path
+      value: event:/Dialogue/Story/8. Hunger drive you
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Traitors>k__BackingField.Guid.Data1
+      value: -727293239
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Traitors>k__BackingField.Guid.Data2
+      value: 1220990428
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Traitors>k__BackingField.Guid.Data3
+      value: 932130969
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <Traitors>k__BackingField.Guid.Data4
+      value: 1441048343
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Guid.Data1
+      value: -1905700161
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Guid.Data2
+      value: 1272396385
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Guid.Data3
+      value: 1907814788
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <menuOpen>k__BackingField.Guid.Data4
+      value: 1696181146
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <TheyDontBelieve>k__BackingField.Path
+      value: event:/Dialogue/Story/7. They dont believe
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Guid.Data1
+      value: -833475100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Guid.Data2
+      value: 1127486737
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Guid.Data3
+      value: 787662270
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <gameStart>k__BackingField.Guid.Data4
+      value: -1078463680
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <ChewCrunch>k__BackingField.Guid.Data1
+      value: 1285115439
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <ChewCrunch>k__BackingField.Guid.Data2
+      value: 1341861451
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <ChewCrunch>k__BackingField.Guid.Data3
+      value: 1505904774
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <ChewCrunch>k__BackingField.Guid.Data4
+      value: -1740241622
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <SafeToTalk>k__BackingField.Guid.Data1
+      value: -612909713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <SafeToTalk>k__BackingField.Guid.Data2
+      value: 1230444774
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <SafeToTalk>k__BackingField.Guid.Data3
+      value: 1080443549
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <SafeToTalk>k__BackingField.Guid.Data4
+      value: 405567238
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouDontRecognise>k__BackingField.Path
+      value: event:/Dialogue/Story/10. You dont recognise
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Guid.Data1
+      value: -1586600153
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Guid.Data2
+      value: 1118571023
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Guid.Data3
+      value: 866057912
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouInThere>k__BackingField.Guid.Data4
+      value: -1912660383
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouReading>k__BackingField.Guid.Data1
+      value: 1424258516
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouReading>k__BackingField.Guid.Data2
+      value: 1291732730
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouReading>k__BackingField.Guid.Data3
+      value: 1141113745
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouReading>k__BackingField.Guid.Data4
+      value: -1986242949
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <LibertaliaForever>k__BackingField.Path
+      value: event:/Dialogue/Story/13. Libertalia Forever
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Guid.Data1
+      value: -1235472120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Guid.Data2
+      value: 1183352183
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Guid.Data3
+      value: 744765876
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <buttonPress>k__BackingField.Guid.Data4
+      value: -928392734
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Guid.Data1
+      value: -1793873714
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Guid.Data2
+      value: 1286600425
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Guid.Data3
+      value: -1382611837
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <FinallyAwake>k__BackingField.Guid.Data4
+      value: 1367035532
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <HungerDriveYou>k__BackingField.Guid.Data1
+      value: -1478147772
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <HungerDriveYou>k__BackingField.Guid.Data2
+      value: 1215232670
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <HungerDriveYou>k__BackingField.Guid.Data3
+      value: 64953243
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <HungerDriveYou>k__BackingField.Guid.Data4
+      value: 842351332
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <TheyDontBelieve>k__BackingField.Guid.Data1
+      value: 394948979
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <TheyDontBelieve>k__BackingField.Guid.Data2
+      value: 1186149435
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <TheyDontBelieve>k__BackingField.Guid.Data3
+      value: -1134931810
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <TheyDontBelieve>k__BackingField.Guid.Data4
+      value: -1951433722
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouDontRecognise>k__BackingField.Guid.Data1
+      value: -1382821674
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouDontRecognise>k__BackingField.Guid.Data2
+      value: 1145062818
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouDontRecognise>k__BackingField.Guid.Data3
+      value: 176992680
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <YouDontRecognise>k__BackingField.Guid.Data4
+      value: -486080568
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <LibertaliaForever>k__BackingField.Guid.Data1
+      value: -1819545813
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <LibertaliaForever>k__BackingField.Guid.Data2
+      value: 1119863490
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <LibertaliaForever>k__BackingField.Guid.Data3
+      value: 1747904689
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056236597356783793, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: <LibertaliaForever>k__BackingField.Guid.Data4
+      value: 132203392
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739526619917982531, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+      propertyPath: m_Name
+      value: FMOD Events
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
 --- !u!1001 &118921608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36002,7 +36463,7 @@ MonoBehaviour:
   doorUnlocked: Door is unlocked!
   inventory: {fileID: 1034800628392659593}
   eventsObject: {fileID: 0}
-  fmodEvents: {fileID: 1854970743}
+  fmodEvents: {fileID: 0}
 --- !u!1 &890932213
 GameObject:
   m_ObjectHideFlags: 0
@@ -36535,6 +36996,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1129999413580534391, guid: edb02028d59ccac4ca6641a183fa7346, type: 3}
   m_PrefabInstance: {fileID: 1063359212}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &910344390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 910344391}
+  - component: {fileID: 910344392}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &910344391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910344390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1974625125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &910344392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910344390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189588ef695b40448abdfe22f0ca2605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &910908579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69810,6 +70315,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1129999413580534391, guid: edb02028d59ccac4ca6641a183fa7346, type: 3}
   m_PrefabInstance: {fileID: 677069527}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1565462695 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6701029857142167885, guid: e0214bf528e05614eb817efdfa0db426, type: 3}
+  m_PrefabInstance: {fileID: 118328676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1567426270
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1974625125}
+    m_Modifications:
+    - target: {fileID: 3899126750077721339, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 294903
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.121338
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.876831
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 32.33335
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804261147566181386, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+      propertyPath: m_Name
+      value: Global Volume
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
 --- !u!1001 &1571398350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80842,6 +81413,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1486053425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1747034251 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6917301189049446024, guid: c7a6d3e37c401364bb0ea407711b3a2d, type: 3}
+  m_PrefabInstance: {fileID: 1567426270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1748157017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88920,17 +89496,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1129999413580534391, guid: edb02028d59ccac4ca6641a183fa7346, type: 3}
   m_PrefabInstance: {fileID: 217228795}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1854970743 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8728127454697982580, guid: 4644b91ece868814cab046ba8ee4b454, type: 3}
-  m_PrefabInstance: {fileID: 2127052436}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f268b827c4428604ba2b6732a0920c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1863215755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96722,6 +97287,40 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1972359580}
   m_Mesh: {fileID: -6184455318211055047, guid: 7a1dd57bd8b6ca44cbf5f922801b2975, type: 3}
+--- !u!1 &1974625124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1974625125}
+  m_Layer: 0
+  m_Name: MANAGERS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1974625125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974625124}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 34.114716, y: 6.6089954, z: -15.055012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 910344391}
+  - {fileID: 1565462695}
+  - {fileID: 1747034251}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1976964132
 GameObject:
   m_ObjectHideFlags: 0
@@ -114005,3 +114604,4 @@ SceneRoots:
   - {fileID: 1586269507}
   - {fileID: 1442573531}
   - {fileID: 1694645024}
+  - {fileID: 1974625125}
