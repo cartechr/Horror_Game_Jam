@@ -104,10 +104,10 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference YouReading { get; private set; }
     public EventInstance YouReadingInst;
 
-    [field: SerializeField] public EventReference Someone { get; private set; }
-    public EventInstance FSomeoneInst;
+    [field: SerializeField] public EventReference someone { get; private set; }
+    public EventInstance SomeoneInst;
 
-    [field: SerializeField] public EventReference Traitors { get; private set; }
+    [field: SerializeField] public EventReference traitors { get; private set; }
     public EventInstance TraitorsInst;
 
     [field: SerializeField] public EventReference SafeToTalk { get; private set; }
@@ -128,7 +128,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference EatSarah { get; private set; }
     public EventInstance EatSarahInst;
 
-    [field: SerializeField] public EventReference Freedom { get; private set; }
+    [field: SerializeField] public EventReference freedom { get; private set; }
     public EventInstance FreedomInst;
 
     [field: SerializeField] public EventReference LibertaliaForever { get; private set; }
@@ -237,7 +237,7 @@ public class FMODEvents : MonoBehaviour
             Dialogue.setVolume(DialogueVolume);
         }
     }
-
+// -----------------------------------------------SOUND USE------------------------------------------------------------------
     #region SOUND CONTROL
 
     public void pauseFMOD()
@@ -257,7 +257,7 @@ public class FMODEvents : MonoBehaviour
     #endregion
     #region Music
 
-    //-------------------------------------------SARAH ROOM--------------------------------------------------------------
+//------------------------------------------------SARAH ROOM--------------------------------------------------------------
     public void startSarah()
     {
         sarahRoomMusicInst = FMODUnity.RuntimeManager.CreateInstance(sarahRoomMusic);
@@ -281,7 +281,7 @@ public class FMODEvents : MonoBehaviour
         sarahRoomMusicInst.release();
     }
 
-    //-------------------------------------------HALLWAY MUSIC--------------------------------------------------------------
+//-----------------------------------------------HALLWAY MUSIC--------------------------------------------------------------
 
     public void startHallWay(GameObject gameobject)
     {
@@ -329,6 +329,94 @@ public class FMODEvents : MonoBehaviour
         FinallyAwakeInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
         FinallyAwakeInst.start();
         FinallyAwakeInst.release();
+    }
+
+    public void Reading(GameObject gameobject)
+    {
+        YouReadingInst = FMODUnity.RuntimeManager.CreateInstance(YouReading);
+        YouReadingInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        YouReadingInst.start();
+        YouReadingInst.release();
+    }
+
+    public void Someone(GameObject gameobject)
+    {
+        SomeoneInst = FMODUnity.RuntimeManager.CreateInstance(someone);
+        SomeoneInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        SomeoneInst.start();
+        SomeoneInst.release();
+    }
+
+    public void Traitors(GameObject gameobject)
+    {
+        TraitorsInst = FMODUnity.RuntimeManager.CreateInstance(traitors);
+        TraitorsInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        TraitorsInst.start();
+        TraitorsInst.release();
+    }
+
+    public void Talk(GameObject gameobject)
+    {
+        SafeToTalkInst = FMODUnity.RuntimeManager.CreateInstance(SafeToTalk);
+        SafeToTalkInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        SafeToTalkInst.start();
+        SafeToTalkInst.release();
+    }
+
+    public void DontBelieve(GameObject gameobject)
+    {
+        TheyDontBelieveInst = FMODUnity.RuntimeManager.CreateInstance(TheyDontBelieve);
+        TheyDontBelieveInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        TheyDontBelieveInst.start();
+        TheyDontBelieveInst.release();
+    }
+
+    public void Hunger(GameObject gameobject)
+    {
+        HungerDriveYouInst = FMODUnity.RuntimeManager.CreateInstance(HungerDriveYou);
+        HungerDriveYouInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        HungerDriveYouInst.start();
+        HungerDriveYouInst.release();
+    }
+
+    public void Crunch(GameObject gameobject)
+    {
+        ChewCrunchInst = FMODUnity.RuntimeManager.CreateInstance(ChewCrunch);
+        ChewCrunchInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        ChewCrunchInst.start();
+        ChewCrunchInst.release();
+    }
+
+    public void Recognise(GameObject gameobject)
+    {
+        YouDontRecogniseInst = FMODUnity.RuntimeManager.CreateInstance(YouDontRecognise);
+        YouDontRecogniseInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        YouDontRecogniseInst.start();
+        YouDontRecogniseInst.release();
+    }
+
+    public void eatSarah(GameObject gameobject)
+    {
+        EatSarahInst = FMODUnity.RuntimeManager.CreateInstance(EatSarah);
+        EatSarahInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        EatSarahInst.start();
+        EatSarahInst.release();
+    }
+
+    public void Freedom(GameObject gameobject)
+    {
+        FreedomInst = FMODUnity.RuntimeManager.CreateInstance(freedom);
+        FreedomInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        FreedomInst.start();
+        FreedomInst.release();
+    }
+
+    public void Forever(GameObject gameobject)
+    {
+        LibertaliaForeverInst = FMODUnity.RuntimeManager.CreateInstance(LibertaliaForever);
+        LibertaliaForeverInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameobject));
+        LibertaliaForeverInst.start();
+        LibertaliaForeverInst.release();
     }
 
     #endregion
