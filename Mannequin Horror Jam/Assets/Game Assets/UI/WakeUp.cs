@@ -9,7 +9,7 @@ public class WakeUp : MonoBehaviour
     FMODEvents fmodEvents;
     public GameObject AnimatedSarah;
     Animator animator;
-    public GameObject Commentary;
+    GameObject Commentary;
 
     bool hasPlayed = false;
 
@@ -21,6 +21,8 @@ public class WakeUp : MonoBehaviour
         fmodEvents = fmodObject.GetComponent<FMODEvents>();
         animator = GetComponent<Animator>();
 
+        Commentary = GameObject.FindGameObjectWithTag("Commentary");
+
         fmodEvents.InThere(Door);
     }
     // Start is called before the first frame update
@@ -31,8 +33,8 @@ public class WakeUp : MonoBehaviour
 
     IEnumerator Wait()
     {
-        yield return new WaitForSeconds(.5f);
-        Commentary.GetComponent<Commentary>().WakeUp();
+        yield return new WaitForSeconds(.2f);
+        Commentary.GetComponent<Commentary>().StartDialogue(Commentary.GetComponent<Commentary>().Dialogue1);
     }
 
     // Update is called once per frame

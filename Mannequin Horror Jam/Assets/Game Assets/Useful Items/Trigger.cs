@@ -9,6 +9,9 @@ public class trigger : MonoBehaviour
     bool hasPlayed = false;
 
     public GameObject Door;
+    public GameObject Note;
+
+    GameObject Commentary;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +19,7 @@ public class trigger : MonoBehaviour
         fmodObject = GameObject.FindGameObjectWithTag("FMODEvents");
         fmodEvents = fmodObject.GetComponent<FMODEvents>();
 
-
+        Commentary = GameObject.FindGameObjectWithTag("Commentary");
     }
 
 
@@ -28,6 +31,9 @@ public class trigger : MonoBehaviour
             {
                 hasPlayed = true;
                 fmodEvents.finAwake(Door);
+                Commentary.GetComponent<Commentary>().StartDialogue(Commentary.GetComponent<Commentary>().Dialogue2);
+
+                Note.GetComponent<Animator>().SetBool("Note", true);
             }
         }
     }

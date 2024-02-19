@@ -12,23 +12,11 @@ public struct SubtitleText
 public class Commentary : MonoBehaviour
 {
     public SubtitleText[] Dialogue1;
-
+    public SubtitleText[] Dialogue2;
     public GameObject subtitleGO;
     TextMeshProUGUI subtitles;
 
-
-    float startClock = 0;
-    float Clock;
-    bool clockOver = true;
-
-    bool isSpeaking = false;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    public bool isTalking;
 
     private void Update()
     {
@@ -42,19 +30,18 @@ public class Commentary : MonoBehaviour
             //Debug.Log("got subtitles");
         }
     }
-    public void WakeUp()
+    public void StartDialogue(SubtitleText[] subtitle)
     {
-        isSpeaking = true;
-
         Debug.Log("Start Text");
 
-        StartCoroutine(Subtitle());
+        StartCoroutine(Subtitle(subtitle));
     }
 
-    IEnumerator Subtitle()
+    IEnumerator Subtitle(SubtitleText[] subtitle)
     {
+        isTalking = true;
         subtitleGO.SetActive(true);
-        foreach (var line in Dialogue1)
+        foreach (var line in subtitle)
         {
            
             subtitleGO.GetComponent<TextMeshProUGUI>().text = line.text;
@@ -62,7 +49,7 @@ public class Commentary : MonoBehaviour
 
             yield return new WaitForSeconds(line.time);
         }
-
+        isTalking = false;
         subtitleGO.SetActive(false);
     }
 }

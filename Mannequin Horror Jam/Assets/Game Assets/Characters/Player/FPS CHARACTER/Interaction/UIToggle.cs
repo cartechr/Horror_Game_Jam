@@ -71,8 +71,14 @@ public class UIToggle : MonoBehaviour
         Time.timeScale = 0f; // Pause the game
         Cursor.lockState = CursorLockMode.None; // Unlock mouse
         Cursor.visible = true; // Make mouse visible
-
         fmodEvents.pauseFMOD();
+        fmodEvents.openMenu();
+
+        if (Player)
+        {
+            Player.GetComponent<FPSCONTROL>().disableLook = true;
+        }
+
     }
 
     void ResumeGame()
@@ -80,8 +86,13 @@ public class UIToggle : MonoBehaviour
         Time.timeScale = 1f; // Resume the game
         Cursor.lockState = CursorLockMode.Locked; // Lock mouse
         Cursor.visible = false; // Make mouse invisible
-
         fmodEvents.unpauseFMOD();
+        fmodEvents.closeMenu();
+
+        if (Player)
+        {
+            Player.GetComponent<FPSCONTROL>().disableLook = false;
+        }
     }
 
     void Dead_UI()

@@ -19,6 +19,9 @@ public class NoteScript : MonoBehaviour
     [Tooltip("Assign Relevant Note UI element withing player to here")]
     [SerializeField] TextMeshProUGUI noteTextUI;
 
+    public TMPro.TMP_FontAsset noteFontAsset;
+    public bool isWritten = false;
+
     [Tooltip("Assign FPS Control Here")]
     public FPSCONTROL fpsControl;
 
@@ -64,6 +67,10 @@ public class NoteScript : MonoBehaviour
         noteIsOpen = true;
         Debug.Log("noteIsOpen " + noteIsOpen);
 
+        if (isWritten)
+        {
+            noteTextUI.font = noteFontAsset;
+        }
     }
 
     void CloseNote()

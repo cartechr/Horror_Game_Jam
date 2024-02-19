@@ -41,11 +41,14 @@ public class DoorScript : MonoBehaviour
     private bool isOpening = false;
     private Quaternion initialRotation;
 
+    GameObject dialogueCommentary;
+
     private void Start()
     {
         //fmodEvents.startFX(fmodEvents.sarahRoomMusicInst, fmodEvents.sarahRoomMusic, eventsObject);
         // Store the initial rotation of the door
         initialRotation = transform.rotation;
+        dialogueCommentary = GameObject.FindGameObjectWithTag("Commentary");
 
         GameObject player = GameObject.FindWithTag("Player");
 
@@ -163,7 +166,12 @@ public class DoorScript : MonoBehaviour
 
     public void LockedDialogue()
     {
-        StartCoroutine(DoorLockedInfo());
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.doorRattle, this.transform.position);
+
+        if (!dialogueCommentary.GetComponent<Commentary>().isTalking)
+        {
+            StartCoroutine(DoorLockedInfo());
+        }
     }
 
 
@@ -172,8 +180,6 @@ public class DoorScript : MonoBehaviour
         Debug.Log("Door Locked Coroutine Started");
         commentaryPanel.SetActive(true);
         commentaryText.text = doorLocked;
-
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.doorRattle, this.transform.position);
 
 
         yield return new WaitForSeconds(2f);

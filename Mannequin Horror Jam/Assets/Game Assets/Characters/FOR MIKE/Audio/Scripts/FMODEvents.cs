@@ -208,7 +208,7 @@ public class FMODEvents : MonoBehaviour
               }
           }*/
 
-        MasterVolume = 5;
+       // MasterVolume = 5;
         MusicVolume = 5;
         SFXVolume = 5;
         DialogueVolume = 5;
@@ -556,5 +556,11 @@ public class FMODEvents : MonoBehaviour
     {
         menuOpenInst = FMODUnity.RuntimeManager.CreateInstance(menuOpen);
         menuOpenInst.start();
+    }
+
+    public void closeMenu()
+    {
+        menuOpenInst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        menuOpenInst.release();
     }
 }
