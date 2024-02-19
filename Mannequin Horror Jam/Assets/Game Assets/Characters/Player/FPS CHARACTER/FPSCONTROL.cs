@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
+using Cinemachine;
 
 [RequireComponent(typeof(CharacterController))]
 public class FPSCONTROL : MonoBehaviour
@@ -96,6 +97,11 @@ public class FPSCONTROL : MonoBehaviour
     public bool startRegen = true;
     public bool currentlyGrappled;
 
+    public CinemachineBrain cinemachineBrain;
+    public GameObject PlayerCanvas;
+
+
+
     private void Awake()
     {
         // get a reference to our main camera
@@ -103,38 +109,50 @@ public class FPSCONTROL : MonoBehaviour
         {
             mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         }
+        cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
     }
 
     private void Start()
     {
+        //DontDestroyOnLoad(gameObject);
 
         characterController = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
 
         AssignAnimationIDs();
 
+        DontDestroyOnLoad(PlayerCanvas);
     }
 
     private void Update()
     {
 
-        hasAnimator = TryGetComponent(out animator);
+
+        if (!cinemachineBrain.IsBlending)
+        {
+            hasAnimator = TryGetComponent(out animator);
+
+            Move();
+
+            CheckCrouchingBackwards();
+
+            GravityControls();
+
+            GroundedCheck();
+
+            aiInteraction();
+        }
+
         
-        Move();
-
-        CheckCrouchingBackwards();
-
-        GravityControls();
-
-        GroundedCheck();
-
-        aiInteraction();
 
     }
 
     private void LateUpdate()
     {
-        CameraRotation();
+        if (!cinemachineBrain.IsBlending)
+        {
+            CameraRotation();
+        }
     }
 
     #region Animation Related
@@ -520,23 +538,25 @@ public class FPSCONTROL : MonoBehaviour
         if (Health == 3)
         {
             health2.gameObject.SetActive(false);
+            health1.gameObject.SetActive(false);
         }
         if (Health == 2)
         {
-            health1.gameObject.SetActive(false);
-            health2.gameObject.SetActive(true);
+            health1.gameObject.SetActive(true);
+            health2.gameObject.SetActive(false);
 
             //Debug.Log("Health is at 2");
         }
         if (Health == 1)
         {
-            health2.gameObject.SetActive(false);
+            health2.gameObject.SetActive(true);
             health1.gameObject.SetActive(true);
             //Debug.Log("Health is at 1");
         }
         if (Health == 0)
         {
             health1.gameObject.SetActive(false);
+            health2.gameObject.SetActive(false);
 
             //kill player
             if (!playerDead)

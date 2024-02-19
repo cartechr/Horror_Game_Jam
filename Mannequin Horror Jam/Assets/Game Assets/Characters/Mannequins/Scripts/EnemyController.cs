@@ -474,7 +474,7 @@ public class EnemyController : MonoBehaviour
         {
             animator.SetBool("isIdle", false);
 
-            //fmodEvents.changeHallway();
+            fmodEvents.dangerHallway();
             //Debug.Log("chase switch state");
         }
 
@@ -503,6 +503,8 @@ public class EnemyController : MonoBehaviour
             lastknownlocation.transform.position = new Vector3(playerRef.transform.position.x, transform.position.y, playerRef.transform.position.z);
             state = 3;
             switchState = true;
+
+            fmodEvents.peaceHallway();
 
             return;
         }
@@ -552,6 +554,9 @@ public class EnemyController : MonoBehaviour
 
             //Player loses 1 health immediately
             fpscontroller.Health -= 1;
+
+            fmodEvents.changeToFullHealth(playerRef);
+
             Debug.Log("Player currently has " + fpscontroller.Health + " health");
         }
 
@@ -616,6 +621,7 @@ public class EnemyController : MonoBehaviour
 
                     //Decrease player health
                     fpscontroller.Health -= 1;
+                    fmodEvents.changeToHealth(playerRef);
 
                     //Reset regen timer
                     fpscontroller.timeStart = 0;
@@ -651,6 +657,9 @@ public class EnemyController : MonoBehaviour
                 //Grapple Mechanic
                 spam = spamDecider;
                 timeStart = 0;
+
+                //FMOD
+                fmodEvents.peaceHallway();
 
                 //UI
                 startClock = 0;

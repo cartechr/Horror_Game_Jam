@@ -9,64 +9,87 @@ namespace SojaExiles
 	public class Drawer_Pull_X : MonoBehaviour
 	{
 
-		public Animator pull_01;
-		public bool open;
-		public Transform Player;
+		Animator animator;
+		GameObject Player;
 
-		void Start()
-		{
-			open = false;
-		}
+		bool canInteract = true;
+		bool isOpen = false;
 
-		void OnMouseOver()
-		{
+
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+        }
+        private void Update()
+        {
+            if (Player == null)
 			{
-				if (Player)
+				Player = GameObject.FindGameObjectWithTag("Player");
+			}
+        }
+
+        void OnMouseOver()
+		{
+			Debug.Log("See Drawer");
+			if (Player)
+			{
+				if (canInteract)
 				{
-					float dist = Vector3.Distance(Player.position, transform.position);
-					if (dist < 10)
+					Debug.Log("Can Interact");
+					if (Vector3.Distance(transform.position, Player.transform.position) < 3f)
 					{
-						print("object name");
-						if (open == false)
+						Debug.Log("Can Open/Close");
+
+						if (Input.GetKeyDown(KeyCode.E))
 						{
-							if (Input.GetMouseButtonDown(0))
+							Debug.Log("Opening/Closing Drawer");
+
+							if (isOpen)
 							{
-								StartCoroutine(opening());
+								//Close Drawer
+								isOpen = false;
+								closeDrawer();
 							}
-						}
-						else
-						{
-							if (open == true)
+							else
 							{
-								if (Input.GetMouseButtonDown(0))
-								{
-									StartCoroutine(closing());
-								}
+								//Open Drawer
+								isOpen = true;
+								openDrawer();
 							}
 
+							canInteract = false;
 						}
-
 					}
 				}
-
 			}
 
+
+
+			
+
+
 		}
 
-		IEnumerator opening()
+		void openDrawer()
 		{
-			print("you are opening the door");
-			pull_01.Play("openpull_01");
-			open = true;
-			yield return new WaitForSeconds(.5f);
+			animator.SetBool("Open", true);
 		}
 
-		IEnumerator closing()
+		void closeDrawer() 
 		{
-			print("you are closing the door");
-			pull_01.Play("closepush_01");
-			open = false;
-			yield return new WaitForSeconds(.5f);
+			animator.SetBool("Close", true);
+		}
+
+		void finishedOpening()
+		{
+			canInteract = true;
+			animator.SetBool("Open", false);
+		}
+
+		void finishedClosing()
+		{
+			canInteract = true;
+			animator.SetBool("Close", false);
 		}
 
 

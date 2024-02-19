@@ -17,9 +17,15 @@ public class Interaction : MonoBehaviour
     CommentaryScript commentaryScript;
     NextScene nextScene;
 
+    GameObject fmodObject;
+    FMODEvents fmodEvents;
+
     private void Start()
     {
         inventory = GetComponent<BasicInventory>();
+
+        fmodObject = GameObject.FindGameObjectWithTag("Player");
+        fmodEvents = fmodObject.GetComponent< FMODEvents>();
     }
 
     private void Update()
@@ -48,6 +54,11 @@ public class Interaction : MonoBehaviour
 
                 nextScene.LoadScene();
 
+                if (nextScene.name == "Apartment Complex - LEVEL 03")
+                {
+                    fmodEvents.stopFadeSarah();
+                }
+
             }
         }
     }
@@ -67,13 +78,7 @@ public class Interaction : MonoBehaviour
                     {
                         doorScript.ToggleDoor();
                     }
-
-                    if (doorScript.isLocked)
-                    {
-                        doorScript.LockedDialogue();
-                    }
-                    
-                    if(doorScript.isLocked && doorScript.requireRedKey && inventory.hasRedKey) 
+                    if (doorScript.isLocked && doorScript.requireRedKey && inventory.hasRedKey) 
                     {
                         doorScript.DoorLockControl();
                     }
@@ -93,6 +98,10 @@ public class Interaction : MonoBehaviour
                         doorScript.DoorLockControl();
                     }
 
+                    else if (doorScript.isLocked)
+                    {
+                        doorScript.LockedDialogue();
+                    }
                 }
             }
         }
