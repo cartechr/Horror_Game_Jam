@@ -15,16 +15,23 @@ public class WakeUp : MonoBehaviour
 
     public GameObject Door;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         fmodObject = GameObject.FindGameObjectWithTag("FMODEvents");
         fmodEvents = fmodObject.GetComponent<FMODEvents>();
         animator = GetComponent<Animator>();
 
         fmodEvents.InThere(Door);
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        StartCoroutine(Wait());
+    }
 
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(.5f);
         Commentary.GetComponent<Commentary>().WakeUp();
     }
 

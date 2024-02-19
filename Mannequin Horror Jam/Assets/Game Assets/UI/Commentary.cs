@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[System.Serializable]
+public struct SubtitleText
+{
+    public float time;
+    public string text;
+}
 public class Commentary : MonoBehaviour
 {
+    public SubtitleText[] Dialogue1;
 
-    public GameObject textMeshObject;
-    TextMeshProUGUI textMeshProUGUI;
+    public GameObject subtitleGO;
+    TextMeshProUGUI subtitles;
 
-    int switchWake = 0;
 
     float startClock = 0;
     float Clock;
@@ -21,103 +27,42 @@ public class Commentary : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        textMeshProUGUI = textMeshObject.GetComponent<TextMeshProUGUI>();
+
     }
 
     private void Update()
     {
-        switch (switchWake)
+        if (subtitles == null)
         {
-            case 1:
-                textMeshProUGUI.text = "Hey you in there?";
-
-                if (clockOver)
-                {
-                    Clock = 1.5f;
-                    clockOver = false;
-                }
-                break;
-            case 2:
-                textMeshProUGUI.text = "Sarah get up";
-
-                if (clockOver)
-                {
-                    Clock = 3f;
-                    clockOver = false;
-                }
-                break;
-            case 3:
-                textMeshProUGUI.text = "Not gonna wait forever!";
-
-                if (clockOver)
-                {
-                    Clock = 1.7f;
-                    clockOver = false;
-                }
-                break;
-            case 4:
-                textMeshProUGUI.text = "Sarah?";
-
-                if (clockOver)
-                {
-                    Clock = 2.4f;
-                    clockOver = false;
-                }
-                break;
-            case 5:
-                textMeshProUGUI.text = "Hey!?";
-
-                if (clockOver)
-                {
-                    Clock = 4f;
-                    clockOver = false;
-                }
-                break;
-            case 6:
-                textMeshProUGUI.text = "Hey!";
-
-                if (clockOver)
-                {
-                    Clock = 1.5f;
-                    clockOver = false;
-                }
-                break;
-            case 7:
-                textMeshProUGUI.text = "Not in the mood for this again Sarah!";
-
-                if (clockOver)
-                {
-                    Clock = 1.8f;
-                    clockOver = false;
-                }
-                break;
-            case 8:
-                textMeshProUGUI.text = "";
-                isSpeaking = false;
-                break;
+            //Debug.Log("Returning Null");
+            subtitles = subtitleGO.GetComponent<TextMeshProUGUI>();
         }
-        if (isSpeaking)
+        else
         {
-            if (startClock < Clock)
-            {
-                startClock += Time.deltaTime;
-               // textMeshProUGUI.text = "";
-            }
-            else
-                {
-                    startClock = 0;
-                    clockOver = true;
-                    switchWake += 1;
-                    Debug.Log("Switch = " + switchWake);
-                }
+            //Debug.Log("got subtitles");
         }
     }
     public void WakeUp()
     {
-        switchWake = 1;
         isSpeaking = true;
 
-        textMeshObject.SetActive(true);
         Debug.Log("Start Text");
+
+        StartCoroutine(Subtitle());
+    }
+
+    IEnumerator Subtitle()
+    {
+        subtitleGO.SetActive(true);
+        foreach (var line in Dialogue1)
+        {
+           
+            subtitleGO.GetComponent<TextMeshProUGUI>().text = line.text;
+ 
+
+            yield return new WaitForSeconds(line.time);
+        }
+
+        subtitleGO.SetActive(false);
     }
 }

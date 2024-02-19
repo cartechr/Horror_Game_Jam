@@ -13873,6 +13873,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextSceneName: Apartment Complex - LEVEL 03
   toggle: {fileID: 814853135}
+  fmodObject: {fileID: 0}
+  fmodEvents: {fileID: 0}
 --- !u!4 &281481220 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1129999413580534391, guid: edb02028d59ccac4ca6641a183fa7346, type: 3}
@@ -14971,7 +14973,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &295429792
 RectTransform:
@@ -77546,7 +77548,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714ac3df9e1d47645bf2d16e9307d966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMeshObject: {fileID: 1767656744}
+  Dialogue1:
+  - time: 3
+    text: Hey you in there?
+  - time: 3
+    text: Sarah get up
+  - time: 1.7
+    text: Not gonna wait forever
+  - time: 3.05
+    text: Sarah?
+  - time: 3.4
+    text: Hey!?
+  - time: 1.2
+    text: Hey!
+  - time: 0.38
+    text: Hey!
+  - time: 1.8
+    text: Not in the mood for this again Sarah!
+  subtitleGO: {fileID: 1767656744}
 --- !u!1001 &1625521598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107994,82 +108013,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MANAGERS
       objectReference: {fileID: 0}
-    - target: {fileID: 8561351244317610445, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: m_TagString
-      value: Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: SFXVolume
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: MusicVolume
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: DialogueVolume
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <freedom>k__BackingField.Path
-      value: event:/Dialogue/Story/12. This is what freedom
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <someone>k__BackingField.Path
-      value: event:/Dialogue/Story/4. Someones in there
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <traitors>k__BackingField.Path
-      value: event:/Dialogue/Story/5. Traitors
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <freedom>k__BackingField.Guid.Data1
-      value: 300903884
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <freedom>k__BackingField.Guid.Data2
-      value: 1288465844
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <freedom>k__BackingField.Guid.Data3
-      value: 448077477
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <freedom>k__BackingField.Guid.Data4
-      value: 1798731156
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <someone>k__BackingField.Guid.Data1
-      value: 2129223281
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <someone>k__BackingField.Guid.Data2
-      value: 1157105469
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <someone>k__BackingField.Guid.Data3
-      value: -83748165
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <someone>k__BackingField.Guid.Data4
-      value: -1433119223
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <traitors>k__BackingField.Guid.Data1
-      value: -727293239
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <traitors>k__BackingField.Guid.Data2
-      value: 1220990428
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <traitors>k__BackingField.Guid.Data3
-      value: 932130969
-      objectReference: {fileID: 0}
-    - target: {fileID: 8911018881430908211, guid: 81dc8e22940fafd42ac0ba7918d7d1ce, type: 3}
-      propertyPath: <traitors>k__BackingField.Guid.Data4
-      value: 1441048343
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -114605,6 +114548,6 @@ SceneRoots:
   - {fileID: 1442573531}
   - {fileID: 1694645024}
   - {fileID: 1751380237803159853}
-  - {fileID: 295429792}
   - {fileID: 136836928}
   - {fileID: 607353792}
+  - {fileID: 295429792}

@@ -126,6 +126,8 @@ public class FPSCONTROL : MonoBehaviour
 
     private void Update()
     {
+
+
         if (!cinemachineBrain.IsBlending)
         {
             hasAnimator = TryGetComponent(out animator);

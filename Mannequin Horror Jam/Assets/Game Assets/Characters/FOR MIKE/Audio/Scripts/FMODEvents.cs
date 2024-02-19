@@ -5,6 +5,7 @@ using FMODUnity;
 using UnityEngine.Playables;
 using FMOD.Studio;
 using FMOD;
+using UnityEngine.SceneManagement;
 
 public class FMODEvents : MonoBehaviour
 {
@@ -174,7 +175,7 @@ public class FMODEvents : MonoBehaviour
     [Range(0, 5)]
     public float SFXVolume;
 
-    [Range(0, 20)]
+    [Range(0, 5)]
     public float DialogueVolume;
 
     /* private FMOD.Studio.Bus[] myBuses = new FMOD.Studio.Bus[12];
@@ -210,7 +211,7 @@ public class FMODEvents : MonoBehaviour
         MasterVolume = 5;
         MusicVolume = 5;
         SFXVolume = 5;
-        DialogueVolume = 20;
+        DialogueVolume = 5;
 
 
     }
@@ -227,13 +228,16 @@ public class FMODEvents : MonoBehaviour
         SFX = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
         Dialogue = FMODUnity.RuntimeManager.GetBus("bus:/Dialogue");
 
-        Manager = GameObject.FindGameObjectWithTag("Manager");
-        DontDestroyOnLoad(Manager);
     }
 
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Manager = GameObject.FindGameObjectWithTag("Manager");
+            DontDestroyOnLoad(Manager);
+        }
 
         if (Options)
         {
