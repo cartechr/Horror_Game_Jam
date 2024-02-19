@@ -174,18 +174,20 @@ public class FMODEvents : MonoBehaviour
     [Range(0, 5)]
     public float SFXVolume;
 
-    [Range(0, 5)]
+    [Range(0, 20)]
     public float DialogueVolume;
 
-   /* private FMOD.Studio.Bus[] myBuses = new FMOD.Studio.Bus[12];
-    private string busesList;
-    private string busPath;
-    private FMOD.Studio.Bank myBank;
-    private int busCount;
+    /* private FMOD.Studio.Bus[] myBuses = new FMOD.Studio.Bus[12];
+     private string busesList;
+     private string busPath;
+     private FMOD.Studio.Bank myBank;
+     private int busCount;
 
-    private string BusPath;
-    public FMOD.RESULT busListOk;
-    public FMOD.RESULT sysemIsOk;*/
+     private string BusPath;
+     public FMOD.RESULT busListOk;
+     public FMOD.RESULT sysemIsOk;*/
+
+    GameObject Manager;
 
     void Start()
     {
@@ -208,22 +210,25 @@ public class FMODEvents : MonoBehaviour
         MasterVolume = 5;
         MusicVolume = 5;
         SFXVolume = 5;
-        DialogueVolume = 5;
+        DialogueVolume = 20;
 
 
     }
     private void Awake()
     {
-     /*   if(instance != null)
+        if(instance != null)
         {
 
         }
-        instance = this;*/
+        instance = this;
 
 
         Music = FMODUnity.RuntimeManager.GetBus("bus:/Music");
         SFX = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
         Dialogue = FMODUnity.RuntimeManager.GetBus("bus:/Dialogue");
+
+        Manager = GameObject.FindGameObjectWithTag("Manager");
+        DontDestroyOnLoad(Manager);
     }
 
 
@@ -547,6 +552,5 @@ public class FMODEvents : MonoBehaviour
     {
         menuOpenInst = FMODUnity.RuntimeManager.CreateInstance(menuOpen);
         menuOpenInst.start();
-        menuOpenInst.release();
     }
 }
