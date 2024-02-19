@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIToggle : MonoBehaviour
 {
@@ -13,10 +14,14 @@ public class UIToggle : MonoBehaviour
     public GameObject DeadUI;
     public GameObject SpamUI;
 
+    GameObject fmodObject;
+    FMODEvents fmodEvents;
+
 
     private void Start()
     {
-
+        fmodObject = GameObject.FindGameObjectWithTag("FMODEvents");
+        fmodEvents = fmodObject.GetComponent<FMODEvents>();
     }
 
     // Update is called once per frame
@@ -66,6 +71,8 @@ public class UIToggle : MonoBehaviour
         Time.timeScale = 0f; // Pause the game
         Cursor.lockState = CursorLockMode.None; // Unlock mouse
         Cursor.visible = true; // Make mouse visible
+
+        fmodEvents.pauseFMOD();
     }
 
     void ResumeGame()
@@ -73,6 +80,8 @@ public class UIToggle : MonoBehaviour
         Time.timeScale = 1f; // Resume the game
         Cursor.lockState = CursorLockMode.Locked; // Lock mouse
         Cursor.visible = false; // Make mouse invisible
+
+        fmodEvents.unpauseFMOD();
     }
 
     void Dead_UI()

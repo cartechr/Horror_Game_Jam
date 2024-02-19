@@ -31,34 +31,36 @@ namespace SojaExiles
         void OnMouseOver()
 		{
 			Debug.Log("See Drawer");
-
-			if (canInteract)
+			if (Player)
 			{
-				Debug.Log("Can Interact");
-				if (Vector3.Distance(transform.position, Player.transform.position) < 3f)
+				if (canInteract)
 				{
-                    Debug.Log("Can Open/Close");
-
-					if (Input.GetKeyDown(KeyCode.E))
+					Debug.Log("Can Interact");
+					if (Vector3.Distance(transform.position, Player.transform.position) < 3f)
 					{
-						Debug.Log("Opening/Closing Drawer");
+						Debug.Log("Can Open/Close");
 
-						if (isOpen)
+						if (Input.GetKeyDown(KeyCode.E))
 						{
-							//Close Drawer
-							isOpen = false;
-							closeDrawer();
-						}
-						else
-						{
-							//Open Drawer
-							isOpen = true;
-							openDrawer();
-						}
+							Debug.Log("Opening/Closing Drawer");
 
-						canInteract = false;
+							if (isOpen)
+							{
+								//Close Drawer
+								isOpen = false;
+								closeDrawer();
+							}
+							else
+							{
+								//Open Drawer
+								isOpen = true;
+								openDrawer();
+							}
+
+							canInteract = false;
+						}
 					}
-                }
+				}
 			}
 
 

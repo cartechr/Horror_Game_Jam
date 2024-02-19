@@ -33,7 +33,7 @@ public class PostProcessing : MonoBehaviour
 
         if(volumeProfile.TryGet<DepthOfField>(out depthOfField))
         {
-            Debug.Log("Depth of Field Component Initiated");
+            //Debug.Log("Depth of Field Component Initiated");
             depthOfField.active = true;
             depthOfField.mode.overrideState = true;
             depthOfField.focalLength.overrideState = true;

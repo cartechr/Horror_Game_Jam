@@ -98,12 +98,15 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference menuOpen { get; private set; }
     public EventInstance menuOpenInst;
 
+    public Bus Music;
+    public Bus SFX;
+    public Bus Dialogue;
 
+    public bool Options;
 
     //EmitterGameEvent sarahRoomTrigger;
 
     public static FMODEvents instance { get; private set; }
-    
 
 
     [Header("Global Parameters")]
@@ -113,73 +116,97 @@ public class FMODEvents : MonoBehaviour
 
     bool isChasing;
 
+    [Range(0, 5)]
+    public float MasterVolume;
 
-    FMOD.Studio.Bus Music;
-    FMOD.Studio.Bus SFX;
-    FMOD.Studio.Bus Master;
+    [Range(0, 5)]
+    public float MusicVolume;
 
-    float MusicVolume = 0.5f;
-    float SFXVolume = 0.5f;
-    float MasterVolume = 1f;
+    [Range(0, 5)]
+    public float SFXVolume;
 
-    public float musicVolume = 1;
+    [Range(0, 5)]
+    public float DialogueVolume;
+
+   /* private FMOD.Studio.Bus[] myBuses = new FMOD.Studio.Bus[12];
+    private string busesList;
+    private string busPath;
+    private FMOD.Studio.Bank myBank;
+    private int busCount;
+
+    private string BusPath;
+    public FMOD.RESULT busListOk;
+    public FMOD.RESULT sysemIsOk;*/
+
+    void Start()
+    {
+        /*  FMODUnity.RuntimeManager.StudioSystem.getBankList(out FMOD.Studio.Bank[] loadedBanks);
+          foreach (FMOD.Studio.Bank bank in loadedBanks)
+          {
+              bank.getPath(out string path);
+              busListOk = bank.getBusList(out myBuses);
+              bank.getBusCount(out busCount);
+              if (busCount > 0)
+              {
+                  foreach (var bus in myBuses)
+                  {
+                      bus.getPath(out busPath);
+                     // UnityEngine.Debug.Log(busPath);
+                  }
+              }
+          }*/
+
+        MasterVolume = 5;
+        MusicVolume = 5;
+        SFXVolume = 5;
+        DialogueVolume = 5;
 
 
+    }
     private void Awake()
     {
-        if(instance != null)
+     /*   if(instance != null)
         {
 
         }
-        instance = this;
+        instance = this;*/
 
-        //Music = FMODUnity.RuntimeManager.GetBus("bus:/Master/Music");
-        //SFX = FMODUnity.RuntimeManager.GetBus("bus:/Master/SFX");
-        //Master = FMODUnity.RuntimeManager.GetBus("bus:/Master");
 
+        Music = FMODUnity.RuntimeManager.GetBus("bus:/Music");
+        SFX = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
+        Dialogue = FMODUnity.RuntimeManager.GetBus("bus:/Dialogue");
     }
 
-    private void Start()
-    {
-        //startSarah();
-        //startHallWay(gameObject);
-    }
 
     private void Update()
     {
-        /*
         Music.setVolume(MusicVolume);
-        SFX.setVolume(SFXVolume);
-        Master.setVolume(MasterVolume);
-        */
 
-
-
+        if (Options)
+        {
+            Music.setVolume(MusicVolume);
+            SFX.setVolume(SFXVolume);
+            Dialogue.setVolume(DialogueVolume);
+        }
     }
 
-    /*
-    public void MasterVolumeLevel(float newMasterVolume)
+    #region SOUND CONTROL
+
+    public void pauseFMOD()
     {
-        MasterVolume = newMasterVolume;
+        Music.setPaused(true);
+        SFX.setPaused(true);
+        Dialogue.setPaused(true);
     }
 
-    public void MusicVolumeLevel(float newMusicVolume)
+    public void unpauseFMOD()
     {
-        MusicVolume = newMusicVolume;
+        Music.setPaused(false);
+        SFX.setPaused(false);
+        Dialogue.setPaused(false);
     }
 
-    public void SFXVolumeLevel(float newSFXVolume)
-    {
-        SFXVolume = newSFXVolume;
-    }
-    */
-
-    public void SetMusicVolume()
-    {
-        
-    }
-
-
+    #endregion
     #region Music
 
     //-------------------------------------------SARAH ROOM--------------------------------------------------------------
@@ -188,7 +215,6 @@ public class FMODEvents : MonoBehaviour
         sarahRoomMusicInst = FMODUnity.RuntimeManager.CreateInstance(sarahRoomMusic);
         sarahRoomMusicInst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         sarahRoomMusicInst.start();
-        UnityEngine.Debug.Log(sarahRoomMusicInst.ToString());
         //sarahRoomMusicInst.release();
     }
 
@@ -347,7 +373,26 @@ public class FMODEvents : MonoBehaviour
 
     #endregion
 
+    public void startRain(GameObject gameobject)
+    {
+        rainAmbianceInst = FMODUnity.RuntimeManager.CreateInstance(rainAmbiance);
+        rainAmbianceInst.start();
+    }
 
+    public void stopRain()
+    {
+        rainAmbianceInst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+    public void playRain()
+    {
+        rainAmbianceInst.start();
+    }
+
+    public void endRain()
+    {
+        rainAmbianceInst.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        rainAmbianceInst.release();
+    }
     public void pressButton()
     {
         buttonPressInst = FMODUnity.RuntimeManager.CreateInstance(buttonPress);
