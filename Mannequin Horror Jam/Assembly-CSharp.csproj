@@ -60,6 +60,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.15f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Game Assets\UI\MainMenuSounds.cs" />
     <Compile Include="Assets\Quixel\Scripts\BridgeImporter\MegascansBridgeLink.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Scenes\Quitgame.cs" />
     <Compile Include="Assets\Inventory\Items.cs" />
@@ -97,15 +98,18 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Game Assets\Characters\Player\FPS CHARACTER\Cinematic Sophie\CinematicSophieSFX.cs" />
+    <Compile Include="Assets\Game Assets\Useful Items\Trigger.cs" />
     <Compile Include="Assets\Inventory\InventorySlot.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Z Axis -1\Drawer_Pull_Zopp.cs" />
+    <Compile Include="Assets\Game Assets\Useful Items\NoteScript1.cs" />
     <Compile Include="Assets\Quixel\Scripts\BridgeImporter\MegascansUtilities.cs" />
     <Compile Include="Assets\Game Assets\MainMenu Stuff\Scripts\Environment\LightFlicker.cs" />
     <Compile Include="Assets\Game Assets\Characters\FOR MIKE\Audio\Scripts\SurfaceController.cs" />
     <Compile Include="Assets\Game Assets\Characters\Player\FPS CHARACTER\BasicInventory.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipR.cs" />
+    <Compile Include="Assets\Game Assets\Characters\DoorTrigger.cs" />
     <Compile Include="Assets\Inventory\Inventory_Manager.cs" />
     <Compile Include="Assets\Game Assets\UI\Link\LinkScript.cs" />
     <Compile Include="Assets\Game Assets\Characters\Mannequins\Scripts\MaleController.cs" />
@@ -113,6 +117,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\PlayerMovement.cs" />
     <Compile Include="Assets\Game Assets\Useful Items\NoteScript.cs" />
+    <Compile Include="Assets\Game Assets\UI\Play.cs" />
     <Compile Include="Assets\StarterAssets\FirstPersonController\Scripts\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\X Axis\Drawer_Pull_X.cs" />
@@ -148,6 +153,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\Quixel\Scripts\BridgeImporter\MegascansTerrainTools.cs" />
+    <Compile Include="Assets\Game Assets\UI\WakeUp.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Closet\ClosetopencloseDoor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
@@ -167,6 +173,7 @@
     <Compile Include="Assets\Inventory\Inventory_Item.cs" />
     <Compile Include="Assets\Quixel\Scripts\BridgeImporter\MegascansDecalTools.cs" />
     <Compile Include="Assets\Game Assets\Characters\Player\FPS CHARACTER\Cinematic Sophie\PlayerSwitch.cs" />
+    <Compile Include="Assets\Game Assets\UI\Commentary.cs" />
     <Compile Include="Assets\StarterAssets\FirstPersonController\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\OvenOpen\OvenFlip.cs" />
     <Compile Include="Assets\Game Assets\MainMenu Stuff\Scripts\Audio\AudioSettings.cs" />

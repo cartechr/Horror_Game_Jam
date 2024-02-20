@@ -13,6 +13,11 @@ public class Interaction : MonoBehaviour
 
     [Header("Interaction Variables")]
     [SerializeField] float interactionDistance = 3f;
+    [SerializeField] bool rayTouchCheck;
+
+    [Header("UI Stuff")]
+    [SerializeField] GameObject nonActiveCursor;
+    [SerializeField] GameObject activeCursor;
 
     CommentaryScript commentaryScript;
     NextScene nextScene;
@@ -39,6 +44,31 @@ public class Interaction : MonoBehaviour
             FlashlightInteraction();
             WalkieTalkieInteraction();
             SceneTransition();
+        }
+
+        hitChecker();
+
+    }
+
+    public void hitChecker()
+    {
+
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+           out RaycastHit hit, interactionDistance))
+        {
+
+            if(hit.collider.CompareTag("Door") || hit.collider.CompareTag("Note") || hit.collider.CompareTag("Key") 
+                || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Flashlight") || hit.collider.CompareTag("WalkieTalkie"))
+            {
+                nonActiveCursor.SetActive(false);
+                activeCursor.SetActive(true);
+            }
+            else
+            {
+                nonActiveCursor.SetActive(true);
+                activeCursor.SetActive(false);
+            }
+
         }
     }
 
@@ -72,6 +102,7 @@ public class Interaction : MonoBehaviour
             {
                 var doorScript = hit.collider.GetComponent<DoorScript>();
 
+
                 if (doorScript != null)
                 {
                     if (!doorScript.isLocked)
@@ -104,6 +135,7 @@ public class Interaction : MonoBehaviour
                     }
                 }
             }
+
         }
     }
 

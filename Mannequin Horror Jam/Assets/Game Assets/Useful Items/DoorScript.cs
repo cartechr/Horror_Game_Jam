@@ -38,17 +38,16 @@ public class DoorScript : MonoBehaviour
     [SerializeField] GameObject eventsObject;
     [SerializeField] FMODEvents fmodEvents;
 
+
+
     private bool isOpening = false;
     private Quaternion initialRotation;
-
-    GameObject dialogueCommentary;
 
     private void Start()
     {
         //fmodEvents.startFX(fmodEvents.sarahRoomMusicInst, fmodEvents.sarahRoomMusic, eventsObject);
         // Store the initial rotation of the door
         initialRotation = transform.rotation;
-        dialogueCommentary = GameObject.FindGameObjectWithTag("Commentary");
 
         GameObject player = GameObject.FindWithTag("Player");
 
@@ -90,21 +89,12 @@ public class DoorScript : MonoBehaviour
 
         if (!isLocked)
         {
+            //fmodEvents.playSFXOnLocation(fmodEvents.doorCreakInst, fmodEvents.doorCreak, this.gameObject);
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.doorCreak, this.transform.position);
 
             // Toggle the door state (open/close)
             isOpening = !isOpening;
-
-            if (requireRedKey)
-            {
-                bool alreadyChange = false;
-                if (!alreadyChange)
-                {
-                    alreadyChange = true;
-                    fmodEvents.changeSarah();
-                }
-            }
         }
     }
 
@@ -166,12 +156,7 @@ public class DoorScript : MonoBehaviour
 
     public void LockedDialogue()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.doorRattle, this.transform.position);
-
-        if (!dialogueCommentary.GetComponent<Commentary>().isTalking)
-        {
-            StartCoroutine(DoorLockedInfo());
-        }
+        StartCoroutine(DoorLockedInfo());
     }
 
 
@@ -180,6 +165,7 @@ public class DoorScript : MonoBehaviour
         Debug.Log("Door Locked Coroutine Started");
         commentaryPanel.SetActive(true);
         commentaryText.text = doorLocked;
+        //fmodEvents.playSFXOnLocation(fmodEvents.doorRattleInst, fmodEvents.doorRattle, this.gameObject); //FMOD FX
 
 
         yield return new WaitForSeconds(2f);
@@ -192,7 +178,87 @@ public class DoorScript : MonoBehaviour
         commentaryPanel.SetActive(true);
         commentaryText.text = doorUnlocked;
 
+        //fmodEvents.startFX(fmodEvents.doorUnlockInst, fmodEvents.doorUnlock); //FMOD SFX
+
+        //fmodEvents.playSFXOnLocation(fmodEvents.doorUnlockInst, fmodEvents.doorUnlock, this.gameObject);
+
+        //fmodEvents.stopImmediateFX(fmodEvents.sarahRoomMusicInst);
+
+        //fmodEvents.StopSarah();
+        fmodEvents.changeSarah();
+        //fmodEvents.parameterChange(fmodEvents.sarahRoomMusicInst, "PickupObject", "True");
+
+        //sarahRoomMusicInst = FMODUnity.RuntimeManager.CreateInstance(sarahRoomMusic);
+       // sarahRoomMusicInst.setParameterByNameWithLabel("PickupObject", "True");
+
         yield return new WaitForSeconds(2f);
         commentaryPanel.SetActive(false);
     }
+
+
+    [field: Header("Music")]
+    [field: SerializeField] public EventReference sarahRoomMusic { get; private set; }
+    public EventInstance sarahRoomMusicInst;
+    [field: SerializeField] public EventReference hallwayMusic { get; private set; }
+    public EventInstance hallwayMusicInst;
+
+
+    [field: Header("Ambiance")]
+    [field: SerializeField] public EventReference stairWellAmbiance { get; private set; }
+    public EventInstance stairWellAmbianceInst;
+    [field: SerializeField] public EventReference rainAmbiance { get; private set; }
+    public EventInstance rainAmbianceInst;
+
+
+    [field: Header("Item & Interaction")]
+    [field: SerializeField] public EventReference uiInteractSFX { get; private set; }
+    public EventInstance uiInteractSFXInst;
+    [field: SerializeField] public EventReference keyPickup { get; private set; }
+    public EventInstance keyPickupInst;
+    [field: SerializeField] public EventReference notePickup { get; private set; }
+    public EventInstance notePickupInst;
+    [field: SerializeField] public EventReference doorCreak { get; private set; }
+    public EventInstance doorCreakInst;
+    [field: SerializeField] public EventReference doorRattle { get; private set; }
+    public EventInstance doorRattleInst;
+    [field: SerializeField] public EventReference doorUnlock { get; private set; }
+    public EventInstance doorUnlockInst;
+    [field: SerializeField] public EventReference floorCreak { get; private set; }
+    public EventInstance floorCreakInst;
+    [field: SerializeField] public EventReference metalDoorClose { get; private set; }
+    public EventInstance metalDoorCloseInst;
+    [field: SerializeField] public EventReference metalDoorOpen { get; private set; }
+    public EventInstance metalDoorOpenInst;
+
+
+    [field: Header("Footstep Specific")]
+    [field: SerializeField] public EventReference footStep { get; private set; }
+    public EventInstance footStepInst;
+
+    [field: Header("Clothes SFX")]
+    [field: SerializeField] public EventReference clothesRustling { get; private set; }
+    public EventInstance clothesRustlingInst;
+
+    [field: Header("Mannequins")]
+    [field: SerializeField] public EventReference headTurns { get; private set; }
+    public EventInstance headTurnInst;
+    [field: SerializeField] public EventReference mannequinMovement { get; private set; }
+    public EventInstance mannequinMovementInst;
+    [field: SerializeField] public EventReference maskRattle { get; private set; }
+    public EventInstance maskRattleInst;
+
+    [field: Header("Flashlight")]
+    [field: SerializeField] public EventReference flashlightClick { get; private set; }
+    public EventInstance flashlightClickInst;
+    [field: SerializeField] public EventReference flashlightPickup { get; private set; }
+    public EventInstance flashlightPickupInst;
+
+    [field: Header("Walkie-Talkie")]
+    [field: SerializeField] public EventReference walkiePickup { get; private set; }
+    public EventInstance walkiePickupInst;
+
+    [field: Header("Damage Indicator")]
+    [field: SerializeField] public EventReference takingDamage { get; private set; }
+    public EventInstance takingDamageInst;
+
 }
