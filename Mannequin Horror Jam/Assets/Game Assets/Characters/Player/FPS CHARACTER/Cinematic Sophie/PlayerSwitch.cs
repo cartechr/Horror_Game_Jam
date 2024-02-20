@@ -7,6 +7,7 @@ public class PlayerSwitch : MonoBehaviour
 {
 
     public GameObject player;
+    public GameObject cursorUI;
 
     public GameObject fmodObject;
     FMODEvents fmodEvents;
@@ -24,6 +25,7 @@ public class PlayerSwitch : MonoBehaviour
     {
         player.SetActive(true);
         this.gameObject.SetActive(false);
+        cursorUI.SetActive(true);
 
 
     }

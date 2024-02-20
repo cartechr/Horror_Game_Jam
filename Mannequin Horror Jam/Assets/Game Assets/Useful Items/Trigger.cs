@@ -32,7 +32,8 @@ public class trigger : MonoBehaviour
                 hasPlayed = true;
                 fmodEvents.finAwake(Door);
                 Commentary.GetComponent<Commentary>().StartDialogue(Commentary.GetComponent<Commentary>().Dialogue2);
-
+                Commentary.GetComponent<Commentary>().subtitleGO.SetActive(true);
+                
                 Note.GetComponent<Animator>().SetBool("Note", true);
             }
         }

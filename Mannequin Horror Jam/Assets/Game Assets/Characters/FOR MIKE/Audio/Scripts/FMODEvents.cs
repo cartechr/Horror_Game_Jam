@@ -6,9 +6,19 @@ using UnityEngine.Playables;
 using FMOD.Studio;
 using FMOD;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 public class FMODEvents : MonoBehaviour
 {
+
+    public GameObject musicSlider;
+    public GameObject sfxSlider;
+    public GameObject dialogueSlider;
+
+    public GameObject globalVolume;
+    
+
     //-----------------------------------------------EventReferences + EventInstances---------------------------------------------------
     #region Music
     [field: Header("Music")]
@@ -166,16 +176,16 @@ public class FMODEvents : MonoBehaviour
 
     bool isChasing;
 
-    [Range(0, 5)]
+    [Range(0, 1)]
     public float MasterVolume;
 
-    [Range(0, 5)]
+    [Range(0, 1)]
     public float MusicVolume;
 
-    [Range(0, 5)]
+    [Range(0, 1)]
     public float SFXVolume;
 
-    [Range(0, 5)]
+    [Range(0, 1)]
     public float DialogueVolume;
 
     /* private FMOD.Studio.Bus[] myBuses = new FMOD.Studio.Bus[12];
@@ -189,6 +199,40 @@ public class FMODEvents : MonoBehaviour
      public FMOD.RESULT sysemIsOk;*/
 
     GameObject Manager;
+
+    #region AudioOptions
+
+    public void OptionsBoolEnable()
+    {
+        Options = true;
+    }
+
+    public void OptionsBoolDisable()
+    {
+        Options = false;
+    }
+
+    
+    public void MusicVolumeSet()
+    {
+        MusicVolume = musicSlider.GetComponent<Slider>().value;
+        UnityEngine.Debug.Log("Music Slider Changed");
+    }
+
+    public void SFXVolumeSet()
+    {
+        SFXVolume = sfxSlider.GetComponent<Slider>().value;
+        UnityEngine.Debug.Log("SFX Slider Changed");
+    }
+
+    public void DialogueVolumeSet()
+    {
+        DialogueVolume = dialogueSlider.GetComponent<Slider>().value;
+        UnityEngine.Debug.Log("Dialogue Slider Changed");
+    }
+    
+    #endregion
+
 
     void Start()
     {
@@ -209,9 +253,10 @@ public class FMODEvents : MonoBehaviour
           }*/
 
        // MasterVolume = 5;
-        MusicVolume = 5;
-        SFXVolume = 5;
-        DialogueVolume = 5;
+        MusicVolume = 1;
+        SFXVolume = 1;
+        DialogueVolume = 1;
+
 
 
     }
@@ -219,7 +264,7 @@ public class FMODEvents : MonoBehaviour
     {
         if(instance != null)
         {
-
+            //Destroy(instance);
         }
         instance = this;
 
@@ -228,6 +273,7 @@ public class FMODEvents : MonoBehaviour
         SFX = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
         Dialogue = FMODUnity.RuntimeManager.GetBus("bus:/Dialogue");
 
+
     }
 
 
@@ -235,8 +281,31 @@ public class FMODEvents : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
+            
+            globalVolume.SetActive(true);
+
             Manager = GameObject.FindGameObjectWithTag("Manager");
             DontDestroyOnLoad(Manager);
+
+
+            if (musicSlider == null)
+            {
+
+                musicSlider = GameObject.FindGameObjectWithTag("musicSlider");
+
+
+            }
+
+            if (sfxSlider == null)
+            {
+                sfxSlider = GameObject.FindGameObjectWithTag("sfxSlider");
+            }
+
+            if (dialogueSlider == null)
+            {
+                dialogueSlider = GameObject.FindGameObjectWithTag("dialogueSlider");
+            }
+            
         }
 
         if (Options)
